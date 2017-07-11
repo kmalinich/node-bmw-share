@@ -62,6 +62,27 @@ function init() {
 	});
 }
 
+// Cancel refresh timeout
+function term(term_callback = null) {
+	if (host_data.timeouts.send !== null) {
+		clearTimeout(host_data.timeouts.send);
+		host_data.timeouts.send = null;
+
+		log.module({
+			src : module_name,
+			msg : 'Unset host data send timeout',
+		});
+	}
+
+	log.module({
+		src : module_name,
+		msg : 'Terminated',
+	});
+
+	if (typeof term_callback === 'function') term_callback();
+	term_callback = undefined;
+}
+
 // Get+save RPi temp
 function refresh_temperature() {
 	if (!check()) {
@@ -121,18 +142,6 @@ function refresh() {
 
 // Send this host's data to WebSocket clients to update them
 function send() {
-	if (host_data.timeouts.send !== null) {
-		clearTimeout(host_data.timeouts.send);
-		host_data.timeouts.send = null;
-
-		log.module({
-			src : module_name,
-			msg : 'Unset host data send timeout',
-		});
-
-		return;
-	}
-
 	if (host_data.timeouts.send === null) {
 		log.module({
 			src : module_name,
@@ -152,7 +161,9 @@ module.exports = {
 		send : null,
 	},
 
-	check   : () => { check();          },
+	check : (check_callback) => { check(check_callback); },
+	term  : (term_callback)  => { term(term_callback);   },
+
 	init    : () => { init();           },
 	send    : () => { send();           },
 	refresh : () => { return refresh(); },
