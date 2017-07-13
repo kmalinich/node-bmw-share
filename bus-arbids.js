@@ -7,6 +7,7 @@ const arbids = {
 	'0x1F3' : 'ASC1', // Transverse acceleration/VSS
 	'0x1F5' : 'ASC1', // Steering angle
 	'0x1F8' : 'ASC1', // Brake pressure
+
 	'0x316' : 'DME1', // RPM
 	'0x329' : 'DME1', // Temp/Brake pedal depressed/Throttle position
 	'0x545' : 'DME1', // CEL/Fuel cons/Overheat/Oil temp/Charging/Brake light switch/Cruise control
