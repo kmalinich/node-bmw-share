@@ -57,6 +57,17 @@ function colorize(string) {
 	string = string.replace('Starting',      chalk.yellow('Starting'));
 	string = string.replace('Stopping',      chalk.yellow('Stopping'));
 
+	string = string.replace('Disconnected', chalk.red('Disconnected'));
+	string = string.replace('Error',        chalk.red('Error'));
+	string = string.replace('Shut down',    chalk.red('Shut down'));
+	string = string.replace('Stopped',      chalk.red('Stopped'));
+	string = string.replace('Terminated',   chalk.red('Terminated'));
+	string = string.replace('Unset',        chalk.red('Unset'));
+	string = string.replace('closed',       chalk.red('closed'));
+	string = string.replace('disconnected', chalk.red('disconnected'));
+	string = string.replace('error',        chalk.red('error'));
+	string = string.replace('false',        chalk.red('false'));
+
 	string = string.replace('Connected',   chalk.green('Connected'));
 	string = string.replace('Initialized', chalk.green('Initialized'));
 	string = string.replace('Listening',   chalk.green('Listening'));
@@ -68,17 +79,6 @@ function colorize(string) {
 	string = string.replace('connected',   chalk.green('connected'));
 	string = string.replace('opened',      chalk.green('opened'));
 	string = string.replace('true',        chalk.green('true'));
-
-	string = string.replace('Disconnected', chalk.red('Disconnected'));
-	string = string.replace('Error',        chalk.red('Error'));
-	string = string.replace('Shut down',    chalk.red('Shut down'));
-	string = string.replace('Stopped',      chalk.red('Stopped'));
-	string = string.replace('Terminated',   chalk.red('Terminated'));
-	string = string.replace('Unset',        chalk.red('Unset'));
-	string = string.replace('closed',       chalk.red('closed'));
-	string = string.replace('disconnected', chalk.red('disconnected'));
-	string = string.replace('error',        chalk.red('error'));
-	string = string.replace('false',        chalk.red('false'));
 
 	return string;
 }

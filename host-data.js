@@ -122,10 +122,10 @@ function refresh_temperature() {
       break;
   }
 
-  log.msg({
-    src : module_name,
-    msg : 'System temp: '+status.system.temperature+'c',
-  });
+  // log.msg({
+  //   src : module_name,
+  //   msg : 'System temp: '+status.system.temperature+'c',
+  // });
 }
 
 // Refresh host data
