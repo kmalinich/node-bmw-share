@@ -194,21 +194,24 @@ module.exports = {
     data.msg = data.msg.replace('Shutting down', chalk.yellow('Shutting down'));
     data.msg = data.msg.replace('Starting',      chalk.yellow('Starting'));
     data.msg = data.msg.replace('Stopping',      chalk.yellow('Stopping'));
-    data.msg = data.msg.replace('Terminated',    chalk.yellow('Terminated'));
 
     data.msg = data.msg.replace('Connected',   chalk.green('Connected'));
     data.msg = data.msg.replace('Initialized', chalk.green('Initialized'));
+    data.msg = data.msg.replace('Listening',   chalk.green('Listening'));
     data.msg = data.msg.replace('Loaded',      chalk.green('Loaded'));
     data.msg = data.msg.replace('Read',        chalk.green('Read'));
     data.msg = data.msg.replace('Set',         chalk.green('Set'));
     data.msg = data.msg.replace('Started',     chalk.green('Started'));
     data.msg = data.msg.replace('Wrote',       chalk.green('Wrote'));
+    data.msg = data.msg.replace('opened',      chalk.green('opened'));
     data.msg = data.msg.replace('true',        chalk.green('true'));
 
     data.msg = data.msg.replace('Disconnected', chalk.red('Disconnected'));
     data.msg = data.msg.replace('Shut down',    chalk.red('Shut down'));
     data.msg = data.msg.replace('Stopped',      chalk.red('Stopped'));
+    data.msg = data.msg.replace('Terminated',   chalk.red('Terminated'));
     data.msg = data.msg.replace('Unset',        chalk.red('Unset'));
+    data.msg = data.msg.replace('closed',       chalk.red('closed'));
     data.msg = data.msg.replace('false',        chalk.red('false'));
 
     // Output formatted string
@@ -222,6 +225,33 @@ module.exports = {
 
   module : (data) => {
     data.mod = 'MODULE';
+
+    data.msg = data.msg.toString();
+
+    data.msg = data.msg.replace('Connecting',    chalk.yellow('Connecting'));
+    data.msg = data.msg.replace('Reset',         chalk.yellow('Reset'));
+    data.msg = data.msg.replace('Shutting down', chalk.yellow('Shutting down'));
+    data.msg = data.msg.replace('Starting',      chalk.yellow('Starting'));
+    data.msg = data.msg.replace('Stopping',      chalk.yellow('Stopping'));
+
+    data.msg = data.msg.replace('Connected',   chalk.green('Connected'));
+    data.msg = data.msg.replace('Initialized', chalk.green('Initialized'));
+    data.msg = data.msg.replace('Listening',   chalk.green('Listening'));
+    data.msg = data.msg.replace('Loaded',      chalk.green('Loaded'));
+    data.msg = data.msg.replace('Read',        chalk.green('Read'));
+    data.msg = data.msg.replace('Set',         chalk.green('Set'));
+    data.msg = data.msg.replace('Started',     chalk.green('Started'));
+    data.msg = data.msg.replace('Wrote',       chalk.green('Wrote'));
+    data.msg = data.msg.replace('opened',      chalk.green('opened'));
+    data.msg = data.msg.replace('true',        chalk.green('true'));
+
+    data.msg = data.msg.replace('Disconnected', chalk.red('Disconnected'));
+    data.msg = data.msg.replace('Shut down',    chalk.red('Shut down'));
+    data.msg = data.msg.replace('Stopped',      chalk.red('Stopped'));
+    data.msg = data.msg.replace('Terminated',   chalk.red('Terminated'));
+    data.msg = data.msg.replace('Unset',        chalk.red('Unset'));
+    data.msg = data.msg.replace('closed',       chalk.red('closed'));
+    data.msg = data.msg.replace('false',        chalk.red('false'));
 
     // Pad strings
     data.src_fmt = center(data.src, 26);
