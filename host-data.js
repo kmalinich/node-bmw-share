@@ -29,7 +29,7 @@ function check(check_callback = null) {
 // Init all host data
 function init(init_callback = null) {
   status.system = {
-    type : 'client',
+    type : app_type,
     up : os.uptime(),
     temperature : null,
     host : {
