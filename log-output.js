@@ -147,8 +147,8 @@ module.exports = {
 		data.command = 'CHANGE';
 
 		// Pad strings
-		data.src_fmt     = center(data.src,     14);
-		data.command_fmt = center(data.command, 9);
+		data.src_fmt     = center(data.src,     26);
+		data.command_fmt = center(data.command, 21);
 
 		// Catch nulls
 		if (data.old === null) data.old = 'null';
