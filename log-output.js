@@ -129,7 +129,7 @@ module.exports = {
 		// Pad strings
 		data.bus      = pad   (2, data.bus);
 		data.src.name = pad   (9, data.src.name);
-		data.dst.name = pad   (   data.dst.name, 9);
+		data.dst.name = pad   (   data.dst.name, 10);
 		data.command  = center(data.command, 21);
 
 		// Colorize source and destination
