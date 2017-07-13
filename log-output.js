@@ -65,6 +65,7 @@ function colorize(string) {
 	string = string.replace('Set',         chalk.green('Set'));
 	string = string.replace('Started',     chalk.green('Started'));
 	string = string.replace('Wrote',       chalk.green('Wrote'));
+	string = string.replace('connected',   chalk.green('connected'));
 	string = string.replace('opened',      chalk.green('opened'));
 	string = string.replace('true',        chalk.green('true'));
 
@@ -75,6 +76,7 @@ function colorize(string) {
 	string = string.replace('Terminated',   chalk.red('Terminated'));
 	string = string.replace('Unset',        chalk.red('Unset'));
 	string = string.replace('closed',       chalk.red('closed'));
+	string = string.replace('disconnected', chalk.red('disconnected'));
 	string = string.replace('error',        chalk.red('error'));
 	string = string.replace('false',        chalk.red('false'));
 
