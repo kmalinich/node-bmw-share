@@ -138,17 +138,13 @@ module.exports = {
 
 		// Colorize bus
 		switch (data.bus_orig) {
-			case 'canbus1' :
-				data.bus = chalk.orange('C1');
-				break;
-			case 'canbus2' :
-				data.bus = chalk.orange('C2');
-				break;
-			case 'dbus'    : data.bus = chalk.red   (data.bus); break;
-			case 'ibus'    : data.bus = chalk.cyan  (data.bus); break;
-			case 'kbus'    : data.bus = chalk.yellow(data.bus); break;
-			case 'node'    : data.bus = chalk.pink  (data.bus); break;
-			default        : data.bus = chalk.pink  (data.bus);
+			case 'can0' : data.bus = chalk.orange('C1'); break;
+			case 'can1' : data.bus = chalk.orange('C2'); break;
+			case 'dbus' : data.bus = chalk.red   (data.bus); break;
+			case 'ibus' : data.bus = chalk.cyan  (data.bus); break;
+			case 'kbus' : data.bus = chalk.yellow(data.bus); break;
+			case 'node' : data.bus = chalk.pink  (data.bus); break;
+			default     : data.bus = chalk.pink  (data.bus);
 		}
 
 		// Colorize command
