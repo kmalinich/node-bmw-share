@@ -238,7 +238,7 @@ module.exports = {
 		// Pad strings
 		data.src_fmt = center(data.src, 26);
 		data.mod_fmt = center(data.mod, 21);
-		data.msg_fmt = center(data.msg, 21);
+		// data.msg_fmt = center(data.msg, 21);
 
 		// Colorize strings
 		data.src_fmt = chalk.pink(data.src_fmt);
