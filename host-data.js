@@ -51,7 +51,7 @@ function init(init_callback = null) {
     memory : {
       free : os.freemem(),
       total : os.totalmem(),
-      free_percent : parseFloat(((os.freemem()/os.totalmem()).toFixed(4))*100),
+      free_pct : parseFloat(((os.freemem()/os.totalmem()).toFixed(4))*100),
     },
     os : {
       platform : os.platform(),
@@ -180,7 +180,7 @@ function refresh() {
   status.system.memory.free  = os.freemem();
   status.system.memory.total = os.totalmem();
 
-  status.system.memory.free_percent = parseFloat(((os.freemem()/os.totalmem()).toFixed(2))*100);
+  status.system.memory.free_pct = parseFloat(((os.freemem()/os.totalmem()).toFixed(2))*100);
 
   if (host_data.timeouts.refresh === null) {
     log.module({
