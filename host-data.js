@@ -161,7 +161,7 @@ function broadcast() {
   if (host_data.timeouts.broadcast === null) {
     log.module({
       src : module_name,
-      msg : 'Set send timeout ('+config.system.host_data.refresh_interval+'ms)',
+      msg : 'Set broadcast timeout ('+config.system.host_data.refresh_interval+'ms)',
     });
   }
 
