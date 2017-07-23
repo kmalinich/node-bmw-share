@@ -30,6 +30,7 @@ function check(check_callback = null) {
 function init(init_callback = null) {
   status.system = {
     type : app_type,
+		intf : app_intf || null,
     up : os.uptime(),
     temperature : null,
     host : {
