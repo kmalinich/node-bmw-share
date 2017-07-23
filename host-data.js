@@ -44,7 +44,7 @@ function init(init_callback = null) {
       arch : os.arch(),
       count : cpus.length,
       load : load,
-      load_pct : Math.round((load[0]/4)*100);
+      load_pct : Math.round((load[0]/4)*100),
       model : cpus[0].model,
       speed : cpus[0].speed,
     },
