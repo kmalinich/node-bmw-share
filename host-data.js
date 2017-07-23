@@ -28,6 +28,9 @@ function check(check_callback = null) {
 
 // Init all host data
 function init(init_callback = null) {
+  let cpus = os.cpus();
+  let load = os.loadavg();
+
 	status.system = {
 		type : app_type,
 		intf : app_intf || null,
@@ -39,9 +42,11 @@ function init(init_callback = null) {
 		},
 		cpu : {
 			arch : os.arch(),
-			load : os.loadavg(),
-			model : os.cpus()[0].model,
-			speed : os.cpus()[0].speed,
+      count : cpus.length,
+			load : load,
+      load_pct : Math.round((load[0]/4)*100);
+			model : cpus[0].model,
+			speed : cpus[0].speed,
 		},
 		memory : {
 			free : os.freemem(),
@@ -66,8 +71,28 @@ function init(init_callback = null) {
 	init_callback = undefined;
 }
 
-// Cancel refresh timeout
+// Cancel timeouts
 function term(term_callback = null) {
+	if (host_data.timeouts.broadcast !== null) {
+		clearTimeout(host_data.timeouts.broadcast);
+		host_data.timeouts.broadcast = null;
+
+		log.module({
+			src : module_name,
+			msg : 'Unset host data broadcast timeout',
+		});
+	}
+
+	if (host_data.timeouts.refresh !== null) {
+		clearTimeout(host_data.timeouts.refresh);
+		host_data.timeouts.refresh = null;
+
+		log.module({
+			src : module_name,
+			msg : 'Unset host data refresh timeout',
+		});
+	}
+
 	if (host_data.timeouts.send !== null) {
 		clearTimeout(host_data.timeouts.send);
 		host_data.timeouts.send = null;
@@ -141,36 +166,50 @@ function refresh() {
 
 	status.system.memory.free_percent = parseFloat(((os.freemem()/os.totalmem()).toFixed(2))*100);
 
+	if (host_data.timeouts.refresh === null) {
+		log.module({
+			src : module_name,
+			msg : 'Set host data refresh timeout ('+config.system.host_data.refresh_interval+'ms)',
+		});
+	}
+
+	host_data.timeouts.refresh = setTimeout(refresh, config.system.host_data.refresh_interval);
+
 	return status.system;
 }
 
-// Send this host's data to WebSocket clients to update them
-function send() {
-	if (host_data.timeouts.send === null) {
+// Periodically broadcast this host's data to WebSocket clients to update them
+function broadcast() {
+	if (host_data.timeouts.broadcast === null) {
 		log.module({
 			src : module_name,
 			msg : 'Set host data send timeout ('+config.system.host_data.refresh_interval+'ms)',
 		});
 	}
 
+	host_data.timeouts.broadcast = setTimeout(send, config.system.host_data.refresh_interval);
+
+  send();
+}
+
+// Send this host's data to WebSocket clients to update them
+function send() {
 	log.module({
 		src : module_name,
 		msg : 'Sending host data',
 	});
 
-	clearTimeout(host_data.timeouts.send);
-	host_data.timeouts.send = setTimeout(send, config.system.host_data.refresh_interval);
-
-	socket.send('host-data', host_data.refresh());
-
+	socket.send('host-data', status.system);
 }
 
 module.exports = {
 	check_result : null,
-	type : null,
+	type         : null,
 
 	timeouts : {
-		send : null,
+    broadcast : null,
+    refresh   : null,
+    send      : null,
 	},
 
 	check : (check_callback) => { check(check_callback); },
