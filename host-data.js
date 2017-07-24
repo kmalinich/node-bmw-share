@@ -1,5 +1,7 @@
 const module_name = __filename.slice(__dirname.length + 1, -3).replace('-', '_');
 
+const os = require('os');
+
 // Check if we can get temp data
 // (support is on macOS and RPi)
 function check(check_callback = null) {
@@ -212,9 +214,9 @@ module.exports = {
     send      : null,
   },
 
-  check : (check_callback) => { check(check_callback); },
-  init  : (init_callback)  => { init(init_callback);   },
-  term  : (term_callback)  => { term(term_callback);   },
+  check : (check_cb) => { check(check_cb); },
+  init  : (init_cb)  => { init(init_cb);   },
+  term  : (term_cb)  => { term(term_cb);   },
 
   broadcast : () => { broadcast(); },
   refresh   : () => { refresh();   },
