@@ -46,7 +46,7 @@ function init(init_callback = null) {
 			arch : os.arch(),
 			count : cpus.length,
 			load : load,
-			load_pct : Math.round((load[0]/4)*100),
+			load_pct : Math.round((load[0]/status.system.cpu.count)*100),
 			model : cpus[0].model,
 			speed : cpus[0].speed,
 		},
@@ -166,8 +166,10 @@ function broadcast() {
 function refresh() {
 	refresh_temperature();
 
-	status.system.up       = os.uptime();
-	status.system.cpu.load = os.loadavg();
+	status.system.up = os.uptime();
+
+	status.system.cpu.load     = os.loadavg();
+	status.system.cpu.load_pct = Math.round((status.system.cpu.load[0]/status.system.cpu.count)*100),
 
 	status.system.memory.free  = os.freemem();
 	status.system.memory.total = os.totalmem();
