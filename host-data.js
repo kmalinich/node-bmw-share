@@ -169,7 +169,7 @@ function refresh() {
 	status.system.up = os.uptime();
 
 	status.system.cpu.load     = os.loadavg();
-	status.system.cpu.load_pct = parseFloat(((load[0]/status.system.cpu.count).toFixed(4))*100),
+	status.system.cpu.load_pct = parseFloat(((status.system.cpu.load[0]/status.system.cpu.count).toFixed(4))*100),
 
 		status.system.memory.free  = os.freemem();
 	status.system.memory.total = os.totalmem();
