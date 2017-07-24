@@ -16,7 +16,7 @@ function check(check_callback = null) {
 		// Load appropriate temperature library
 		system_temp = require(host_data.type);
 
-		log.msg({
+		log.module({
 			src : module_name,
 			msg : 'Check passed: '+host_data.check_result+', type: '+host_data.type,
 		});
@@ -66,7 +66,7 @@ function init(init_callback = null) {
 	refresh();
 	broadcast();
 
-	log.msg({
+	log.module({
 		src : module_name,
 		msg : 'Initialized',
 	});
@@ -123,7 +123,7 @@ function refresh_temperature() {
 
 				status.system.temperature = 0;
 
-				log.msg({
+				log.module({
 					src : module_name,
 					msg : host_data.type+' error: '+error,
 				});
@@ -142,7 +142,7 @@ function refresh_temperature() {
 			break;
 	}
 
-	// log.msg({
+	// log.module({
 	//   src : module_name,
 	//   msg : 'System temp: '+status.system.temperature+'c',
 	// });
@@ -159,7 +159,7 @@ function broadcast() {
 
 	send();
 
-	host_data.timeouts.broadcast = setTimeout(send, config.system.host_data.refresh_interval);
+	host_data.timeouts.broadcast = setTimeout(broadcast, config.system.host_data.refresh_interval);
 }
 
 // Refresh host data
