@@ -83,7 +83,7 @@ function term(term_callback = null) {
 
     log.module({
       src : module_name,
-      msg : 'Unset host data broadcast timeout',
+      msg : 'Unset broadcast timeout',
     });
   }
 
@@ -93,17 +93,7 @@ function term(term_callback = null) {
 
     log.module({
       src : module_name,
-      msg : 'Unset host data refresh timeout',
-    });
-  }
-
-  if (host_data.timeouts.send !== null) {
-    clearTimeout(host_data.timeouts.send);
-    host_data.timeouts.send = null;
-
-    log.module({
-      src : module_name,
-      msg : 'Unset host data send timeout',
+      msg : 'Unset refresh timeout',
     });
   }
 
@@ -167,9 +157,9 @@ function broadcast() {
     });
   }
 
-  host_data.timeouts.broadcast = setTimeout(send, config.system.host_data.refresh_interval);
-
   send();
+
+  host_data.timeouts.broadcast = setTimeout(send, config.system.host_data.refresh_interval);
 }
 
 // Refresh host data
@@ -211,7 +201,6 @@ module.exports = {
   timeouts : {
     broadcast : null,
     refresh   : null,
-    send      : null,
   },
 
   check : (check_cb) => { check(check_cb); },
