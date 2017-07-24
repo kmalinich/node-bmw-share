@@ -1,6 +1,7 @@
 const module_name = __filename.slice(__dirname.length + 1, -3).replace('-', '_');
 
 const align    = require('multipad');
+const pad      = require('pad');
 const trucolor = require('trucolor');
 
 // 24bit color chalk-style palette
