@@ -30,13 +30,6 @@ function check(check_callback = null) {
 
 // Init all host data
 function init(init_callback = null) {
-	// Don't allow workers to initialize
-	if (cluster.isWorker) {
-		if (typeof init_callback === 'function') init_callback();
-		init_callback = undefined;
-		return;
-	}
-
 	let cpus = os.cpus();
 	let load = os.loadavg();
 
