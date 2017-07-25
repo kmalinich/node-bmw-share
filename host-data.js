@@ -208,10 +208,10 @@ function refresh() {
 
 // Send this host's data to WebSocket clients to update them
 function send() {
-	log.module({
-		src : module_name,
-		msg : 'Sending host data',
-	});
+	// log.module({
+	// 	src : module_name,
+	// 	msg : 'Sending host data',
+	// });
 
 	socket.send('host-data', status.system);
 }
