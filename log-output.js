@@ -167,7 +167,7 @@ module.exports = {
 		let arrows = chalk.gray('>>');
 
 		// Output formatted string
-		console.log('[%s] [%s%s%s] [%s]', data.bus, data.src.name, arrows, data.dst.name, data.command, data.value);
+		console.log('[%s] [%s] [%s%s%s] [%s]', process.pid, data.bus, data.src.name, arrows, data.dst.name, data.command, data.value);
 
 		// Send log data to WebSocket
 		if (app_type == 'client') {
@@ -201,7 +201,7 @@ module.exports = {
 		let arrows = chalk.gray('=>');
 
 		// Output formatted string
-		console.log('[%s] [%s] %s: \'%s\' %s \'%s\'', data.src_fmt, data.command_fmt, data.value, data.old, arrows, data.new);
+		console.log('[%s] [%s] [%s] %s: \'%s\' %s \'%s\'', process.pid, data.src_fmt, data.command_fmt, data.value, data.old, arrows, data.new);
 
 		// Send log data to WebSocket
 		if (app_type == 'client') {
@@ -223,7 +223,7 @@ module.exports = {
 		data.msg = colorize(data.msg);
 
 		// Output formatted string
-		console.log('[%s] [%s] %s', data.src_fmt, data.command_fmt, data.msg);
+		console.log('[%s] [%s] [%s] %s', process.pid, data.src_fmt, data.command_fmt, data.msg);
 
 		// Send log data to WebSocket
 		if (app_type == 'client') {
@@ -249,7 +249,7 @@ module.exports = {
 		data.msg_fmt = colorize(data.msg_fmt);
 
 		// Output formatted string
-		console.log('[%s] [%s] %s', data.src_fmt, data.mod_fmt, data.msg_fmt);
+		console.log('[%s] [%s] [%s] %s', process.pid, data.src_fmt, data.mod_fmt, data.msg_fmt);
 
 		// Send log data to WebSocket
 		if (app_type == 'client') {
@@ -302,7 +302,7 @@ module.exports = {
 		}
 
 		// Output formatted string
-		console.log('[%s] [%s] [%s] %s', data.method, data.type, data.event, data.string);
+		console.log('[%s] [%s] [%s] [%s] %s', process.pid, data.method, data.type, data.event, data.string);
 
 		// Send log data to WebSocket
 		if (app_type == 'client') {
