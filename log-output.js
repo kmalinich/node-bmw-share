@@ -184,8 +184,8 @@ module.exports = {
 		data.command_fmt = center(data.command, 21);
 
 		// Catch nulls
-		if (data.old === null) data.old = 'null';
-		if (data.new === null) data.new = 'null';
+		if (typeof data.old === 'undefined' || data.old == null) data.old = 'null';
+		if (typeof data.new === 'undefined' || data.new == null) data.new = 'null';
 
 		// Colorize strings
 		data.src_fmt     = chalk.cyan (data.src_fmt);
