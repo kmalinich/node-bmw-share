@@ -96,7 +96,7 @@ module.exports = {
 	// Dynamic bus message output
 	bus : (data) => {
 		// Bounce if we're not in a TTY
-		if (process.stdin.isTTY) return;
+		if (!process.stdin.isTTY) return;
 
 		// Skip some excessive loggers
 		switch (data.value) {
@@ -185,7 +185,7 @@ module.exports = {
 	// Formatted output for when a value changes
 	change : (data) => {
 		// Bounce if we're not in a TTY
-		if (process.stdin.isTTY) return;
+		if (!process.stdin.isTTY) return;
 
 		data.command = 'CHANGE';
 
@@ -221,7 +221,7 @@ module.exports = {
 
 	msg : (data) => {
 		// Bounce if we're not in a TTY
-		if (process.stdin.isTTY) return;
+		if (!process.stdin.isTTY) return;
 
 		data.command = 'MESSAGE';
 
@@ -246,7 +246,7 @@ module.exports = {
 
 	module : (data) => {
 		// Bounce if we're not in a TTY
-		if (process.stdin.isTTY) return;
+		if (!process.stdin.isTTY) return;
 
 		data.mod = 'MODULE';
 
@@ -276,7 +276,7 @@ module.exports = {
 	// Dynamic log message output
 	send : (data) => {
 		// Bounce if we're not in a TTY
-		if (process.stdin.isTTY) return;
+		if (!process.stdin.isTTY) return;
 
 		log.bus({
 			bus     : 'sock',
@@ -293,7 +293,7 @@ module.exports = {
 
 	socket : (data) => {
 		// Bounce if we're not in a TTY
-		if (process.stdin.isTTY) return;
+		if (!process.stdin.isTTY) return;
 
 		data.orig = {
 			method : data.method,
