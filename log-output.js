@@ -53,13 +53,17 @@ function colorize(string) {
 
 	string = string.replace('Attempting',    chalk.yellow('Attempting'));
 	string = string.replace('Connecting',    chalk.yellow('Connecting'));
+	string = string.replace('Initializing',  chalk.yellow('Initializing'));
 	string = string.replace('Reset',         chalk.yellow('Reset'));
 	string = string.replace('Shutting down', chalk.yellow('Shutting down'));
 	string = string.replace('Starting',      chalk.yellow('Starting'));
 	string = string.replace('Stopping',      chalk.yellow('Stopping'));
+	string = string.replace('Terminating',   chalk.yellow('Terminating'));
 
 	string = string.replace('Disconnected', chalk.red('Disconnected'));
 	string = string.replace('Error',        chalk.red('Error'));
+	string = string.replace('SIGINT',       chalk.red('SIGINT'));
+	string = string.replace('SIGTERM',      chalk.red('SIGTERM'));
 	string = string.replace('Shut down',    chalk.red('Shut down'));
 	string = string.replace('Stopped',      chalk.red('Stopped'));
 	string = string.replace('Terminated',   chalk.red('Terminated'));
