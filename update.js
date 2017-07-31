@@ -64,6 +64,6 @@ function update_status(key, value_new) {
 module.exports = {
 	transform : config_transform,
 
-	config : (key, value_new) => { update_config(key, value_new); },
-	status : (key, value_new) => { update_status(key, value_new); },
+	config : (key, value_new) => { return update_config(key, value_new); },
+	status : (key, value_new) => { return update_status(key, value_new); },
 };
