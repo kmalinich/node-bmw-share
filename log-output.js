@@ -1,3 +1,5 @@
+/* global app_type socket log */
+
 const module_name = __filename.slice(__dirname.length + 1, -3).replace('-', '_');
 
 const align    = require('multipad');
@@ -100,8 +102,8 @@ module.exports = {
 
 		// Skip some excessive loggers
 		switch (data.value) {
-			case 'sensor status' : return; break;
-			case 'speed values'  : return; break;
+			case 'sensor status' : return;
+			case 'speed values'  : return;
 		}
 
 		// Add dst, mirroring src, if dst is missing,

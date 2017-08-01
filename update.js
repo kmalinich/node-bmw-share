@@ -1,3 +1,5 @@
+/* global config log status socket */
+
 const module_name = __filename.slice(__dirname.length + 1, -3);
 
 const object_path = require('object-path');
@@ -20,9 +22,6 @@ function update_config(key, value_new) {
 		return false;
 	}
 
-	let path_array = key.split('.');
-	// let path_depth = path_array.length;
-
 	log.change({
 		src   : module_name,
 		value : 'config.'+key,
@@ -31,6 +30,9 @@ function update_config(key, value_new) {
 	});
 
 	object_path.set(config, key, value_new);
+
+	// let path_array = key.split('.');
+	// let path_depth = path_array.length;
 	// socket.config_tx(path_array[0]);
 
 	return true;
@@ -44,9 +46,6 @@ function update_status(key, value_new) {
 		return false;
 	}
 
-	let path_array = key.split('.');
-	// let path_depth = path_array.length;
-
 	log.change({
 		src   : module_name,
 		value : 'status.'+key,
@@ -55,6 +54,9 @@ function update_status(key, value_new) {
 	});
 
 	object_path.set(status, key, value_new);
+
+	let path_array = key.split('.');
+	// let path_depth = path_array.length;
 	socket.status_tx(path_array[0]);
 
 	return true;

@@ -1,11 +1,11 @@
-var module_name = __filename.slice(__dirname.length + 1, -3);
+const module_name = __filename.slice(__dirname.length + 1, -3);
 
 // ASCII to hex for IKE/MID message
 function a2h(str) {
-	var array = [];
+	let array = [];
 
-	for (var n = 0, l = str.length; n < l; n ++) {
-		var hex = str.charCodeAt(n);
+	for (let n = 0, l = str.length; n < l; n ++) {
+		let hex = str.charCodeAt(n);
 		array.push(hex);
 	}
 
@@ -15,9 +15,9 @@ function a2h(str) {
 // Convert hex to ASCII
 function h2a(data) {
 	data    = data.toString();
-	var str = '';
+	let str = '';
 
-	for (var i = 0; i < data.length; i += 2)
+	for (let i = 0; i < data.length; i += 2)
 		str += String.fromCharCode(parseInt(data.substr(i, 2), 16));
 
 	return str;
@@ -43,7 +43,7 @@ function h2s(data) {
 	// Format
 	data = data.toString();
 	data = data.replace(/�/g, '°');
-	data = data.replace(/\ \ /g, ' ');
+	data = data.replace(/ {2}/g, ' ');
 
 	data = data.trim();
 	return data;

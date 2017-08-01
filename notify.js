@@ -1,3 +1,5 @@
+/* global config log */
+
 const module_name = __filename.slice(__dirname.length + 1, -3);
 
 const chump = require('chump');
@@ -48,12 +50,11 @@ function notify(string) {
 				msg : method+' notification sent',
 			});
 		})
-		.catch(error => {
+		.catch((error) => {
 			log.msg({
 				src : module_name,
-				msg : method+' error occured'
+				msg : method+' error occured: '+error
 			});
-			console.log(error.stack);
 		});
 }
 

@@ -1,6 +1,10 @@
+/* global host_data log status config app_type app_intf socket */
+
 const module_name = __filename.slice(__dirname.length + 1, -3).replace('-', '_');
 
 const os = require('os');
+
+let system_temp;
 
 // Check if we can get temp data
 // (support is on macOS and RPi)
