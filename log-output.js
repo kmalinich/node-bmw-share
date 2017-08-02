@@ -1,6 +1,7 @@
 /* global app_type socket log */
+/* eslint no-console: "off" */
 
-const module_name = __filename.slice(__dirname.length + 1, -3).replace('-', '_');
+// const module_name = __filename.slice(__dirname.length + 1, -3).replace('-', '_');
 
 const align    = require('multipad');
 const pad      = require('pad');

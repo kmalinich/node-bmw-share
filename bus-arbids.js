@@ -1,4 +1,4 @@
-const module_name = __filename.slice(__dirname.length + 1, -3).replace('-', '_');
+// const module_name = __filename.slice(__dirname.length + 1, -3).replace('-', '_');
 
 const arbids = {
 	// These are related to E39/E46/E53

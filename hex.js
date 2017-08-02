@@ -1,4 +1,4 @@
-const module_name = __filename.slice(__dirname.length + 1, -3);
+// const module_name = __filename.slice(__dirname.length + 1, -3);
 
 // ASCII to hex for IKE/MID message
 function a2h(str) {
