@@ -1,10 +1,9 @@
-/* global app_type socket log */
 /* eslint no-console: "off" */
 
-// const module_name = __filename.slice(__dirname.length + 1, -3).replace('-', '_');
-
 const align    = require('multipad');
+const caller   = require('callers-path');
 const pad      = require('pad');
+const path     = require('path');
 const trucolor = require('trucolor');
 
 // 24bit color chalk-style palette
@@ -221,6 +220,8 @@ module.exports = {
 	msg : (data) => {
 		// Bounce if we're not in a TTY
 		if (!process.stdin.isTTY) return;
+
+		data.src = path.parse(caller()).name;
 
 		data.command = 'MESSAGE';
 
