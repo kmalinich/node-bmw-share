@@ -180,9 +180,7 @@ module.exports = {
 		console.log('[%s] [%s] [%s%s%s] [%s]', process.pid, data.bus, data.src.name, arrows, data.dst.name, data.command, data.value);
 
 		// Send log data to WebSocket
-		if (app_type == 'client') {
-			socket.log_bus(data);
-		}
+		// if (app_type == 'client') socket.log_bus(data);
 	},
 
 	// Formatted output for when a value changes
