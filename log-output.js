@@ -62,6 +62,18 @@ function colorize(string) {
 	string = string.replace('Stopping',      chalk.yellow('Stopping'));
 	string = string.replace('Terminating',   chalk.yellow('Terminating'));
 
+	string = string.replace('Connected',   chalk.green('Connected'));
+	string = string.replace('Initialized', chalk.green('Initialized'));
+	string = string.replace('Listening',   chalk.green('Listening'));
+	string = string.replace('Loaded',      chalk.green('Loaded'));
+	string = string.replace('Read',        chalk.green('Read'));
+	string = string.replace('Set',         chalk.green('Set'));
+	string = string.replace('Started',     chalk.green('Started'));
+	string = string.replace('Wrote',       chalk.green('Wrote'));
+	string = string.replace('connected',   chalk.green('connected'));
+	string = string.replace('opened',      chalk.green('opened'));
+	string = string.replace('true',        chalk.green('true'));
+
 	string = string.replace('Disconnected', chalk.red('Disconnected'));
 	string = string.replace('Error',        chalk.red('Error'));
 	string = string.replace('SIGINT',       chalk.red('SIGINT'));
@@ -74,18 +86,6 @@ function colorize(string) {
 	string = string.replace('disconnected', chalk.red('disconnected'));
 	string = string.replace('error',        chalk.red('error'));
 	string = string.replace('false',        chalk.red('false'));
-
-	string = string.replace('Connected',   chalk.green('Connected'));
-	string = string.replace('Initialized', chalk.green('Initialized'));
-	string = string.replace('Listening',   chalk.green('Listening'));
-	string = string.replace('Loaded',      chalk.green('Loaded'));
-	string = string.replace('Read',        chalk.green('Read'));
-	string = string.replace('Set',         chalk.green('Set'));
-	string = string.replace('Started',     chalk.green('Started'));
-	string = string.replace('Wrote',       chalk.green('Wrote'));
-	string = string.replace('connected',   chalk.green('connected'));
-	string = string.replace('opened',      chalk.green('opened'));
-	string = string.replace('true',        chalk.green('true'));
 
 	return string;
 }
