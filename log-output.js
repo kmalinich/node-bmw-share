@@ -246,6 +246,8 @@ module.exports = {
 		// Bounce if we're not in a TTY
 		if (!process.stdin.isTTY) return;
 
+		data.src = path.parse(caller()).name;
+
 		data.mod = 'MODULE';
 
 		data.msg = data.msg.toString();
