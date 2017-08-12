@@ -217,9 +217,7 @@ module.exports = {
 		console.log('[%s] [%s] [%s] %s: \'%s\' %s \'%s\'', process.pid, data.src_fmt, data.command_fmt, data.value, data.old, arrows, data.new);
 
 		// Send log data to WebSocket
-		if (app_type == 'client') {
-			socket.log_msg(data);
-		}
+		// if (app_type == 'client') socket.log_msg(data);
 	},
 
 	msg : (data) => {
@@ -242,9 +240,7 @@ module.exports = {
 		console.log('[%s] [%s] [%s] %s', process.pid, data.src_fmt, data.command_fmt, data.msg);
 
 		// Send log data to WebSocket
-		if (app_type == 'client') {
-			socket.log_msg(data);
-		}
+		// if (app_type == 'client') socket.log_msg(data);
 	},
 
 	module : (data) => {
@@ -271,9 +267,7 @@ module.exports = {
 		console.log('[%s] [%s] [%s] %s', process.pid, data.src_fmt, data.mod_fmt, data.msg_fmt);
 
 		// Send log data to WebSocket
-		if (app_type == 'client') {
-			socket.log_msg(data);
-		}
+		// if (app_type == 'client') socket.log_msg(data);
 	},
 
 	// Dynamic log message output
@@ -330,8 +324,6 @@ module.exports = {
 		console.log('[%s] [%s] [%s] [%s] %s', process.pid, data.method, data.type, data.event, data.string);
 
 		// Send log data to WebSocket
-		if (app_type == 'client') {
-			socket.log_msg(data);
-		}
+		// if (app_type == 'client') socket.log_msg(data);
 	},
 };
