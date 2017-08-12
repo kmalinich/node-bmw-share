@@ -189,6 +189,8 @@ module.exports = {
 
 		data.command = 'CHANGE';
 
+		data.src = path.parse(caller()).name;
+
 		// Pad strings
 		data.src_fmt     = center(data.src,     26);
 		data.command_fmt = center(data.command, 21);
@@ -208,10 +210,10 @@ module.exports = {
 		data.new = data.new.toString().replace('true', chalk.green('true')).replace('false', chalk.red('false'));
 
 		// Render gray arrow
-		let arrows = chalk.gray('=>');
-
+		// let arrows = chalk.gray('=>');
 		// Output formatted string
-		console.log('[%s] [%s] [%s] %s: \'%s\' %s \'%s\'', process.pid, data.src_fmt, data.command_fmt, data.value, data.old, arrows, data.new);
+		// console.log('[%s] [%s] [%s] %s: \'%s\' %s \'%s\'', process.pid, data.src_fmt, data.command_fmt, data.value, data.old, arrows, data.new);
+		console.log('[%s] [%s] [%s] %s: \'%s\'', process.pid, data.src_fmt, data.command_fmt, data.value, data.new);
 
 		// Send log data to WebSocket
 		// if (app_type == 'client') socket.log_msg(data);
@@ -281,7 +283,7 @@ module.exports = {
 			command : data.host.split('.')[0],
 			value   : data.host,
 			src     : {
-				name : data.src,
+				name : path.parse(caller()).name,
 			},
 			dst : {
 				name : data.dst,
