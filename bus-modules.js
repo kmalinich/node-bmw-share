@@ -15,7 +15,7 @@ const modules = {
 	CVM  : 0x52, // Cabrio folding top module
 	DIA  : 0x3F, // Diagnostic
 	DME  : 0x12, // Digital Motor Electronics
-	DME2 : 0xB8, // DME (K2000 protocol)
+	DMEK : 0xB8, // DME (K2000 protocol)
 	DSP  : 0x6A, // Digital sound processor amplifier
 	DSPC : 0xEA, // Digital sound processor controller
 	EGS  : 0x32, // Electronic gearbox control
@@ -42,7 +42,6 @@ const modules = {
 	LWS  : 0x57, // Steering angle sensor
 	MFL  : 0x50, // Multi function lever
 	MID  : 0xC0, // Multi-information display
-	MID1 : 0x01, // Multi-information display (1st generation)
 	MM3  : 0x9C, // Mirror memory 3
 	MML  : 0x51, // Mirror memory, left
 	MMR  : 0x9B, // Mirror memory, right
