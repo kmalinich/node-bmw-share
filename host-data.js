@@ -20,15 +20,10 @@ function check(check_callback = null) {
 		// Load appropriate temperature library
 		system_temp = require(host_data.type);
 
-		log.module({
-			src : module_name,
-			msg : 'Check passed: '+host_data.check_result+', type: '+host_data.type,
-		});
+		log.msg({ msg : 'Check passed: '+host_data.check_result+', type: '+host_data.type });
 	}
 
-	if (typeof check_callback === 'function') check_callback();
-	check_callback = undefined;
-
+	process.nextTick(check_callback);
 	return host_data.check_result;
 }
 
@@ -80,13 +75,9 @@ function init(init_callback = null) {
 	refresh();
 	broadcast();
 
-	log.module({
-		src : module_name,
-		msg : 'Initialized',
-	});
+	log.msg({ msg : 'Initialized'	});
 
-	if (typeof init_callback === 'function') init_callback();
-	init_callback = undefined;
+	process.nextTick(init_callback);
 }
 
 // Cancel timeouts
@@ -95,29 +86,19 @@ function term(term_callback = null) {
 		clearTimeout(host_data.timeouts.broadcast);
 		host_data.timeouts.broadcast = null;
 
-		log.module({
-			src : module_name,
-			msg : 'Unset broadcast timeout',
-		});
+		log.msg({ msg : 'Unset broadcast timeout' });
 	}
 
 	if (host_data.timeouts.refresh !== null) {
 		clearTimeout(host_data.timeouts.refresh);
 		host_data.timeouts.refresh = null;
 
-		log.module({
-			src : module_name,
-			msg : 'Unset refresh timeout',
-		});
+		log.msg({ msg : 'Unset refresh timeout' });
 	}
 
-	log.module({
-		src : module_name,
-		msg : 'Terminated',
-	});
+	log.msg({ msg : 'Terminated' });
 
-	if (typeof term_callback === 'function') term_callback();
-	term_callback = undefined;
+	process.nextTick(term_callback);
 }
 
 // Get+save RPi temp
@@ -137,10 +118,7 @@ function refresh_temperature() {
 
 				status.system.temperature = 0;
 
-				log.module({
-					src : module_name,
-					msg : host_data.type+' error: '+error,
-				});
+				log.msg({ msg : host_data.type+' error: '+error });
 			});
 			break;
 
@@ -156,19 +134,13 @@ function refresh_temperature() {
 			break;
 	}
 
-	// log.module({
-	//   src : module_name,
-	//   msg : 'System temp: '+status.system.temperature+'c',
-	// });
+	// log.msg({ msg : 'System temp: '+status.system.temperature+'c' });
 }
 
 // Periodically broadcast this host's data to WebSocket clients to update them
 function broadcast() {
 	if (host_data.timeouts.broadcast === null) {
-		log.module({
-			src : module_name,
-			msg : 'Set broadcast timeout ('+config.system.host_data.refresh_interval+'ms)',
-		});
+		log.msg({ msg : 'Set broadcast timeout ('+config.system.host_data.refresh_interval+'ms)' });
 	}
 
 	send();
@@ -201,8 +173,7 @@ function refresh() {
 	status.system.cpu.load_pct    = load_pct;
 
 	if (host_data.timeouts.refresh === null) {
-		log.module({
-			src : module_name,
+		log.msg({
 			msg : 'Set refresh timeout ('+config.system.host_data.refresh_interval+'ms)',
 		});
 	}
@@ -210,12 +181,9 @@ function refresh() {
 	host_data.timeouts.refresh = setTimeout(refresh, config.system.host_data.refresh_interval);
 }
 
-// Send this host's data to WebSocket clients to update them
+// Send this host's data to connected services to update them
 function send() {
-	// log.module({
-	// 	src : module_name,
-	// 	msg : 'Sending host data',
-	// });
+	// log.msg({ msg : 'Sending host data' });
 
 	socket.send('host-data', status.system);
 }
