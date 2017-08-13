@@ -76,7 +76,7 @@ function colorize(string) {
 	string = string.replace('false',         chalk.red('false'));
 
 	string = string.replace('Connected ',   chalk.green('Connected '));
-	string = string.replace('Initialized ', chalk.green('Initialized '));
+	string = string.replace('Initialized',  chalk.green('Initialized'));
 	string = string.replace('Listening ',   chalk.green('Listening '));
 	string = string.replace('Loaded ',      chalk.green('Loaded '));
 	string = string.replace('Read ',        chalk.green('Read '));
