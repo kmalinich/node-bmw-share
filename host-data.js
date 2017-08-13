@@ -8,7 +8,7 @@ let system_temp;
 
 // Check if we can get temp data
 // (support is on macOS and RPi)
-function check(check_callback = null) {
+function check() {
 	// Don't check the logic twice, and only notify the first time
 	if (host_data.check_result === null) {
 		// Save check result
@@ -23,7 +23,6 @@ function check(check_callback = null) {
 		log.msg({ msg : 'Check passed: '+host_data.check_result+', type: '+host_data.type });
 	}
 
-	process.nextTick(check_callback);
 	return host_data.check_result;
 }
 
@@ -197,11 +196,11 @@ module.exports = {
 		refresh   : null,
 	},
 
-	check : (check_cb) => { check(check_cb); },
 	init  : (init_cb)  => { init(init_cb);   },
 	term  : (term_cb)  => { term(term_cb);   },
 
 	broadcast : () => { broadcast(); },
+	check     : () => { check();     },
 	refresh   : () => { refresh();   },
 	send      : () => { send();      },
 };
