@@ -184,8 +184,8 @@ module.exports = {
 
 	// Formatted output for when a value changes
 	change : (data) => {
-		// Bounce if we're not in a TTY
-		if (!process.stdin.isTTY) return;
+		// Bounce if we're not in a TTY and config.console.output is false
+		if (!config.console.output && !process.stdin.isTTY) return;
 
 		data.command = 'CHANGE';
 
@@ -220,8 +220,8 @@ module.exports = {
 	},
 
 	msg : (data) => {
-		// Bounce if we're not in a TTY
-		if (!process.stdin.isTTY) return;
+		// Bounce if we're not in a TTY and config.console.output is false
+		if (!config.console.output && !process.stdin.isTTY) return;
 
 		data.src = path.parse(caller()).name;
 
@@ -245,8 +245,8 @@ module.exports = {
 	},
 
 	module : (data) => {
-		// Bounce if we're not in a TTY
-		if (!process.stdin.isTTY) return;
+		// Bounce if we're not in a TTY and config.console.output is false
+		if (!config.console.output && !process.stdin.isTTY) return;
 
 		data.src = path.parse(caller()).name;
 
@@ -292,8 +292,8 @@ module.exports = {
 	},
 
 	socket : (data) => {
-		// Bounce if we're not in a TTY
-		if (!process.stdin.isTTY) return;
+		// Bounce if we're not in a TTY and config.console.output is false
+		if (!config.console.output && !process.stdin.isTTY) return;
 
 		data.orig = {
 			method : data.method,
