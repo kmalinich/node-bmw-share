@@ -20,10 +20,8 @@ function notify(string) {
 
 	// Instantiate destination user
 	let user;
-	if (typeof conf.device !== 'undefined' && conf.device !== null)
-		user = new chump.User(conf.user_id, conf.device);
-	else
-		user = new chump.User(conf.user_id);
+	if (typeof conf.device !== 'undefined' && conf.device !== null) { user = new chump.User(conf.user_id, conf.device); }
+	else { user = new chump.User(conf.user_id); }
 
 	let priority = new chump.Priority(conf.priority);
 	let sound    = new chump.Sound(conf.sound);
@@ -47,13 +45,13 @@ function notify(string) {
 		.then(() => {
 			log.msg({
 				src : module_name,
-				msg : method+' notification sent',
+				msg : method + ' notification sent',
 			});
 		})
 		.catch((error) => {
 			log.msg({
 				src : module_name,
-				msg : method+' error occured: '+error
+				msg : method + ' error occured: ' + error,
 			});
 		});
 }

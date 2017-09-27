@@ -36,7 +36,7 @@ module.exports = {
 
 	// 0x273 -> CIC
 	h2n : (hex) => {
-		let hex_str = '0x'+hex.toString(16).toUpperCase();
+		let hex_str = '0x' + hex.toString(16).toUpperCase();
 		if (arbids[hex_str]) return arbids[hex_str];
 
 		// Didn't find it

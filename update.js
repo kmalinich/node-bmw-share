@@ -24,7 +24,7 @@ function update_config(key, value_new) {
 
 	log.change({
 		src   : module_name,
-		value : 'config.'+key,
+		value : 'config.' + key,
 		old   : value_old,
 		new   : value_new,
 	});
@@ -48,7 +48,7 @@ function update_status(key, value_new) {
 
 	log.change({
 		src   : module_name,
-		value : 'status.'+key,
+		value : 'status.' + key,
 		old   : value_old,
 		new   : value_new,
 	});

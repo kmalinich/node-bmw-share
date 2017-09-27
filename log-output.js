@@ -97,8 +97,8 @@ module.exports = {
 
 	// Dynamic bus message output
 	bus : (data) => {
-		// Bounce if we're not in a TTY
-		if (!process.stdin.isTTY) return;
+		// Bounce if we're not in a TTY and config.console.output is false
+		if (!config.console.output && !process.stdin.isTTY) return;
 
 		// Skip some excessive loggers
 		switch (data.value) {
@@ -119,7 +119,7 @@ module.exports = {
 		data.command_orig  = data.command;
 
 		// Format bus
-		data.bus = data.bus.charAt(0).toUpperCase()+data.bus.charAt(1).toUpperCase();
+		data.bus = data.bus.charAt(0).toUpperCase() + data.bus.charAt(1).toUpperCase();
 
 		// Format command
 		switch (data.command_orig) {
@@ -133,39 +133,39 @@ module.exports = {
 			case 'unk' :
 			default    :
 				data.command = 'UNKNOWN';
-				data.value   = '0x'+data.msg[0].toString(16);
+				data.value   = '0x' + data.msg[0].toString(16);
 		}
 
 		// Pad strings
-		data.bus      = pad   (2, data.bus);
-		data.src.name = pad   (9, data.src.name);
-		data.dst.name = pad   (   data.dst.name, 10);
+		data.bus      = pad(2, data.bus);
+		data.src.name = pad(9, data.src.name);
+		data.dst.name = pad(data.dst.name, 10);
 		data.command  = center(data.command, 21);
 
 		// Colorize source and destination
 		data.src.name = chalk.yellow(data.src.name);
-		data.dst.name = chalk.green (data.dst.name);
+		data.dst.name = chalk.green(data.dst.name);
 
 		// Colorize bus
 		switch (data.bus_orig) {
 			case 'can0' : data.bus = chalk.orange('C1'); break;
 			case 'can1' : data.bus = chalk.orange('C2'); break;
-			case 'dbus' : data.bus = chalk.red   (data.bus); break;
-			case 'ibus' : data.bus = chalk.cyan  (data.bus); break;
+			case 'dbus' : data.bus = chalk.red(data.bus); break;
+			case 'ibus' : data.bus = chalk.cyan(data.bus); break;
 			case 'kbus' : data.bus = chalk.yellow(data.bus); break;
-			case 'node' : data.bus = chalk.pink  (data.bus); break;
-			default     : data.bus = chalk.pink  (data.bus);
+			case 'node' : data.bus = chalk.pink(data.bus); break;
+			default     : data.bus = chalk.pink(data.bus);
 		}
 
 		// Colorize command
 		switch (data.command_orig) {
-			case 'ack' : data.command = chalk.green (data.command); break;
-			case 'bro' : data.command = chalk.pink  (data.command); break;
-			case 'con' : data.command = chalk.red   (data.command); break;
-			case 'rep' : data.command = chalk.green (data.command); break;
-			case 'req' : data.command = chalk.cyan  (data.command); break;
-			case 'sta' : data.command = chalk.blue  (data.command); break;
-			case 'upd' : data.command = chalk.blue  (data.command); break;
+			case 'ack' : data.command = chalk.green(data.command); break;
+			case 'bro' : data.command = chalk.pink(data.command); break;
+			case 'con' : data.command = chalk.red(data.command); break;
+			case 'rep' : data.command = chalk.green(data.command); break;
+			case 'req' : data.command = chalk.cyan(data.command); break;
+			case 'sta' : data.command = chalk.blue(data.command); break;
+			case 'upd' : data.command = chalk.blue(data.command); break;
 			default    : data.command = chalk.yellow(data.command); break;
 		}
 
@@ -200,9 +200,9 @@ module.exports = {
 		if (typeof data.new === 'undefined' || data.new == null) data.new = 'null';
 
 		// Colorize strings
-		data.src_fmt     = chalk.cyan (data.src_fmt);
-		data.command_fmt = chalk.cyan (data.command_fmt);
-		data.old         = chalk.red  (data.old.toString());
+		data.src_fmt     = chalk.cyan(data.src_fmt);
+		data.command_fmt = chalk.cyan(data.command_fmt);
+		data.old         = chalk.red(data.old.toString());
 		data.new         = chalk.green(data.new.toString());
 
 		// Replace and colorize true/false
@@ -303,22 +303,22 @@ module.exports = {
 
 		// Colorize strings
 		switch (data.orig.method) {
-			case 'tx' : data.method = chalk.red  (data.method.toUpperCase()); break;
+			case 'tx' : data.method = chalk.red(data.method.toUpperCase()); break;
 			default   : data.method = chalk.green(data.method.toUpperCase()); break;
 		}
 
 		switch (data.orig.type) {
-			case 'client' : data.type = chalk.blue  (center(data.type.toUpperCase(), 21)); break;
+			case 'client' : data.type = chalk.blue(center(data.type.toUpperCase(), 21)); break;
 			default       : data.type = chalk.orange(center(data.type.toUpperCase(), 21)); break;
 		}
 
 		data.event = center(data.event, 21);
 		switch (data.orig.event) {
-			case 'bus-data'          : data.event = chalk.blue  (data.event); break;
-			case 'lcd-text'          : data.event = chalk.cyan  (data.event); break;
-			case 'log-bus'           : data.event = chalk.green (data.event); break;
-			case 'log-msg'           : data.event = chalk.gray  (data.event); break;
-			case 'host-data'         : data.event = chalk.pink  (data.event); break;
+			case 'bus-data'          : data.event = chalk.blue(data.event); break;
+			case 'lcd-text'          : data.event = chalk.cyan(data.event); break;
+			case 'log-bus'           : data.event = chalk.green(data.event); break;
+			case 'log-msg'           : data.event = chalk.gray(data.event); break;
+			case 'host-data'         : data.event = chalk.pink(data.event); break;
 			case 'host-data-request' : data.event = chalk.purple(data.event); break;
 			default                  : data.event = chalk.orange(data.event); break;
 		}

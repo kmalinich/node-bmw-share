@@ -4,7 +4,7 @@
 function a2h(str) {
 	let array = [];
 
-	for (let n = 0, l = str.length; n < l; n ++) {
+	for (let n = 0, l = str.length; n < l; n++) {
 		let hex = str.charCodeAt(n);
 		array.push(hex);
 	}
@@ -17,8 +17,7 @@ function h2a(data) {
 	data    = data.toString();
 	let str = '';
 
-	for (let i = 0; i < data.length; i += 2)
-		str += String.fromCharCode(parseInt(data.substr(i, 2), 16));
+	for (let i = 0; i < data.length; i += 2) { str += String.fromCharCode(parseInt(data.substr(i, 2), 16)); }
 
 	return str;
 }
@@ -38,7 +37,7 @@ function h2s(data) {
 	if (data[0] === 0x00) data = data.slice(1);
 
 	// IKE text suffix
-	if (data[data.length-1] === 0x04) data = data.slice(0, -1);
+	if (data[data.length - 1] === 0x04) data = data.slice(0, -1);
 
 	// Format
 	data = data.toString();
@@ -53,7 +52,7 @@ function h2s(data) {
 function i2s(data) {
 	let hexstr = data.toString(16).toUpperCase();
 	let prefix = hexstr.length === 1 && '0x0' || '0x';
-	return prefix+hexstr;
+	return prefix + hexstr;
 }
 
 module.exports = {

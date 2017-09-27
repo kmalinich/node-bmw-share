@@ -16,7 +16,7 @@ function check() {
 		// Load appropriate temperature library
 		system_temp = require(host_data.type);
 
-		log.msg({ msg : 'Check passed: '+host_data.check_result+', type: '+host_data.type });
+		log.msg({ msg : 'Check passed: ' + host_data.check_result + ', type: ' + host_data.type });
 	}
 
 	return host_data.check_result;
@@ -27,42 +27,42 @@ function init(init_callback = null) {
 	let cpus = os.cpus();
 	let load = os.loadavg();
 
-	let free_pct = os.freemem()/os.totalmem();
-	free_pct = free_pct*100;
+	let free_pct = os.freemem() / os.totalmem();
+	free_pct = free_pct * 100;
 	free_pct = free_pct.toFixed(2);
 	free_pct = parseFloat(free_pct);
 
-	let load_pct = load[0]/cpus.length;
-	load_pct = load_pct*100;
+	let load_pct = load[0] / cpus.length;
+	load_pct = load_pct * 100;
 	load_pct = load_pct.toFixed(2);
 	load_pct = parseFloat(load_pct);
 
 	status.system = {
-		type : app_type,
-		intf : app_intf || null,
-		up : os.uptime(),
+		type        : app_type,
+		intf        : app_intf || null,
+		up          : os.uptime(),
 		temperature : null,
-		host : {
-			full : os.hostname(),
+		host        : {
+			full  : os.hostname(),
 			short : os.hostname().split('.')[0],
 		},
 		cpu : {
-			arch : os.arch(),
-			count : cpus.length,
-			load : load,
+			arch     : os.arch(),
+			count    : cpus.length,
+			load     : load,
 			load_pct : load_pct,
-			model : cpus[0].model,
-			speed : cpus[0].speed,
+			model    : cpus[0].model,
+			speed    : cpus[0].speed,
 		},
 		memory : {
-			free : os.freemem(),
-			total : os.totalmem(),
+			free     : os.freemem(),
+			total    : os.totalmem(),
 			free_pct : free_pct,
 		},
 		os : {
 			platform : os.platform(),
-			type : os.type(),
-			release : os.release(),
+			type     : os.type(),
+			release  : os.release(),
 		},
 	};
 
@@ -113,7 +113,7 @@ function refresh_temperature() {
 
 				status.system.temperature = 0;
 
-				log.msg({ msg : host_data.type+' error: '+error });
+				log.msg({ msg : host_data.type + ' error: ' + error });
 			});
 			break;
 
@@ -125,7 +125,7 @@ function refresh_temperature() {
 			// .. yeah, that's gross
 
 			// Save rounded temp value
-			status.system.temperature = Math.round(system_temp.get('TC0D')+system_temp.get('TC0E'));
+			status.system.temperature = Math.round(system_temp.get('TC0D') + system_temp.get('TC0E'));
 			break;
 	}
 
@@ -135,7 +135,7 @@ function refresh_temperature() {
 // Periodically broadcast this host's data to WebSocket clients to update them
 function broadcast() {
 	if (host_data.timeouts.broadcast === null) {
-		log.msg({ msg : 'Set broadcast timeout ('+config.system.host_data.refresh_interval+'ms)' });
+		log.msg({ msg : 'Set broadcast timeout (' + config.system.host_data.refresh_interval + 'ms)' });
 	}
 
 	send();
@@ -154,13 +154,13 @@ function refresh() {
 	status.system.memory.free  = os.freemem();
 	status.system.memory.total = os.totalmem();
 
-	let free_pct = status.system.memory.free/status.system.memory.total;
-	free_pct = free_pct*100;
+	let free_pct = status.system.memory.free / status.system.memory.total;
+	free_pct = free_pct * 100;
 	free_pct = free_pct.toFixed(2);
 	free_pct = parseFloat(free_pct);
 
-	let load_pct = status.system.cpu.load[0]/status.system.cpu.count;
-	load_pct = load_pct*100;
+	let load_pct = status.system.cpu.load[0] / status.system.cpu.count;
+	load_pct = load_pct * 100;
 	load_pct = load_pct.toFixed(2);
 	load_pct = parseFloat(load_pct);
 
@@ -169,7 +169,7 @@ function refresh() {
 
 	if (host_data.timeouts.refresh === null) {
 		log.msg({
-			msg : 'Set refresh timeout ('+config.system.host_data.refresh_interval+'ms)',
+			msg : 'Set refresh timeout (' + config.system.host_data.refresh_interval + 'ms)',
 		});
 	}
 
@@ -192,8 +192,8 @@ module.exports = {
 		refresh   : null,
 	},
 
-	init  : (init_cb)  => { init(init_cb);   },
-	term  : (term_cb)  => { term(term_cb);   },
+	init : (init_cb)  => { init(init_cb);   },
+	term : (term_cb)  => { term(term_cb);   },
 
 	broadcast : () => { broadcast(); },
 	check     : () => { check();     },

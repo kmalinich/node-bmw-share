@@ -2,8 +2,8 @@
 
 module.exports = {
 	// All 9 bitmasks in hex and dec
-	bit : [0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x00],
-	dec : [   1,    2,    4,    8,   16,   32,   64,  128,    0],
+	bit : [ 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x00 ],
+	dec : [   1,    2,    4,    8,   16,   32,   64,  128,    0 ],
 
 	// Test number for all bitmasks and return object
 	// Example output as JSON with 0x89/137 as input
@@ -60,13 +60,16 @@ module.exports = {
 		// Init return object
 		let object = {
 			data : {
-				dec : num, hex   : hex.i2s(num),
-				set : 0,   unset : 0,
+				dec   : num,
+				hex   : hex.i2s(num),
+				set   : 0,
+				unset : 0,
 			},
 			array : {
 				bits : [], mask : [],
 			},
-			bits : {}, mask : {},
+			bits : {},
+			mask : {},
 		};
 
 		// Init loop counter
@@ -77,12 +80,13 @@ module.exports = {
 			let result;
 
 			// Alter logic if it's the fake "9th" bitmask
-			if (bit === bitmask.bit[8])
-				// Test if number completely equals the bit
+			// Test if number completely equals the bit
+			if (bit === bitmask.bit[8]) {
 				result = num === bit;
-			else
-				// Test number for bit
+			}
+			else { // Test number for bit
 				result = bitmask.test(num, bit);
+			}
 
 			// Adjust total counters accordingly
 			object.data.set   +=  result;
@@ -93,8 +97,8 @@ module.exports = {
 			object.array.mask.push(result);
 
 			// Add data to object output
-			object.bits['bit'+count] = bit;
-			object.mask['bit'+count] = result;
+			object.bits['bit' + count] = bit;
+			object.mask['bit' + count] = result;
 
 			// Increment counter
 			count++;
