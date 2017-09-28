@@ -38,7 +38,7 @@ function init(init_callback = null) {
 	load_pct = parseFloat(load_pct);
 
 	status.system = {
-		type        : app_type,
+		type        : app_intf,
 		intf        : app_intf || null,
 		up          : os.uptime(),
 		temperature : null,

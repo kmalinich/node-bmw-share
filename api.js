@@ -5,13 +5,15 @@ const app     = express();
 // have their respective API servers listening on different
 // ports
 function get_port() {
-	switch (app_type) {
-		case 'can0' : return config.api.port + 0;
-		case 'can1' : return config.api.port + 1;
-		case 'dbus' : return config.api.port + 2;
-		case 'ibus' : return config.api.port + 3;
-		case 'kbus' : return config.api.port + 4;
-		case 'lcd'  : return config.api.port + 5;
+	switch (app_intf) {
+		case 'can0'   : return config.api.port;
+		case 'can1'   : return config.api.port + 1;
+		case 'client' : return config.api.port + 2;
+		case 'dbus'   : return config.api.port + 3;
+		case 'ibus'   : return config.api.port + 4;
+		case 'kbus'   : return config.api.port + 5;
+		case 'lcd'    : return config.api.port + 6;
+		default       : return config.api.port + 7;
 	}
 }
 
