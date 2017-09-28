@@ -11,7 +11,6 @@
 	],
 	"globals": {
 		"app_intf": false,
-		"app_type": false,
 		"config": false,
 		"host_data": false,
 		"log": false,
