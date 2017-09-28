@@ -99,7 +99,7 @@ function should_output() {
 
 	// If we're in a TTY, output to stdout
 	// If we're not, only output if config.console.output is true
-	switch (process.stdin.isTTY && process.stdout.isTTY) {
+	switch (process.stdout.isTTY) {
 		case true  : return true;
 		case false : return config.console.output;
 	}
