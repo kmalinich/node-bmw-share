@@ -1,5 +1,19 @@
 const express = require('express');
-const app = express();
+const app     = express();
+
+// Ghetto workaround so the different interface processes
+// have their respective API servers listening on different
+// ports
+function get_port() {
+	switch (app_type) {
+		case 'can0' : return config.api.port + 0;
+		case 'can1' : return config.api.port + 1;
+		case 'dbus' : return config.api.port + 2;
+		case 'ibus' : return config.api.port + 3;
+		case 'kbus' : return config.api.port + 4;
+		case 'lcd'  : return config.api.port + 5;
+	}
+}
 
 function init(init_callback = null) {
 	app.all('*', (req, res, next) => {
@@ -21,20 +35,20 @@ function init(init_callback = null) {
 		res.send(JSON.stringify(status));
 	});
 
-	app.listen(config.api.port, () => {
-		log.msg({ msg : 'Express listening on port ' + config.api.port });
+	app.listen(get_port(), () => {
+		log.msg({ msg : 'Express listening on port ' + get_port() });
 	});
 
 	log.msg({ msg : 'Initialized' });
 
-	if (typeof init_callback === 'function') process.nextTick(init_callback);
+	typeof init_callback === 'function' && process.nextTick(init_callback);
 	init_callback = undefined;
 }
 
 function term(term_callback = null) {
 	log.msg({ msg : 'Terminated' });
 
-	if (typeof term_callback === 'function') process.nextTick(term_callback);
+	typeof term_callback === 'function' && process.nextTick(term_callback);
 	term_callback = undefined;
 }
 

@@ -70,9 +70,10 @@ function init(init_callback = null) {
 	refresh();
 	broadcast();
 
-	log.msg({ msg : 'Initialized'	});
+	log.msg({ msg : 'Initialized' });
 
-	process.nextTick(init_callback);
+	typeof init_callback === 'function' && process.nextTick(init_callback);
+	init_callback = undefined;
 }
 
 // Cancel timeouts
@@ -93,7 +94,8 @@ function term(term_callback = null) {
 
 	log.msg({ msg : 'Terminated' });
 
-	process.nextTick(term_callback);
+	typeof term_callback === 'function' && process.nextTick(term_callback);
+	term_callback = undefined;
 }
 
 // Get+save RPi temp
@@ -121,7 +123,7 @@ function refresh_temperature() {
 			// TC0D : Hackintosh
 			// TC0E : 2016 rMBP
 
-			// Either TC0D or TC0E is always 0.. so ..
+			// Either TC0D or TC0E is always 0.. so
 			// .. yeah, that's gross
 
 			// Save rounded temp value
@@ -192,8 +194,8 @@ module.exports = {
 		refresh   : null,
 	},
 
-	init : (init_cb)  => { init(init_cb);   },
-	term : (term_cb)  => { term(term_cb);   },
+	init : (init_cb)  => { init(init_cb); },
+	term : (term_cb)  => { term(term_cb); },
 
 	broadcast : () => { broadcast(); },
 	check     : () => { check();     },
