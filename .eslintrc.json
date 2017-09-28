@@ -16,7 +16,8 @@
 		"host_data": false,
 		"log": false,
 		"socket": false,
-		"status": false
+		"status": false,
+		"update": false
 	},
 	"parserOptions": {
 		"ecmaVersion": 6,
