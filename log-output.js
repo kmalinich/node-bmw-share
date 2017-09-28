@@ -97,13 +97,13 @@ function should_not_output() {
 	if (typeof config.console        === 'undefined') return false;
 	if (typeof config.console.output === 'undefined') return false;
 
-	console.log('process.stdout.isTTY  : %s', process.stdout.isTTY);
-	console.log('process.stdin.isTTY   : %s', process.stdin.isTTY);
-	console.log('config.console.output : %s', config.console.output);
+	console.log('process.stdout.isTTY  : %s', Boolean(process.stdout.isTTY));
+	console.log('process.stdin.isTTY   : %s', Boolean(process.stdin.isTTY));
+	console.log('config.console.output : %s', Boolean(config.console.output));
 
 	// If we're in a TTY, output to stdout
 	// If we're not, only output if config.console.output is true
-	switch (process.stdout.isTTY) {
+	switch (Boolean(process.stdout.isTTY)) {
 		case true  : return false;
 		case false : return !config.console.output;
 	}
