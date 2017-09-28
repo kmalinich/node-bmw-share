@@ -91,17 +91,19 @@ function colorize(string) {
 }
 
 // Should we output to stdout?
-function should_output() {
+function should_not_output() {
 	// Err on the side of caution
-	if (typeof config                === 'undefined') return true;
-	if (typeof config.console        === 'undefined') return true;
-	if (typeof config.console.output === 'undefined') return true;
+	if (typeof config                === 'undefined') return false;
+	if (typeof config.console        === 'undefined') return false;
+	if (typeof config.console.output === 'undefined') return false;
+
+	console.log('config.console.output: %s', config.console.output);
 
 	// If we're in a TTY, output to stdout
 	// If we're not, only output if config.console.output is true
 	switch (process.stdout.isTTY) {
-		case true  : return true;
-		case false : return config.console.output;
+		case true  : return false;
+		case false : return !config.console.output;
 	}
 }
 
@@ -113,7 +115,7 @@ module.exports = {
 	// Dynamic bus message output
 	bus : (data) => {
 		// Bounce if we're supposed to write to stdout
-		if (!should_output()) return;
+		if (should_not_output()) return;
 
 		// Skip some excessive loggers
 		switch (data.value) {
@@ -200,7 +202,7 @@ module.exports = {
 	// Formatted output for when a value changes
 	change : (data) => {
 		// Bounce if we're supposed to write to stdout
-		if (!should_output()) return;
+		if (should_not_output()) return;
 
 		data.command = 'CHANGE';
 
@@ -236,7 +238,7 @@ module.exports = {
 
 	msg : (data) => {
 		// Bounce if we're supposed to write to stdout
-		if (!should_output()) return;
+		if (should_not_output()) return;
 
 		data.src = path.parse(caller()).name;
 
@@ -261,7 +263,7 @@ module.exports = {
 
 	module : (data) => {
 		// Bounce if we're supposed to write to stdout
-		if (!should_output()) return;
+		if (should_not_output()) return;
 
 		data.src = path.parse(caller()).name;
 
@@ -291,7 +293,7 @@ module.exports = {
 	// Dynamic log message output
 	send : (data) => {
 		// Bounce if we're supposed to write to stdout
-		if (!should_output()) return;
+		if (should_not_output()) return;
 
 		log.bus({
 			bus     : 'sock',
@@ -308,7 +310,7 @@ module.exports = {
 
 	socket : (data) => {
 		// Bounce if we're supposed to write to stdout
-		if (!should_output()) return;
+		if (should_not_output()) return;
 
 		data.orig = {
 			method : data.method,
