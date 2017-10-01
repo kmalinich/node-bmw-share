@@ -39,8 +39,8 @@ function update_config(key, value_new, verbose = true) {
 	return true;
 }
 
-// update('engine.rpm', 1235, true);
-function update_status(key, value_new, verbose = false) {
+// update('engine.rpm', 1235, false);
+function update_status(key, value_new, verbose = true) {
 	let value_old = object_path.get(status, key);
 
 	if (value_new === value_old) {
