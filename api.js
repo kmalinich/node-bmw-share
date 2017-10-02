@@ -1,5 +1,7 @@
 const express = require('express');
 const app     = express();
+const server  = require('http').Server(app);
+const io      = require('socket.io')(server);
 
 // Ghetto workaround so the different interface processes
 // have their respective API servers listening on different
@@ -17,7 +19,12 @@ function get_port() {
 	}
 }
 
-function init(init_callback = null) {
+function emit(topic, data, emit_cb = null) {
+	typeof emit_cb === 'function' && process.nextTick(emit_cb);
+	emit_cb = undefined;
+}
+
+function init(init_cb = null) {
 	app.all('*', (req, res, next) => {
 		log.msg({ msg : '[' + req.method + '] ' + req.originalUrl });
 		res.set('Content-Type', 'application/json');
@@ -37,25 +44,35 @@ function init(init_callback = null) {
 		res.send(JSON.stringify(status));
 	});
 
-	app.listen(get_port(), () => {
+	server.listen(get_port(), () => {
 		log.msg({ msg : 'Express listening on port ' + get_port() });
+	});
+
+	io.on('connection', (socket) => {
+		socket.emit('news', { hello : 'world' });
+		socket.on('my other event', (data) => {
+			console.log(data);
+		});
 	});
 
 	log.msg({ msg : 'Initialized' });
 
-	typeof init_callback === 'function' && process.nextTick(init_callback);
-	init_callback = undefined;
+	typeof init_cb === 'function' && process.nextTick(init_cb);
+	init_cb = undefined;
 }
 
-function term(term_callback = null) {
+function term(term_cb = null) {
 	log.msg({ msg : 'Terminated' });
 
-	typeof term_callback === 'function' && process.nextTick(term_callback);
-	term_callback = undefined;
+	typeof term_cb === 'function' && process.nextTick(term_cb);
+	term_cb = undefined;
 }
 
 module.exports = {
-	// Functions
+	// Main functions
+	emit : (topic, data, emit_cb) => { emit(topic, data, emit_cb); },
+
+	// Start/stop functions
 	init : (init_cb) => { init(init_cb); },
 	term : (term_cb) => { term(term_cb); },
 };
