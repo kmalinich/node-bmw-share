@@ -10,6 +10,7 @@
 		"eslint:recommended"
 	],
 	"globals": {
+		"api": false,
 		"app_intf": false,
 		"config": false,
 		"host_data": false,

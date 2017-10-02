@@ -33,8 +33,8 @@ function update_config(key, value_new, verbose = true) {
 
 	object_path.set(config, key, value_new);
 
-	// let path_array = key.split('.');
-	// socket.config_tx(path_array[0]);
+	let path_value = key.split('.')[0];
+	api.emit('config-tx', { key : path_value, value : config[path_value] });
 
 	return true;
 }
@@ -58,8 +58,8 @@ function update_status(key, value_new, verbose = true) {
 
 	object_path.set(status, key, value_new);
 
-	// let path_array = key.split('.');
-	// socket.status_tx(path_array[0]);
+	let path_value = key.split('.')[0];
+	api.emit('status-tx', { key : path_value, value : status[path_value] });
 
 	return true;
 }
