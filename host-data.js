@@ -101,7 +101,7 @@ function term(term_callback = null) {
 // Get+save RPi temp
 function refresh_temperature() {
 	if (!check()) {
-		status.system.temperature = 0;
+		update.status('system.temperature', 0);
 		return false;
 	}
 
@@ -109,11 +109,11 @@ function refresh_temperature() {
 		case 'pi-temperature':
 			system_temp.measure((error, value) => {
 				if (typeof error == 'undefined' || error === null) {
-					status.system.temperature = Math.round(value);
+					update.status('system.temperature', Math.round(value));
 					return;
 				}
 
-				status.system.temperature = 0;
+				update.status('system.temperature', 0);
 
 				log.msg({ msg : host_data.type + ' error: ' + error });
 			});
@@ -127,7 +127,7 @@ function refresh_temperature() {
 			// .. yeah, that's gross
 
 			// Save rounded temp value
-			status.system.temperature = Math.round(system_temp.get('TC0D') + system_temp.get('TC0E'));
+			update.status('system.temperature', Math.round(system_temp.get('TC0D') + system_temp.get('TC0E')));
 			break;
 	}
 
@@ -149,12 +149,12 @@ function broadcast() {
 function refresh() {
 	refresh_temperature();
 
-	status.system.up = os.uptime();
+	update.status('system.up', os.uptime());
 
-	status.system.cpu.load = os.loadavg();
+	update.status('system.cpu.load', os.loadavg());
 
-	status.system.memory.free  = os.freemem();
-	status.system.memory.total = os.totalmem();
+	update.status('system.memory.free',  os.freemem());
+	update.status('system.memory.total', os.totalmem());
 
 	let free_pct = status.system.memory.free / status.system.memory.total;
 	free_pct = free_pct * 100;
@@ -166,8 +166,8 @@ function refresh() {
 	load_pct = load_pct.toFixed(2);
 	load_pct = parseFloat(load_pct);
 
-	status.system.memory.free_pct = free_pct;
-	status.system.cpu.load_pct    = load_pct;
+	update.status('system.memory.free_pct', free_pct);
+	update.status('system.cpu.load_pct',    load_pct);
 
 	if (host_data.timeouts.refresh === null) {
 		log.msg({
