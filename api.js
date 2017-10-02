@@ -54,10 +54,8 @@ function init(init_cb = null) {
 	io.on('connection', (socket) => {
 		log.msg({ msg : 'socket.io client connected' });
 
-		socket.emit('news', { hello : 'world' });
-
-		socket.on('my other event', (data) => {
-			console.log(data);
+		socket.on('disconnect', (reason) => {
+			log.msg({ msg : 'socket.io client disconnected, reason: ' + reason });
 		});
 	});
 
