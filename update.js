@@ -34,7 +34,7 @@ function update_config(key, value_new, verbose = true) {
 	object_path.set(config, key, value_new);
 
 	let path_value = key.split('.')[0];
-	if (app_intf !== 'cli') api.emit('config-tx', { key : path_value, value : config[path_value] });
+	if (app_intf !== 'cli') api.emit('config-tx', { key : { stub : path_value, full : key }, value : { stub : config[key], full : config[path_value] } });
 
 	return true;
 }
@@ -59,7 +59,7 @@ function update_status(key, value_new, verbose = true) {
 	object_path.set(status, key, value_new);
 
 	let path_value = key.split('.')[0];
-	if (app_intf !== 'cli') api.emit('status-tx', { key : path_value, value : status[path_value] });
+	if (app_intf !== 'cli') api.emit('status-tx', { key : { stub : path_value, full : key }, value : { stub : status[key], full : status[path_value] } });
 
 	return true;
 }
