@@ -169,7 +169,7 @@ function refresh() {
 	load_pct = load_pct.toFixed(2);
 	load_pct = parseFloat(load_pct);
 
-	update.status('system.memory.free_pct', free_pct);
+	update.status('system.memory.free_pct', free_pct, false);
 	update.status('system.cpu.load_pct',    load_pct);
 
 	if (host_data.timeouts.refresh === null) {
