@@ -3,9 +3,7 @@ const app     = express();
 const server  = require('http').Server(app);
 
 // Only load socket.io server if this is the client app
-if (app_intf === 'client') {
-	const io = require('socket.io')(server);
-}
+const io = require('socket.io')(server);
 
 // Ghetto workaround so the different interface processes
 // have their respective API servers listening on different
