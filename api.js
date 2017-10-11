@@ -20,6 +20,9 @@ function get_port() {
 }
 
 function emit(topic, data, emit_cb = null) {
+	// Bounce if this isn't the client app
+	if (app_intf === 'client') return;
+
 	io.emit(topic, data);
 	log.msg({ msg : 'Emitted ' + topic + ' message' });
 
@@ -51,13 +54,15 @@ function init(init_cb = null) {
 		log.msg({ msg : 'Express listening on port ' + get_port() });
 	});
 
-	io.on('connection', (socket) => {
-		log.msg({ msg : 'socket.io client connected' });
+	if (app_intf === 'client') {
+		io.on('connection', (socket) => {
+			log.msg({ msg : 'socket.io client connected' });
 
-		socket.on('disconnect', (reason) => {
-			log.msg({ msg : 'socket.io client disconnected, reason: ' + reason });
+			socket.on('disconnect', (reason) => {
+				log.msg({ msg : 'socket.io client disconnected, reason: ' + reason });
+			});
 		});
-	});
+	}
 
 	log.msg({ msg : 'Initialized' });
 
