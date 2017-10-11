@@ -6,18 +6,18 @@ let system_temp;
 // (support is on macOS and RPi)
 function check() {
 	// Don't check the logic twice, and only notify the first time
-	if (host_data.check_result === null) {
-		// Save check result
-		host_data.check_result = (process.arch == 'arm' || process.platform == 'darwin');
+	if (host_data.check_result !== null) return host_data.check_result;
 
-		// Save host type
-		host_data.type = process.arch == 'arm' && 'pi-temperature' || 'smc';
+	// Save check result
+	host_data.check_result = (process.arch == 'arm' || process.platform == 'darwin');
 
-		// Load appropriate temperature library
-		system_temp = require(host_data.type);
+	// Save host type
+	host_data.type = process.arch == 'arm' && 'pi-temperature' || 'smc';
 
-		log.msg({ msg : 'Check passed: ' + host_data.check_result + ', type: ' + host_data.type });
-	}
+	// Load appropriate temperature library
+	system_temp = require(host_data.type);
+
+	log.msg({ msg : 'Check passed: ' + host_data.check_result + ', type: ' + host_data.type });
 
 	return host_data.check_result;
 }
@@ -149,11 +149,14 @@ function broadcast() {
 function refresh() {
 	refresh_temperature();
 
-	update.status('system.up', os.uptime());
+	update.status('system.up', os.uptime(), false);
 
-	update.status('system.cpu.load', os.loadavg());
+	let loadavg = os.loadavg();
+	update.status('system.cpu.load.0', loadavg[0], false);
+	update.status('system.cpu.load.1', loadavg[1]);
+	update.status('system.cpu.load.3', loadavg[3]);
 
-	update.status('system.memory.free',  os.freemem());
+	update.status('system.memory.free',  os.freemem(), false);
 	update.status('system.memory.total', os.totalmem());
 
 	let free_pct = status.system.memory.free / status.system.memory.total;
@@ -166,7 +169,7 @@ function refresh() {
 	load_pct = load_pct.toFixed(2);
 	load_pct = parseFloat(load_pct);
 
-	update.status('system.memory.free_pct', free_pct);
+	update.status('system.memory.free_pct', free_pct, false);
 	update.status('system.cpu.load_pct',    load_pct);
 
 	if (host_data.timeouts.refresh === null) {

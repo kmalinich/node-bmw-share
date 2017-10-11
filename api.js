@@ -24,7 +24,7 @@ function emit(topic, data, emit_cb = null) {
 	if (app_intf === 'client') return;
 
 	io.emit(topic, data);
-	log.msg({ msg : 'Emitted ' + topic + ' message' });
+	// log.msg({ msg : 'Emitted ' + topic + ' message' });
 
 	typeof emit_cb === 'function' && process.nextTick(emit_cb);
 	emit_cb = undefined;
