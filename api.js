@@ -1,7 +1,11 @@
 const express = require('express');
 const app     = express();
 const server  = require('http').Server(app);
-const io      = require('socket.io')(server);
+
+// Only load socket.io server if this is the client app
+if (app_intf === 'client') {
+	const io = require('socket.io')(server);
+}
 
 // Ghetto workaround so the different interface processes
 // have their respective API servers listening on different
@@ -54,6 +58,7 @@ function init(init_cb = null) {
 		log.msg({ msg : 'Express listening on port ' + get_port() });
 	});
 
+	// Only load socket.io server if this is the client app
 	if (app_intf === 'client') {
 		io.on('connection', (socket) => {
 			log.msg({ msg : 'socket.io client connected' });
