@@ -1,3 +1,5 @@
+const object_path = require('object-path');
+
 const express = require('express');
 const app     = express();
 const server  = require('http').Server(app);
@@ -60,6 +62,32 @@ function init(init_cb = null) {
 	if (app_intf === 'client') {
 		io.on('connection', (socket) => {
 			log.msg({ msg : 'socket.io client connected' });
+
+			let array_status = [
+				'engine',
+				'fuel',
+				'lcm',
+				'obc',
+				'system',
+				'temperature',
+				'vehicle',
+			];
+
+			if (app_intf !== 'cli') {
+				array_status.forEach((key) => {
+					let keys = {
+						stub : key.split('.')[0],
+						full : key,
+					};
+
+					let values = {
+						stub : object_path.get(status, key),
+						full : status[keys.stub],
+					};
+
+					api.emit('status-tx', { key : keys, value : values });
+				});
+			}
 
 			socket.on('disconnect', (reason) => {
 				log.msg({ msg : 'socket.io client disconnected, reason: ' + reason });
