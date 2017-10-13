@@ -23,7 +23,7 @@ function get_port() {
 
 function emit(topic, data, emit_cb = null) {
 	// Bounce if this isn't the client app
-	if (app_intf === 'client') return;
+	if (app_intf !== 'client') return;
 
 	io.emit(topic, data);
 	// log.msg({ msg : 'Emitted ' + topic + ' message' });
