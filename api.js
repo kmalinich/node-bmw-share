@@ -63,6 +63,9 @@ function init(init_cb = null) {
 		io.on('connection', (socket) => {
 			log.msg({ msg : 'socket.io client connected' });
 
+			// Force refresh data
+			IKE.obc_refresh();
+
 			let array_status = [
 				'engine',
 				'fuel',
