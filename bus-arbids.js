@@ -10,6 +10,7 @@ const arbids = {
 
 	'0x316' : 'DME1', // RPM
 	'0x329' : 'DME1', // Temp/Brake pedal depressed/Throttle position
+	'0x338' : 'DME1', // Sport mode status
 	'0x545' : 'DME1', // CEL/Fuel cons/Overheat/Oil temp/Charging/Brake light switch/Cruise control
 	'0x610' : 'DME1', // VIN/info
 	'0x613' : 'DME1', // Odometer/Running clock/Fuel level [0x615 ACK]
