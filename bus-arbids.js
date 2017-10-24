@@ -17,14 +17,14 @@ const arbids = {
 	'0x615' : 'DME1', // A/C request/Outside air temp/Intake air temp/Parking brake/door contacts
 
 	// Below are related to iDrive CON - ripped from E90
-	'0x273' : 'CIC1',   // CIC->CON init message
+	'0x202' : 'FRM1',   // FRM backlight dimmer
 	'0x264' : 'CON1',   // CON rotation
 	'0x267' : 'CON1',   // CON buttons
+	'0x273' : 'CIC1',   // CIC->CON init message
 	'0x277' : 'CON1',   // CON->CIC ACK of init
 	'0x4E7' : 'CON1',   // CON status
-	'0x5E7' : 'CON1',   // CON status
 	'0x4F8' : 'KOMBI1', // Ignition status
-	'0x202' : 'FRM1',   // FRM backlight dimmer
+	'0x5E7' : 'CON1',   // CON status
 
 	// Nobody has ever heard of these..
 	'0x77C' : '',
