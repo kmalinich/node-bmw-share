@@ -61,22 +61,28 @@ function init(init_cb = null) {
 	// Only load socket.io server if this is the client app
 	if (app_intf === 'client') {
 		io.on('connection', (socket) => {
+			socket.on('disconnect', (reason) => {
+				log.msg({ msg : 'socket.io client disconnected, reason: ' + reason });
+			});
+
 			log.msg({ msg : 'socket.io client connected' });
 
 			// Force refresh data
-			IKE.obc_refresh();
+			setTimeout(() => {
+				IKE.obc_refresh();
+			}, 1000);
 
-			let array_status = [
-				'engine',
-				'fuel',
-				'lcm',
-				'obc',
-				'system',
-				'temperature',
-				'vehicle',
-			];
+			setTimeout(() => {
+				let array_status = [
+					'engine',
+					'fuel',
+					'lcm',
+					'obc',
+					'system',
+					'temperature',
+					'vehicle',
+				];
 
-			if (app_intf !== 'cli') {
 				array_status.forEach((key) => {
 					let keys = {
 						stub : key.split('.')[0],
@@ -90,11 +96,7 @@ function init(init_cb = null) {
 
 					api.emit('status-tx', { key : keys, value : values });
 				});
-			}
-
-			socket.on('disconnect', (reason) => {
-				log.msg({ msg : 'socket.io client disconnected, reason: ' + reason });
-			});
+			}, 2000);
 		});
 	}
 
