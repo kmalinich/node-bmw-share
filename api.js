@@ -70,7 +70,7 @@ function init(init_cb = null) {
 			// Force refresh data
 			setTimeout(() => {
 				IKE.obc_refresh();
-			}, 1000);
+			}, 250);
 
 			setTimeout(() => {
 				let array_status = [
