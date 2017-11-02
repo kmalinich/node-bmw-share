@@ -92,22 +92,22 @@ function init_client(init_client_cb = null) {
 	// Some of these are shameful
 	app.get('/dsp/dsp_mode/:mode', (req, res) => {
 		DSP.dsp_mode(req.params.mode);
-		res.send({ status : 'ok' });
+		res.send(status.dsp);
 	});
 
 	app.post('/dsp/eq', (req, res) => {
 		DSP.eq_encode(req.body);
-		res.send({ status : 'ok' });
+		res.send(status.dsp);
 	});
 
 	app.get('/dsp/m_audio/:mode', (req, res) => {
 		DSP.m_audio(req.params.mode);
-		res.send({ status : 'ok' });
+		res.send(status.dsp);
 	});
 
 	app.get('/dsp/request/:value', (req, res) => {
 		DSP.request(req.params.value);
-		res.send({ status : 'ok' });
+		res.send(status.dsp);
 	});
 
 	app.get('/lcm', (req, res) => {
