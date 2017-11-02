@@ -86,8 +86,8 @@ function init_client(init_client_cb = null) {
 	});
 
 	app.get('/lcm', (req, res) => {
-		// LCM.api_command(query_string.parse(request.body));
-		res.send(req.params);
+		LCM.api_command(req.query);
+		res.send(req.query);
 	});
 
 	log.msg({ msg : 'Initialized client-only API functions' });
