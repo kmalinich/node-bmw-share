@@ -25,13 +25,75 @@ function get_port() {
 
 function emit(topic, data, emit_cb = null) {
 	// Bounce if this isn't the client app
-	if (app_intf !== 'client') return;
+	if (app_intf !== 'client') {
+		typeof emit_cb === 'function' && process.nextTick(emit_cb);
+		emit_cb = undefined;
+		return;
+	}
 
 	io.emit(topic, data);
 	// log.msg({ msg : 'Emitted ' + topic + ' message' });
 
 	typeof emit_cb === 'function' && process.nextTick(emit_cb);
 	emit_cb = undefined;
+}
+
+function init_client(init_client_cb = null) {
+	// Only load socket.io server if this is the client app
+	if (app_intf !== 'client') {
+		log.msg({ msg : 'Not loading client-only API functions' });
+
+		typeof init_client_cb === 'function' && process.nextTick(init_client_cb);
+		init_client_cb = undefined;
+		return;
+	}
+
+	io.on('connection', (socket) => {
+		socket.on('disconnect', (reason) => {
+			log.msg({ msg : 'socket.io client disconnected, reason: ' + reason });
+		});
+
+		log.msg({ msg : 'socket.io client connected' });
+
+		let array_status = [
+			'engine',
+			'fuel',
+			'lcm',
+			'obc',
+			'system',
+			'temperature',
+			'vehicle',
+		];
+
+		array_status.forEach((key) => {
+			let keys = {
+				stub : key.split('.')[0],
+				full : key,
+			};
+
+			let values = {
+				stub : object_path.get(status, key),
+				full : status[keys.stub],
+			};
+
+			api.emit('status-tx', { key : keys, value : values });
+		});
+
+		// Force refresh data
+		setTimeout(() => {
+			IKE.obc_refresh();
+		}, 500);
+	});
+
+	app.get('/lcm', (req, res) => {
+		// LCM.api_command(query_string.parse(request.body));
+		res.send(req.params);
+	});
+
+	log.msg({ msg : 'Initialized client-only API functions' });
+
+	typeof init_client_cb === 'function' && process.nextTick(init_client_cb);
+	init_client_cb = undefined;
 }
 
 function init(init_cb = null) {
@@ -42,68 +104,23 @@ function init(init_cb = null) {
 	});
 
 	app.get('/config', (req, res) => {
-		res.send(JSON.stringify(config));
+		res.send(config);
 	});
 
 	app.get('/console', (req, res) => {
 		update.config('console.output', !config.console.output);
-		res.send(JSON.stringify(config.console));
+		res.send(config.console);
 	});
 
 	app.get('/status', (req, res) => {
-		res.send(JSON.stringify(status));
+		res.send(status);
 	});
 
 	server.listen(get_port(), () => {
 		log.msg({ msg : 'Express listening on port ' + get_port() });
 	});
 
-	// Only load socket.io server if this is the client app
-	if (app_intf === 'client') {
-		io.on('connection', (socket) => {
-			socket.on('disconnect', (reason) => {
-				log.msg({ msg : 'socket.io client disconnected, reason: ' + reason });
-			});
-
-			log.msg({ msg : 'socket.io client connected' });
-
-			// Force refresh data
-			setTimeout(() => {
-				IKE.obc_refresh();
-			}, 250);
-
-			setTimeout(() => {
-				let array_status = [
-					'engine',
-					'fuel',
-					'lcm',
-					'obc',
-					'system',
-					'temperature',
-					'vehicle',
-				];
-
-				array_status.forEach((key) => {
-					let keys = {
-						stub : key.split('.')[0],
-						full : key,
-					};
-
-					let values = {
-						stub : object_path.get(status, key),
-						full : status[keys.stub],
-					};
-
-					api.emit('status-tx', { key : keys, value : values });
-				});
-			}, 2000);
-		});
-	}
-
-	log.msg({ msg : 'Initialized' });
-
-	typeof init_cb === 'function' && process.nextTick(init_cb);
-	init_cb = undefined;
+	init_client(init_cb);
 }
 
 function term(term_cb = null) {
@@ -115,9 +132,9 @@ function term(term_cb = null) {
 
 module.exports = {
 	// Main functions
-	emit : (topic, data, emit_cb) => { emit(topic, data, emit_cb); },
+	emit : emit,
 
 	// Start/stop functions
-	init : (init_cb) => { init(init_cb); },
-	term : (term_cb) => { term(term_cb); },
+	init : init,
+	term : term,
 };
