@@ -11,6 +11,8 @@
 	],
 	"globals": {
 		"IKE": false,
+		"LCM": false,
+		"DSP": false,
 		"api": false,
 		"app_intf": false,
 		"config": false,

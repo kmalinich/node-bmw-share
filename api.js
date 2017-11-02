@@ -4,6 +4,10 @@ const express = require('express');
 const app     = express();
 const server  = require('http').Server(app);
 
+// body-parser to handle POSTed JSON
+const body_parser = require('body-parser');
+app.use(body_parser.json());
+
 // Only load socket.io server if this is the client app
 const io = require('socket.io')(server);
 
@@ -83,6 +87,27 @@ function init_client(init_client_cb = null) {
 		setTimeout(() => {
 			IKE.obc_refresh();
 		}, 500);
+	});
+
+	// Some of these are shameful
+	app.get('/dsp/dsp_mode/:mode', (req, res) => {
+		DSP.dsp_mode(req.params.mode);
+		res.send({ status : 'ok' });
+	});
+
+	app.post('/dsp/eq', (req, res) => {
+		DSP.eq_encode(req.body);
+		res.send({ status : 'ok' });
+	});
+
+	app.get('/dsp/m_audio/:mode', (req, res) => {
+		DSP.m_audio(req.params.mode);
+		res.send({ status : 'ok' });
+	});
+
+	app.get('/dsp/request/:value', (req, res) => {
+		DSP.request(req.params.value);
+		res.send({ status : 'ok' });
 	});
 
 	app.get('/lcm', (req, res) => {
