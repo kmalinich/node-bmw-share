@@ -62,6 +62,7 @@ function init_client(init_client_cb = null) {
 		let array_status = [
 			'engine',
 			'fuel',
+			'gpio',
 			'lcm',
 			'obc',
 			'system',
