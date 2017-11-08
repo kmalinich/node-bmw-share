@@ -90,9 +90,20 @@ function init_client(init_client_cb = null) {
 		}, 500);
 	});
 
+
 	// Some of these are shameful
-	app.get('/dsp/dsp_mode/:mode', (req, res) => {
+	app.get('/dsp/mode/:mode', (req, res) => {
 		DSP.dsp_mode(req.params.mode);
+		res.send(status.dsp);
+	});
+
+	app.get('/dsp/m-audio/:mode', (req, res) => {
+		DSP.m_audio(req.params.mode);
+		res.send(status.dsp);
+	});
+
+	app.get('/dsp/get/:value', (req, res) => {
+		DSP.request(req.params.value);
 		res.send(status.dsp);
 	});
 
@@ -101,20 +112,142 @@ function init_client(init_client_cb = null) {
 		res.send(status.dsp);
 	});
 
-	app.get('/dsp/m_audio/:mode', (req, res) => {
-		DSP.m_audio(req.params.mode);
-		res.send(status.dsp);
+
+	app.get('/gm/get/:value', (req, res) => {
+		GM.request(req.params.value);
+		res.send(status.gm);
 	});
 
-	app.get('/dsp/request/:value', (req, res) => {
-		DSP.request(req.params.value);
-		res.send(status.dsp);
+	app.get('/gm/interior-light/:value', (req, res) => {
+		GM.interior_light(req.params.value);
+		res.send(status.gm);
 	});
 
-	app.get('/lcm', (req, res) => {
-		LCM.api_command(req.query);
-		res.send(req.query);
+	app.post('/gm/locks', (req, res) => {
+		GM.locks(req.body);
+		res.send(status.gm);
 	});
+
+	app.post('/gm/windows', (req, res) => {
+		GM.windows(req.body);
+		res.send(status.gm);
+	});
+
+	app.get('/ihka/get/:value', (req, res) => {
+		IHKA.request(req.params.value);
+		res.send(status.ihka);
+	});
+
+	app.get('/ihka/recirc', (req, res) => {
+		IHKA.recirc();
+		res.send(status.ihka);
+	});
+
+	app.post('/ihka/aux', (req, res) => {
+		IHKA.aux(req.body);
+		res.send(status.ihka);
+	});
+
+
+	app.get('/ike/ignition/:value', (req, res) => {
+		IKE.ignition(req.params.value);
+		res.send(status.ike);
+	});
+
+	app.get('/ike/text/normal/:value', (req, res) => {
+		IKE.text(req.params.value);
+		res.send(status.ike);
+	});
+
+	app.get('/ike/text/nopad/:value', (req, res) => {
+		IKE.text_nopad(req.params.value);
+		res.send(status.ike);
+	});
+
+	app.get('/ike/text/override/:value', (req, res) => {
+		IKE.text_override(req.params.value);
+		res.send(status.ike);
+	});
+
+	app.get('/ike/text/urgent/:value', (req, res) => {
+		IKE.text_urgent(req.params.value);
+		res.send(status.ike);
+	});
+
+	app.get('/ike/text/urgent/off', (req, res) => {
+		IKE.text_urgent_off();
+		res.send(status.ike);
+	});
+
+	app.get('/ike/text/warning/:value', (req, res) => {
+		IKE.text_warning(req.params.value);
+		res.send(status.ike);
+	});
+
+	app.get('/ike/get/:value', (req, res) => {
+		IKE.request(req.params.value);
+		res.send(status.ike);
+	});
+
+
+	app.post('/tel/led', (req, res) => {
+		TEL.led(req.body);
+		res.send(status.tel);
+	});
+
+
+	app.get('/rad/volume/:value', (req, res) => {
+		RAD.volume_control(req.params.value);
+		res.send(status.rad);
+	});
+
+	app.get('/rad/audio-control/:source', (req, res) => {
+		RAD.send_audio_control(req.params.source);
+		res.send(status.rad);
+	});
+
+
+	app.get('/obc/get/:value', (req, res) => {
+		IKE.obc_data('get', req.params.value);
+		res.send(status.ike);
+	});
+
+	app.get('/obc/get/all', (req, res) => {
+		IKE.obc_refresh();
+		res.send(status.ike);
+	});
+
+	app.get('/obc/set/clock', (req, res) => {
+		IKE.obc_clock();
+		res.send(status.ike);
+	});
+
+	app.reset('/obc/reset/:value', (req, res) => {
+		IKE.obc_data('reset', req.params.value);
+		res.send(status.ike);
+	});
+
+
+	app.get('/lcm/comfort-turn/:action', (req, res) => {
+		LCM.comfort_turn_flash(req.params.action);
+		res.send(status.lcm);
+	});
+
+	app.get('/lcm/io-encode', (req, res) => {
+		LCM.io_encode(req.query);
+		res.send(status.lcm);
+	});
+
+	app.get('/lcm/request/:value', (req, res) => {
+		LCM.request(req.params.value);
+		res.send(status.lcm);
+	});
+
+	app.get('/lcm/welcome-lights/:action', (req, res) => {
+		LCM.welcome_lights(req.params.action);
+		res.send(status.lcm);
+	});
+
 
 	log.msg({ msg : 'Initialized client-only API functions' });
 
