@@ -209,22 +209,22 @@ function init_client(init_client_cb = null) {
 
 	app.get('/obc/get/:value', (req, res) => {
 		IKE.obc_data('get', req.params.value);
-		res.send(status.ike);
+		res.send(status.obc);
 	});
 
 	app.get('/obc/get/all', (req, res) => {
 		IKE.obc_refresh();
-		res.send(status.ike);
+		res.send(status.obc);
 	});
 
 	app.get('/obc/set/clock', (req, res) => {
 		IKE.obc_clock();
-		res.send(status.ike);
+		res.send(status.obc);
 	});
 
-	app.reset('/obc/reset/:value', (req, res) => {
+	app.get('/obc/reset/:value', (req, res) => {
 		IKE.obc_data('reset', req.params.value);
-		res.send(status.ike);
+		res.send(status.obc);
 	});
 
 
