@@ -184,9 +184,12 @@ function refresh() {
 // Send this host's data to connected services to update them
 function send() {
 	// log.msg({ msg : 'Sending host data' });
-
 	socket.send('host-data', status.system);
 }
+
+socket.on('recv-host-data-request', () => {
+	send();
+});
 
 module.exports = {
 	check_result : null,
