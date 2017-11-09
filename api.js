@@ -241,6 +241,7 @@ function init_client(init_client_cb = null) {
 
 
 	app.get('/lcm/comfort-turn/:action', (req, res) => {
+		update.status('lights.turn.depress_elapsed', 0);
 		LCM.comfort_turn_flash(req.params.action);
 		res.send(status.lcm);
 	});
