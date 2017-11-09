@@ -79,6 +79,7 @@
 		"api": false,
 		"app_intf": false,
 		"config": false,
+		"gpio": false,
 		"host_data": false,
 		"log": false,
 		"socket": false,

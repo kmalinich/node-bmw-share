@@ -133,6 +133,18 @@ function init_client(init_client_cb = null) {
 		res.send(status.gm);
 	});
 
+
+	app.get('/gpio/set/:relay/:value', (req, res) => {
+		gpio.set(req.params.relay, req.params.value);
+		res.send(status.gpio);
+	});
+
+	app.get('/gpio/toggle/:relay', (req, res) => {
+		gpio.toggle(req.params.relay);
+		res.send(status.gpio);
+	});
+
+
 	app.get('/ihka/get/:value', (req, res) => {
 		IHKA.request(req.params.value);
 		res.send(status.ihka);
