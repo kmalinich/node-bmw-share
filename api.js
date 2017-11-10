@@ -257,7 +257,7 @@ function init_client(init_client_cb = null) {
 	});
 
 	app.get('/lcm/welcome-lights/:action', (req, res) => {
-		LCM.welcome_lights(req.params.action);
+		LCM.welcome_lights((req.params.action == 'true' || req.params.action == 'on'));
 		res.send(status.lcm);
 	});
 
