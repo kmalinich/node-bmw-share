@@ -251,7 +251,7 @@ function init_client(init_client_cb = null) {
 		res.send(status.lcm);
 	});
 
-	app.get('/lcm/request/:value', (req, res) => {
+	app.get('/lcm/get/:value', (req, res) => {
 		LCM.request(req.params.value);
 		res.send(status.lcm);
 	});

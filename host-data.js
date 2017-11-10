@@ -131,7 +131,7 @@ function refresh_temperature() {
 			break;
 	}
 
-	// log.msg({ msg : 'System temp: '+status.system.temperature+'c' });
+	// log.msg({ msg : 'System temp: ' + status.system.temperature + 'c' });
 }
 
 // Periodically broadcast this host's data to WebSocket clients to update them
@@ -153,11 +153,11 @@ function refresh() {
 
 	let loadavg = os.loadavg();
 	update.status('system.cpu.load.0', loadavg[0], false);
-	update.status('system.cpu.load.1', loadavg[1]);
-	update.status('system.cpu.load.3', loadavg[3]);
+	update.status('system.cpu.load.1', loadavg[1], false);
+	update.status('system.cpu.load.3', loadavg[3], false);
 
-	update.status('system.memory.free',  os.freemem(), false);
-	update.status('system.memory.total', os.totalmem());
+	update.status('system.memory.free',  os.freemem(),  false);
+	update.status('system.memory.total', os.totalmem(), false);
 
 	let free_pct = status.system.memory.free / status.system.memory.total;
 	free_pct = free_pct * 100;
@@ -170,7 +170,7 @@ function refresh() {
 	load_pct = parseFloat(load_pct);
 
 	update.status('system.memory.free_pct', free_pct, false);
-	update.status('system.cpu.load_pct',    load_pct);
+	update.status('system.cpu.load_pct',    load_pct, false);
 
 	if (host_data.timeouts.refresh === null) {
 		log.msg({
