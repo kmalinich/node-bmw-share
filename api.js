@@ -202,6 +202,17 @@ function init_client(init_client_cb = null) {
 	});
 
 
+	app.get('/rls/get/:value', (req, res) => {
+		RLS.request(req.params.value);
+		res.send(status.rls);
+	});
+
+	app.post('/rls/light-control', (req, res) => {
+		RLS.send_light_control_status(req.body);
+		res.send(status.rls);
+	});
+
+
 	app.post('/tel/led', (req, res) => {
 		TEL.led(req.body);
 		res.send(status.tel);
