@@ -187,11 +187,18 @@ function send() {
 	socket.send('host-data', status.system);
 }
 
-socket.on('recv-host-data-request', () => {
-	send();
-});
+// Configure event listeners
+function init_listeners() {
+	socket.on('recv-host-data-request', () => {
+		send();
+	});
+
+	log.msg({ msg : 'Initialized event listeners' });
+}
+
 
 module.exports = {
+	// Variables
 	check_result : null,
 	type         : null,
 
@@ -200,11 +207,12 @@ module.exports = {
 		refresh   : null,
 	},
 
-	init : (init_cb)  => { init(init_cb); },
-	term : (term_cb)  => { term(term_cb); },
-
-	broadcast : () => { broadcast(); },
-	check     : () => { check();     },
-	refresh   : () => { refresh();   },
-	send      : () => { send();      },
+	// Functions
+	broadcast      : broadcast,
+	check          : check,
+	init           : init,
+	init_listeners : init_listeners,
+	refresh        : refresh,
+	send           : send,
+	term           : term,
 };
