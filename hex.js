@@ -31,10 +31,10 @@ function h2s(data) {
 	if (data[0] === 0x24) data = data.slice(3);
 
 	// Cleanup
-	if (data[0] === 0x06) data = data.slice(1);
-	if (data[0] === 0x50) data = data.slice(1);
-	if (data[0] === 0x0E) data = data.slice(1);
-	if (data[0] === 0x00) data = data.slice(1);
+	// if (data[0] === 0x06) data = data.slice(1);
+	// if (data[0] === 0x50) data = data.slice(1);
+	// if (data[0] === 0x0E) data = data.slice(1);
+	// if (data[0] === 0x00) data = data.slice(1);
 
 	// IKE text suffix
 	if (data[data.length - 1] === 0x04) data = data.slice(0, -1);
