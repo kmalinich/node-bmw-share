@@ -27,6 +27,7 @@ function h2s(data) {
 	data = Buffer.from(data);
 
 	// IKE text, BMBT/MID/GT menu text
+	if (data[0] === 0x21) data = data.slice(4); // MID menu
 	if (data[0] === 0x23) data = data.slice(4);
 	if (data[0] === 0x24) data = data.slice(3);
 
