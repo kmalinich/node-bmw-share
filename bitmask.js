@@ -97,6 +97,9 @@ module.exports = {
 			object.array.mask.push(result);
 
 			// Add data to object output
+			object.bits['b' + count] = bit;
+			object.mask['b' + count] = result;
+
 			object.bits['bit' + count] = bit;
 			object.mask['bit' + count] = result;
 
