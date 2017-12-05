@@ -2,8 +2,9 @@
 
 module.exports = {
 	// All 9 bitmasks in hex and dec
+	b   : [ 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x00 ],
 	bit : [ 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x00 ],
-	dec : [   1,    2,    4,    8,   16,   32,   64,  128,    0 ],
+	dec : [    1,    2,    4,    8,   16,   32,   64,  128,    0 ],
 
 	// Test number for all bitmasks and return object
 	// Example output as JSON with 0x89/137 as input
@@ -66,7 +67,8 @@ module.exports = {
 				unset : 0,
 			},
 			array : {
-				bits : [], mask : [],
+				bits : [],
+				mask : [],
 			},
 			bits : {},
 			mask : {},
@@ -97,6 +99,9 @@ module.exports = {
 			object.array.mask.push(result);
 
 			// Add data to object output
+			object.bits['b' + count] = bit;
+			object.mask['b' + count] = result;
+
 			object.bits['bit' + count] = bit;
 			object.mask['bit' + count] = result;
 
@@ -105,6 +110,27 @@ module.exports = {
 		});
 
 		return object;
+	},
+
+	// Create a complete bitmask by setting multiple bits
+	create : (object) => {
+		let mask = 0x00;
+
+		// Init loop counter
+		let count = 0;
+
+		// Loop bits and set bits based on input object
+		bitmask.bit.forEach((bit) => {
+			// Skip fake 9th bitmask
+			if (count === 8) return;
+
+			if (object['b' + count] || object['bit' + count]) mask = bitmask.set(mask, bit);
+
+			// Increment counter
+			count++;
+		});
+
+		return mask;
 	},
 
 	// Test number for bitmask
