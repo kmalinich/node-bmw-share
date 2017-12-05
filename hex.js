@@ -52,7 +52,7 @@ function h2s(data) {
 // Convert integer to hex string
 function i2s(data, prefix = true) {
 	let hexstr = data.toString(16).toUpperCase();
-	if (hexstr.length === 1)    hexstr = '0' + hexstr;
+	if (hexstr.length === 1)    hexstr = '0'  + hexstr;
 	if (prefix        === true) hexstr = '0x' + hexstr;
 	return hexstr;
 }
@@ -61,5 +61,6 @@ module.exports = {
 	a2h : (data) => { return a2h(data); },
 	h2a : (data) => { return h2a(data); },
 	h2s : (data) => { return h2s(data); },
-	i2s : (data) => { return i2s(data); },
+
+	i2s : (data, prefix) => { return i2s(data, prefix); },
 };
