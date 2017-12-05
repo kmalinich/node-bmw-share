@@ -49,10 +49,11 @@ function h2s(data) {
 }
 
 // Convert integer to hex string
-function i2s(data) {
+function i2s(data, prefix = true) {
 	let hexstr = data.toString(16).toUpperCase();
-	let prefix = hexstr.length === 1 && '0x0' || '0x';
-	return prefix + hexstr;
+	if (hexstr.length === 1)    hexstr = '0' + hexstr;
+	if (prefix        === true) hexstr = '0x' + hexstr;
+	return hexstr;
 }
 
 module.exports = {
