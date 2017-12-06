@@ -202,31 +202,35 @@ function init_client(init_client_cb = null) {
 	});
 
 
-	app.get('/rls/get/:value', (req, res) => {
-		RLS.request(req.params.value);
-		res.send(status.rls);
+	app.get('/lcm/comfort-turn/:action', (req, res) => {
+		update.status('lights.turn.depress_elapsed', 0);
+		LCM.comfort_turn_flash(req.params.action);
+		res.send(status.lcm);
 	});
 
-	app.post('/rls/light-control', (req, res) => {
-		RLS.send_light_control_status(req.body);
-		res.send(status.rls);
+	app.get('/lcm/io-encode', (req, res) => {
+		LCM.io_encode(req.query);
+		res.send(status.lcm);
 	});
 
-
-	app.post('/tel/led', (req, res) => {
-		TEL.led(req.body);
-		res.send(status.tel);
+	app.get('/lcm/get/:value', (req, res) => {
+		LCM.request(req.params.value);
+		res.send(status.lcm);
 	});
 
-
-	app.get('/rad/volume/:value', (req, res) => {
-		RAD.volume_control(req.params.value);
-		res.send(status.rad);
+	app.get('/lcm/get/:value', (req, res) => {
+		LCM.request(req.params.value);
+		res.send(status.lcm);
 	});
 
-	app.get('/rad/audio-control/:source', (req, res) => {
-		RAD.send_audio_control(req.params.source);
-		res.send(status.rad);
+	app.get('/lcm/police-lights/:action', (req, res) => {
+		LCM.police((req.params.action == 'true' || req.params.action == 'on'));
+		res.send(status.lcm);
+	});
+
+	app.get('/lcm/welcome-lights/:action', (req, res) => {
+		LCM.welcome_lights((req.params.action == 'true' || req.params.action == 'on'));
+		res.send(status.lcm);
 	});
 
 
@@ -251,25 +255,31 @@ function init_client(init_client_cb = null) {
 	});
 
 
-	app.get('/lcm/comfort-turn/:action', (req, res) => {
-		update.status('lights.turn.depress_elapsed', 0);
-		LCM.comfort_turn_flash(req.params.action);
-		res.send(status.lcm);
+	app.get('/rls/get/:value', (req, res) => {
+		RLS.request(req.params.value);
+		res.send(status.rls);
 	});
 
-	app.get('/lcm/io-encode', (req, res) => {
-		LCM.io_encode(req.query);
-		res.send(status.lcm);
+	app.post('/rls/light-control', (req, res) => {
+		RLS.send_light_control_status(req.body);
+		res.send(status.rls);
 	});
 
-	app.get('/lcm/get/:value', (req, res) => {
-		LCM.request(req.params.value);
-		res.send(status.lcm);
+
+	app.get('/rad/volume/:value', (req, res) => {
+		RAD.volume_control(req.params.value);
+		res.send(status.rad);
 	});
 
-	app.get('/lcm/welcome-lights/:action', (req, res) => {
-		LCM.welcome_lights((req.params.action == 'true' || req.params.action == 'on'));
-		res.send(status.lcm);
+	app.get('/rad/audio-control/:source', (req, res) => {
+		RAD.send_audio_control(req.params.source);
+		res.send(status.rad);
+	});
+
+
+	app.post('/tel/led', (req, res) => {
+		TEL.led(req.body);
+		res.send(status.tel);
 	});
 
 
