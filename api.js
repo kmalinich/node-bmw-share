@@ -208,18 +208,13 @@ function init_client(init_client_cb = null) {
 		res.send(status.lcm);
 	});
 
+	app.get('/lcm/get/:value', (req, res) => {
+		LCM.request(req.params.value);
+		res.send(status.lcm);
+	});
+
 	app.get('/lcm/io-encode', (req, res) => {
 		LCM.io_encode(req.query);
-		res.send(status.lcm);
-	});
-
-	app.get('/lcm/get/:value', (req, res) => {
-		LCM.request(req.params.value);
-		res.send(status.lcm);
-	});
-
-	app.get('/lcm/get/:value', (req, res) => {
-		LCM.request(req.params.value);
 		res.send(status.lcm);
 	});
 
@@ -239,7 +234,7 @@ function init_client(init_client_cb = null) {
 		res.send(status.obc);
 	});
 
-	app.get('/obc/get/all', (req, res) => {
+	app.get('/obc/get-all', (req, res) => {
 		IKE.obc_refresh();
 		res.send(status.obc);
 	});
