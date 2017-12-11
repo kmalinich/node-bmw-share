@@ -81,7 +81,7 @@ function init_client(init_client_cb = null) {
 				full : status[keys.stub],
 			};
 
-			api.emit('status-tx', { key : keys, value : values });
+			socket.emit('status-tx', { key : keys, value : values });
 		});
 
 		// Force refresh data
