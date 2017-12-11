@@ -119,7 +119,7 @@ function init_client(init_client_cb = null) {
 	});
 
 	app.get('/gm/interior-light/:value', (req, res) => {
-		GM.interior_light(req.params.value);
+		GM.interior_light(parseInt(req.params.value));
 		res.send(status.gm);
 	});
 
