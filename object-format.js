@@ -1,6 +1,5 @@
-'use strict';
-
 var _jsonColorizer = require('json-colorizer');
+
 var log = require('log-output');
 
 var _jsonColorizer2 = _interopRequireDefault(_jsonColorizer);

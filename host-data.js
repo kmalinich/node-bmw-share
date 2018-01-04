@@ -106,10 +106,14 @@ function refresh_temperature() {
 	}
 
 	switch (host_data.type) {
-		case 'pi-temperature':
+		case 'pi-temperature' : {
 			system_temp.measure((error, value) => {
 				if (typeof error == 'undefined' || error === null) {
-					update.status('system.temperature', Math.round(value));
+					let temp_value = Math.round(value);
+					// Only output temperature message if over 65 C
+					let verbose = (temp_value >= 65);
+
+					update.status('system.temperature', temp_value, verbose);
 					return;
 				}
 
@@ -118,8 +122,9 @@ function refresh_temperature() {
 				log.msg({ msg : host_data.type + ' error: ' + error });
 			});
 			break;
+		}
 
-		case 'smc':
+		case 'smc' : {
 			// TC0D : Hackintosh
 			// TC0E : 2016 rMBP
 
@@ -127,8 +132,12 @@ function refresh_temperature() {
 			// .. yeah, that's gross
 
 			// Save rounded temp value
-			update.status('system.temperature', Math.round(system_temp.get('TC0D') + system_temp.get('TC0E')));
-			break;
+			let temp_value = Math.round(system_temp.get('TC0D') + system_temp.get('TC0E'));
+			// Only output temperature message if over 65 C
+			let verbose = (temp_value >= 65);
+
+			update.status('system.temperature', temp_value, verbose);
+		}
 	}
 
 	// log.msg({ msg : 'System temp: ' + status.system.temperature + 'c' });
