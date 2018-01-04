@@ -62,30 +62,31 @@ function colorize(string) {
 	string = string.replace('Stopping',      chalk.yellow('Stopping'));
 	string = string.replace('Terminating',   chalk.yellow('Terminating'));
 
+	string = string.replace(' closed',       chalk.red(' closed'));
+	string = string.replace(' disconnected', chalk.red(' disconnected'));
 	string = string.replace('Disconnected',  chalk.red('Disconnected'));
 	string = string.replace('Error',         chalk.red('Error'));
+	string = string.replace('Failed ',       chalk.red('Failed '));
 	string = string.replace('SIGINT',        chalk.red('SIGINT'));
 	string = string.replace('SIGTERM',       chalk.red('SIGTERM'));
 	string = string.replace('Shut down',     chalk.red('Shut down'));
 	string = string.replace('Stopped',       chalk.red('Stopped'));
 	string = string.replace('Terminated',    chalk.red('Terminated'));
 	string = string.replace('Unset',         chalk.red('Unset'));
-	string = string.replace(' closed',       chalk.red(' closed'));
-	string = string.replace(' disconnected', chalk.red(' disconnected'));
 	string = string.replace('error',         chalk.red('error'));
 	string = string.replace('false',         chalk.red('false'));
 
+	string = string.replace(' connected',   chalk.green(' connected'));
+	string = string.replace(' opened',      chalk.green(' opened'));
 	string = string.replace('Connected ',   chalk.green('Connected '));
 	string = string.replace('Initialized',  chalk.green('Initialized'));
-	string = string.replace('Reset ',       chalk.green('Reset '));
 	string = string.replace('Listening ',   chalk.green('Listening '));
 	string = string.replace('Loaded ',      chalk.green('Loaded '));
 	string = string.replace('Read ',        chalk.green('Read '));
+	string = string.replace('Reset ',       chalk.green('Reset '));
 	string = string.replace('Set ',         chalk.green('Set '));
 	string = string.replace('Started',      chalk.green('Started'));
 	string = string.replace('Wrote',        chalk.green('Wrote'));
-	string = string.replace(' connected',   chalk.green(' connected'));
-	string = string.replace(' opened',      chalk.green(' opened'));
 	string = string.replace('true',         chalk.green('true'));
 
 	return string;
