@@ -56,7 +56,7 @@ function colorize(string) {
 	string = string.replace('Attempting',    chalk.yellow('Attempting'));
 	string = string.replace('Connecting',    chalk.yellow('Connecting'));
 	string = string.replace('Initializing',  chalk.yellow('Initializing'));
-	string = string.replace('Reset',         chalk.yellow('Reset'));
+	string = string.replace('Resetting',     chalk.yellow('Resetting'));
 	string = string.replace('Shutting down', chalk.yellow('Shutting down'));
 	string = string.replace('Starting',      chalk.yellow('Starting'));
 	string = string.replace('Stopping',      chalk.yellow('Stopping'));
@@ -77,6 +77,7 @@ function colorize(string) {
 
 	string = string.replace('Connected ',   chalk.green('Connected '));
 	string = string.replace('Initialized',  chalk.green('Initialized'));
+	string = string.replace('Reset ',       chalk.green('Reset '));
 	string = string.replace('Listening ',   chalk.green('Listening '));
 	string = string.replace('Loaded ',      chalk.green('Loaded '));
 	string = string.replace('Read ',        chalk.green('Read '));
@@ -239,6 +240,9 @@ module.exports = {
 		// Bounce if we're supposed to write to stdout
 		if (should_not_output()) return;
 
+		// Handle single-string input
+		if (typeof data === 'string') data = { msg : data };
+
 		data.src = path.parse(caller()).name;
 
 		data.command = 'MESSAGE';
@@ -263,6 +267,9 @@ module.exports = {
 	module : (data) => {
 		// Bounce if we're supposed to write to stdout
 		if (should_not_output()) return;
+
+		// Handle single-string input
+		if (typeof data === 'string') data = { msg : data };
 
 		data.src = path.parse(caller()).name;
 
