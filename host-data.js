@@ -156,8 +156,9 @@ function refresh_temperature() {
 
 		case 'lm_sensors.js' : { // x64 linux
 			system_temp.sensors().then((sensors) => {
-				console.log(JSON.stringify(sensors, null, 2));
-				let temp_value = Math.round(sensors);
+				// .. Not super kosher, but just using the ACPI thermal zone temp
+				// Better than nothing, I suppose
+				let temp_value = Math.round(sensors['acpitz-virtual-0'].sensors.temp1.input);
 
 				// Only output temperature message if over 65 C
 				let verbose = (temp_value >= 65);
