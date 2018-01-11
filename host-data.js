@@ -2,6 +2,15 @@ const os = require('os');
 
 let system_temp;
 
+// Determine supporting library to load
+function get_host_data_type() {
+	switch (process.arch + process.platform) {
+		case 'armlinux'  : return 'pi-temperature';
+		case 'x64darwin' : return 'smc';
+		case 'x64linux'  : return 'lm_sensors.js';
+	}
+}
+
 // Check if we can get temp data
 // (support is on macOS and RPi)
 function check() {
@@ -12,12 +21,12 @@ function check() {
 	host_data.check_result = (process.arch == 'arm' || process.platform == 'darwin');
 
 	// Save host type
-	host_data.type = process.arch == 'arm' && 'pi-temperature' || 'smc';
+	host_data.type = get_host_data_type();
 
 	// Load appropriate temperature library
 	system_temp = require(host_data.type);
 
-	log.msg({ msg : 'Check passed: ' + host_data.check_result + ', type: ' + host_data.type });
+	log.msg('Check passed: ' + host_data.check_result + ', type: ' + host_data.type);
 
 	return host_data.check_result;
 }
@@ -70,7 +79,7 @@ function init(init_callback = null) {
 	refresh();
 	broadcast();
 
-	log.msg({ msg : 'Initialized' });
+	log.msg('Initialized');
 
 	typeof init_callback === 'function' && process.nextTick(init_callback);
 	init_callback = undefined;
@@ -82,17 +91,17 @@ function term(term_callback = null) {
 		clearTimeout(host_data.timeouts.broadcast);
 		host_data.timeouts.broadcast = null;
 
-		log.msg({ msg : 'Unset broadcast timeout' });
+		log.msg('Unset broadcast timeout');
 	}
 
 	if (host_data.timeouts.refresh !== null) {
 		clearTimeout(host_data.timeouts.refresh);
 		host_data.timeouts.refresh = null;
 
-		log.msg({ msg : 'Unset refresh timeout' });
+		log.msg('Unset refresh timeout');
 	}
 
-	log.msg({ msg : 'Terminated' });
+	log.msg('Terminated');
 
 	typeof term_callback === 'function' && process.nextTick(term_callback);
 	term_callback = undefined;
@@ -106,7 +115,7 @@ function refresh_temperature() {
 	}
 
 	switch (host_data.type) {
-		case 'pi-temperature' : {
+		case 'pi-temperature' : { // arm
 			system_temp.measure((error, value) => {
 				if (typeof error == 'undefined' || error === null) {
 					let temp_value = Math.round(value);
@@ -119,12 +128,12 @@ function refresh_temperature() {
 
 				update.status('system.temperature', 0);
 
-				log.msg({ msg : host_data.type + ' error: ' + error });
+				log.msg(host_data.type + ' error: ' + error);
 			});
 			break;
 		}
 
-		case 'smc' : {
+		case 'smc' : { // x64darwin
 			// TC0D : Hackintosh
 			// TC0E : 2016 rMBP
 
@@ -137,16 +146,33 @@ function refresh_temperature() {
 			let verbose = (temp_value >= 65);
 
 			update.status('system.temperature', temp_value, verbose);
+			break;
+		}
+
+		case 'lm_sensors.js' : { // x64 linux
+			system_temp.sensors().then((sensors) => {
+				console.log(JSON.stringify(sensors, null, 2));
+				let temp_value = Math.round(sensors);
+
+				// Only output temperature message if over 65 C
+				let verbose = (temp_value >= 65);
+
+				update.status('system.temperature', temp_value, verbose);
+			}).catch((error) => {
+				update.status('system.temperature', 0);
+
+				log.msg(host_data.type + ' error: ' + error);
+			});
 		}
 	}
 
-	// log.msg({ msg : 'System temp: ' + status.system.temperature + 'c' });
+	log.msg('System temp: ' + status.system.temperature + 'c');
 }
 
 // Periodically broadcast this host's data to WebSocket clients to update them
 function broadcast() {
 	if (host_data.timeouts.broadcast === null) {
-		log.msg({ msg : 'Set broadcast timeout (' + config.system.host_data.refresh_interval + 'ms)' });
+		log.msg('Set broadcast timeout (' + config.system.host_data.refresh_interval + 'ms)');
 	}
 
 	send();
@@ -182,9 +208,7 @@ function refresh() {
 	update.status('system.cpu.load_pct',    load_pct, false);
 
 	if (host_data.timeouts.refresh === null) {
-		log.msg({
-			msg : 'Set refresh timeout (' + config.system.host_data.refresh_interval + 'ms)',
-		});
+		log.msg('Set refresh timeout (' + config.system.host_data.refresh_interval + 'ms)');
 	}
 
 	host_data.timeouts.refresh = setTimeout(refresh, config.system.host_data.refresh_interval);
@@ -192,17 +216,15 @@ function refresh() {
 
 // Send this host's data to connected services to update them
 function send() {
-	// log.msg({ msg : 'Sending host data' });
+	// log.msg('Sending host data');
 	socket.send('host-data', status.system);
 }
 
 // Configure event listeners
 function init_listeners() {
-	socket.on('recv-host-data-request', () => {
-		send();
-	});
+	socket.on('recv-host-data-request', send);
 
-	log.msg({ msg : 'Initialized event listeners' });
+	log.msg('Initialized event listeners');
 }
 
 
