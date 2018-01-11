@@ -18,7 +18,12 @@ function check() {
 	if (host_data.check_result !== null) return host_data.check_result;
 
 	// Save check result
-	host_data.check_result = (process.arch == 'arm' || process.platform == 'darwin');
+	switch (process.arch + process.platform) {
+		case 'armlinux'  : host_data.check_result = true; break;
+		case 'x64darwin' : host_data.check_result = true; break;
+		case 'x64linux'  : host_data.check_result = true; break;
+		default          : host_data.check_result = false;
+	}
 
 	// Save host type
 	host_data.type = get_host_data_type();
