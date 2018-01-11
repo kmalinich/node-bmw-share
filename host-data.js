@@ -80,6 +80,7 @@ function init(init_callback = null) {
 		},
 	};
 
+	check();
 	refresh_temperature();
 	refresh();
 	broadcast();
@@ -172,7 +173,7 @@ function refresh_temperature() {
 		}
 	}
 
-	log.msg('System temp: ' + status.system.temperature + 'c');
+	// log.msg('System temp: ' + status.system.temperature + 'c');
 }
 
 // Periodically broadcast this host's data to WebSocket clients to update them
