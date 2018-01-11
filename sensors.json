@@ -1,298 +1,149 @@
 {
-  "acpitz-virtual-0": {
-    "adapter": "Virtual device",
-    "sensors": {
-      "temp1": {
-        "crit": 106,
-        "input": 27.8,
-        "sensor": "temp"
-      },
-      "temp2": {
-        "crit": 106,
-        "input": 29.8,
-        "sensor": "temp"
-      }
-    }
-  },
-  "coretemp-isa-0000": {
-    "adapter": "ISA adapter",
-    "sensors": {}
-  },
-  "it8772-isa-0a30": {
-    "adapter": "ISA adapter",
-    "sensors": {
-      "3VSB": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 3.288,
-        "max": 1.416,
-        "min": 3.864,
-        "sensor": "in"
-      },
-      "Vbat": {
-        "input": 3.216,
-        "sensor": "in"
-      },
-      "fan1": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 0,
-        "min": 1295,
-        "sensor": "fan"
-      },
-      "fan2": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 0,
-        "min": 72,
-        "sensor": "fan"
-      },
-      "fan3": {
-        "alarm": 0,
-        "beep": 0,
-        "input": 1157,
-        "min": 75,
-        "sensor": "fan"
-      },
-      "in0": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 0.828,
-        "max": 0,
-        "min": 2.352,
-        "sensor": "in"
-      },
-      "in1": {
-        "alarm": 0,
-        "beep": 0,
-        "input": 1.536,
-        "max": 1.608,
-        "min": 0.396,
-        "sensor": "in"
-      },
-      "in2": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 1.056,
-        "max": 1.56,
-        "min": 2.496,
-        "sensor": "in"
-      },
-      "in3": {
-        "alarm": 0,
-        "beep": 0,
-        "input": 1.044,
-        "max": 1.392,
-        "min": 0.864,
-        "sensor": "in"
-      },
-      "in4": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 0.012,
-        "max": 0.012,
-        "min": 2.568,
-        "sensor": "in"
-      },
-      "in5": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 2.22,
-        "max": 0.216,
-        "min": 0.564,
-        "sensor": "in"
-      },
-      "in6": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 2.22,
-        "max": 0.756,
-        "min": 1.56,
-        "sensor": "in"
-      },
-      "intrusion0": {
-        "alarm": 1,
-        "sensor": "intrusion"
-      },
-      "temp1": {
-        "alarm": 0,
-        "beep": 0,
-        "input": 30,
-        "max": 97,
-        "min": 56,
-        "offset": 0,
-        "sensor": "temp",
-        "type": 4
-      },
-      "temp2": {
-        "alarm": 0,
-        "beep": 0,
-        "input": 30,
-        "max": 33,
-        "min": 18,
-        "offset": 100,
-        "sensor": "temp",
-        "type": 3
-      },
-      "temp3": {
-        "alarm": 0,
-        "beep": 0,
-        "input": 22,
-        "max": 113,
-        "min": 20,
-        "offset": 96,
-        "sensor": "temp",
-        "type": 6
-      }
-    }
-  }
-}
-{
-  "acpitz-virtual-0": {
-    "adapter": "Virtual device",
-    "sensors": {
-      "temp1": {
-        "crit": 106,
-        "input": 27.8,
-        "sensor": "temp"
-      },
-      "temp2": {
-        "crit": 106,
-        "input": 29.8,
-        "sensor": "temp"
-      }
-    }
-  },
-  "coretemp-isa-0000": {
-    "adapter": "ISA adapter",
-    "sensors": {}
-  },
-  "it8772-isa-0a30": {
-    "adapter": "ISA adapter",
-    "sensors": {
-      "3VSB": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 3.288,
-        "max": 1.416,
-        "min": 3.864,
-        "sensor": "in"
-      },
-      "Vbat": {
-        "input": 3.216,
-        "sensor": "in"
-      },
-      "fan1": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 0,
-        "min": 1295,
-        "sensor": "fan"
-      },
-      "fan2": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 0,
-        "min": 72,
-        "sensor": "fan"
-      },
-      "fan3": {
-        "alarm": 0,
-        "beep": 0,
-        "input": 1157,
-        "min": 75,
-        "sensor": "fan"
-      },
-      "in0": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 0.828,
-        "max": 0,
-        "min": 2.352,
-        "sensor": "in"
-      },
-      "in1": {
-        "alarm": 0,
-        "beep": 0,
-        "input": 1.536,
-        "max": 1.608,
-        "min": 0.396,
-        "sensor": "in"
-      },
-      "in2": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 1.056,
-        "max": 1.56,
-        "min": 2.496,
-        "sensor": "in"
-      },
-      "in3": {
-        "alarm": 0,
-        "beep": 0,
-        "input": 1.044,
-        "max": 1.392,
-        "min": 0.864,
-        "sensor": "in"
-      },
-      "in4": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 0.012,
-        "max": 0.012,
-        "min": 2.568,
-        "sensor": "in"
-      },
-      "in5": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 2.22,
-        "max": 0.216,
-        "min": 0.564,
-        "sensor": "in"
-      },
-      "in6": {
-        "alarm": 1,
-        "beep": 0,
-        "input": 2.22,
-        "max": 0.756,
-        "min": 1.56,
-        "sensor": "in"
-      },
-      "intrusion0": {
-        "alarm": 1,
-        "sensor": "intrusion"
-      },
-      "temp1": {
-        "alarm": 0,
-        "beep": 0,
-        "input": 30,
-        "max": 97,
-        "min": 56,
-        "offset": 0,
-        "sensor": "temp",
-        "type": 4
-      },
-      "temp2": {
-        "alarm": 0,
-        "beep": 0,
-        "input": 30,
-        "max": 33,
-        "min": 18,
-        "offset": 100,
-        "sensor": "temp",
-        "type": 3
-      },
-      "temp3": {
-        "alarm": 0,
-        "beep": 0,
-        "input": 22,
-        "max": 113,
-        "min": 20,
-        "offset": 96,
-        "sensor": "temp",
-        "type": 6
-      }
-    }
-  }
+	"acpitz-virtual-0": {
+		"adapter": "Virtual device",
+		"sensors": {
+			"temp1": {
+				"crit": 106,
+				"input": 27.8,
+				"sensor": "temp"
+			},
+			"temp2": {
+				"crit": 106,
+				"input": 29.8,
+				"sensor": "temp"
+			}
+		}
+	},
+	"coretemp-isa-0000": {
+		"adapter": "ISA adapter",
+		"sensors": {}
+	},
+	"it8772-isa-0a30": {
+		"adapter": "ISA adapter",
+		"sensors": {
+			"3VSB": {
+				"alarm": 1,
+				"beep": 0,
+				"input": 3.288,
+				"max": 1.416,
+				"min": 3.864,
+				"sensor": "in"
+			},
+			"Vbat": {
+				"input": 3.216,
+				"sensor": "in"
+			},
+			"fan1": {
+				"alarm": 1,
+				"beep": 0,
+				"input": 0,
+				"min": 1295,
+				"sensor": "fan"
+			},
+			"fan2": {
+				"alarm": 1,
+				"beep": 0,
+				"input": 0,
+				"min": 72,
+				"sensor": "fan"
+			},
+			"fan3": {
+				"alarm": 0,
+				"beep": 0,
+				"input": 1157,
+				"min": 75,
+				"sensor": "fan"
+			},
+			"in0": {
+				"alarm": 1,
+				"beep": 0,
+				"input": 0.828,
+				"max": 0,
+				"min": 2.352,
+				"sensor": "in"
+			},
+			"in1": {
+				"alarm": 0,
+				"beep": 0,
+				"input": 1.536,
+				"max": 1.608,
+				"min": 0.396,
+				"sensor": "in"
+			},
+			"in2": {
+				"alarm": 1,
+				"beep": 0,
+				"input": 1.056,
+				"max": 1.56,
+				"min": 2.496,
+				"sensor": "in"
+			},
+			"in3": {
+				"alarm": 0,
+				"beep": 0,
+				"input": 1.044,
+				"max": 1.392,
+				"min": 0.864,
+				"sensor": "in"
+			},
+			"in4": {
+				"alarm": 1,
+				"beep": 0,
+				"input": 0.012,
+				"max": 0.012,
+				"min": 2.568,
+				"sensor": "in"
+			},
+			"in5": {
+				"alarm": 1,
+				"beep": 0,
+				"input": 2.22,
+				"max": 0.216,
+				"min": 0.564,
+				"sensor": "in"
+			},
+			"in6": {
+				"alarm": 1,
+				"beep": 0,
+				"input": 2.22,
+				"max": 0.756,
+				"min": 1.56,
+				"sensor": "in"
+			},
+			"intrusion0": {
+				"alarm": 1,
+				"sensor": "intrusion"
+			},
+			"temp1": {
+				"alarm": 0,
+				"beep": 0,
+				"input": 30,
+				"max": 97,
+				"min": 56,
+				"offset": 0,
+				"sensor": "temp",
+				"type": 4
+			},
+			"temp2": {
+				"alarm": 0,
+				"beep": 0,
+				"input": 30,
+				"max": 33,
+				"min": 18,
+				"offset": 100,
+				"sensor": "temp",
+				"type": 3
+			},
+			"temp3": {
+				"alarm": 0,
+				"beep": 0,
+				"input": 22,
+				"max": 113,
+				"min": 20,
+				"offset": 96,
+				"sensor": "temp",
+				"type": 6
+			}
+		}
+	}
 }
