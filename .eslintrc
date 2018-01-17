@@ -1,10 +1,10 @@
 {
 	"env": {
-		"browser": true,
+		"browser": false,
 		"es6": true,
-		"jquery": true,
+		"jquery": false,
 		"node": true,
-		"worker": true
+		"worker": false
 	},
 	"extends": [
 		"eslint:recommended"
@@ -78,16 +78,30 @@
 		"VID": false,
 		"api": false,
 		"app_intf": false,
-		"config": false,
+		"app_name": false,
+		"app_path": false,
+		"bitmask": false,
+		"bluetooth": false,
+		"bus": false,
+		"config": true,
 		"gpio": false,
+		"hdmi": false,
+		"hex": false,
 		"host_data": false,
+		"json": false,
+		"kodi": false,
 		"log": false,
+		"notify": false,
+		"obc_values": false,
+		"objfmt": false,
+		"os": false,
 		"socket": false,
-		"status": false,
-		"update": false
+		"status": true,
+		"update": false,
+		"weather": false
 	},
 	"parserOptions": {
-		"ecmaVersion": 6,
+		"ecmaVersion": 2017,
 		"sourceType": "module"
 	},
 	"plugins": [
