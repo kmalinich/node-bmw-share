@@ -295,6 +295,11 @@ function init(init_cb = null) {
 		res.send(config);
 	});
 
+	app.post('/config', (req, res) => {
+		config = req.body;
+		res.send(config);
+	});
+
 	app.get('/console', (req, res) => {
 		update.config('console.output', !config.console.output);
 		res.send(config.console);
