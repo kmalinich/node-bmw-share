@@ -134,6 +134,17 @@ function init_client(init_client_cb = null) {
 	});
 
 
+	app.get('/hdmi/cec/command/:action', (req, res) => {
+		hdmi_cec.command(req.params.action);
+		res.send(status.hdmi.cec);
+	});
+
+	app.get('/hdmi/rpi/command/:action', (req, res) => {
+		hdmi_rpi.command(req.params.action);
+		res.send(status.hdmi.rpi);
+	});
+
+
 	app.get('/gpio/set/:relay/:value', (req, res) => {
 		gpio.set(parseInt(req.params.relay), parseInt(req.params.value));
 		res.send(status.gpio);
