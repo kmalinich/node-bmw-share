@@ -1,8 +1,7 @@
-/* eslint no-console: "off" */
+/* eslint no-console: 0 */
 
 const align    = require('multipad');
 const caller   = require('callers-path');
-const pad      = require('pad');
 const path     = require('path');
 const trucolor = require('trucolor');
 
@@ -155,9 +154,9 @@ module.exports = {
 		}
 
 		// Pad strings
-		data.bus      = pad(2, data.bus);
-		data.src.name = pad(9, data.src.name);
-		data.dst.name = pad(data.dst.name, 10);
+		data.bus      = data.bus.padStart(2);
+		data.src.name = data.src.name.padStart(9);
+		data.dst.name = data.dst.name.padEnd(10);
 		data.command  = center(data.command, 21);
 
 		// Colorize source and destination
@@ -166,25 +165,25 @@ module.exports = {
 
 		// Colorize bus
 		switch (data.bus_orig) {
-			case 'can0' : data.bus = chalk.orange('C1'); break;
-			case 'can1' : data.bus = chalk.orange('C2'); break;
-			case 'dbus' : data.bus = chalk.red(data.bus); break;
-			case 'ibus' : data.bus = chalk.cyan(data.bus); break;
+			case 'can0' : data.bus = chalk.orange('C1');     break;
+			case 'can1' : data.bus = chalk.orange('C2');     break;
+			case 'dbus' : data.bus = chalk.red(data.bus);    break;
+			case 'ibus' : data.bus = chalk.cyan(data.bus);   break;
 			case 'kbus' : data.bus = chalk.yellow(data.bus); break;
-			case 'node' : data.bus = chalk.pink(data.bus); break;
+			case 'node' : data.bus = chalk.pink(data.bus);   break;
 			default     : data.bus = chalk.pink(data.bus);
 		}
 
 		// Colorize command
 		switch (data.command_orig) {
 			case 'ack' : data.command = chalk.green(data.command); break;
-			case 'bro' : data.command = chalk.pink(data.command); break;
-			case 'con' : data.command = chalk.red(data.command); break;
+			case 'bro' : data.command = chalk.pink(data.command);  break;
+			case 'con' : data.command = chalk.red(data.command);   break;
 			case 'rep' : data.command = chalk.green(data.command); break;
-			case 'req' : data.command = chalk.cyan(data.command); break;
-			case 'sta' : data.command = chalk.blue(data.command); break;
-			case 'upd' : data.command = chalk.blue(data.command); break;
-			default    : data.command = chalk.yellow(data.command); break;
+			case 'req' : data.command = chalk.cyan(data.command);  break;
+			case 'sta' : data.command = chalk.blue(data.command);  break;
+			case 'upd' : data.command = chalk.blue(data.command);  break;
+			default    : data.command = chalk.yellow(data.command);
 		}
 
 		// Replace and colorize true/false
@@ -328,23 +327,23 @@ module.exports = {
 		// Colorize strings
 		switch (data.orig.method) {
 			case 'tx' : data.method = chalk.red(data.method.toUpperCase()); break;
-			default   : data.method = chalk.green(data.method.toUpperCase()); break;
+			default   : data.method = chalk.green(data.method.toUpperCase());
 		}
 
 		switch (data.orig.type) {
-			case 'client' : data.type = chalk.blue(center(data.type.toUpperCase(), 21)); break;
-			default       : data.type = chalk.orange(center(data.type.toUpperCase(), 21)); break;
+			case 'client' : data.type = chalk.blue(center(data.type.toUpperCase(), 21));   break;
+			default       : data.type = chalk.orange(center(data.type.toUpperCase(), 21));
 		}
 
 		data.event = center(data.event, 21);
 		switch (data.orig.event) {
-			case 'bus-data'          : data.event = chalk.blue(data.event); break;
-			case 'lcd-text'          : data.event = chalk.cyan(data.event); break;
-			case 'log-bus'           : data.event = chalk.green(data.event); break;
-			case 'log-msg'           : data.event = chalk.gray(data.event); break;
-			case 'host-data'         : data.event = chalk.pink(data.event); break;
+			case 'bus-data'          : data.event = chalk.blue(data.event);   break;
+			case 'lcd-text'          : data.event = chalk.cyan(data.event);   break;
+			case 'log-bus'           : data.event = chalk.green(data.event);  break;
+			case 'log-msg'           : data.event = chalk.gray(data.event);   break;
+			case 'host-data'         : data.event = chalk.pink(data.event);   break;
 			case 'host-data-request' : data.event = chalk.purple(data.event); break;
-			default                  : data.event = chalk.orange(data.event); break;
+			default                  : data.event = chalk.orange(data.event);
 		}
 
 		// Output formatted string
