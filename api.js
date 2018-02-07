@@ -92,6 +92,11 @@ function init_client(init_client_cb = null) {
 
 
 	// Some of these are shameful
+	app.get('/con1/backlight/:value', (req, res) => {
+		CON1.send_backlight(parseInt(req.params.value));
+		res.send(status.con1);
+	});
+
 	app.get('/dsp/mode/:mode', (req, res) => {
 		DSP.dsp_mode(req.params.mode);
 		res.send(status.dsp);
