@@ -125,7 +125,7 @@ module.exports = {
 
 		// Add dst, mirroring src, if dst is missing,
 		// loose validation in logic (no typecheck)
-		if (typeof data.dst == 'undefined' || data.dst == null) {
+		if (typeof data.dst === 'undefined' || data.dst === null) {
 			data.dst = data.src;
 		}
 
@@ -213,8 +213,8 @@ module.exports = {
 		data.command_fmt = center(data.command, 21);
 
 		// Catch nulls
-		if (typeof data.old === 'undefined' || data.old == null) data.old = 'null';
-		if (typeof data.new === 'undefined' || data.new == null) data.new = 'null';
+		if (typeof data.old === 'undefined' || data.old === null) data.old = 'null';
+		if (typeof data.new === 'undefined' || data.new === null) data.new = 'null';
 
 		// Colorize strings
 		data.src_fmt     = chalk.cyan(data.src_fmt);

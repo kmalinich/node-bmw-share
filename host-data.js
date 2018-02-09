@@ -123,7 +123,7 @@ function refresh_temperature() {
 	switch (host_data.type) {
 		case 'pi-temperature' : { // arm
 			system_temp.measure((error, value) => {
-				if (typeof error == 'undefined' || error === null) {
+				if (typeof error === 'undefined' || error === null) {
 					let temp_value = Math.round(value);
 					// Only output temperature message if over 65 C
 					let verbose = (temp_value >= 65);
