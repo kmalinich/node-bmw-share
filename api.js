@@ -97,6 +97,13 @@ function init_client(init_client_cb = null) {
 		res.send(status.con1);
 	});
 
+
+	app.get('/dme1/encode-316/:rpm', (req, res) => {
+		DME1.encode_316(req.params.rpm);
+		res.send(status.dme1);
+	});
+
+
 	app.get('/dsp/mode/:mode', (req, res) => {
 		DSP.dsp_mode(req.params.mode);
 		res.send(status.dsp);
