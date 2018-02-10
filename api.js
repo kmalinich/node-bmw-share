@@ -99,7 +99,7 @@ function init_client(init_client_cb = null) {
 
 
 	app.get('/dme1/encode-316/:rpm', (req, res) => {
-		DME1.encode_316(req.params.rpm);
+		DME1.encode_316(parseInt(req.params.rpm));
 		res.send(status.dme1);
 	});
 
