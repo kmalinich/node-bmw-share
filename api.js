@@ -294,6 +294,11 @@ function init_client(init_client_cb = null) {
 		res.send(status.rad);
 	});
 
+	app.get('/rad/cassette-control/:command', (req, res) => {
+		RAD.send_cassette_control(req.params.command);
+		res.send(status.rad);
+	});
+
 
 	app.post('/tel/led', (req, res) => {
 		TEL.led(req.body);
