@@ -158,12 +158,12 @@ function init_client(init_client_cb = null) {
 
 
 	app.get('/gpio/set/:relay/:value', (req, res) => {
-		gpio.set(parseInt(req.params.relay), parseInt(req.params.value));
+		gpio.set(req.params.relay, req.params.value);
 		res.send(status.gpio);
 	});
 
 	app.get('/gpio/toggle/:relay', (req, res) => {
-		gpio.toggle(parseInt(req.params.relay));
+		gpio.toggle(req.params.relay);
 		res.send(status.gpio);
 	});
 
