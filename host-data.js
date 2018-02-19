@@ -91,18 +91,18 @@ function init(init_callback = null) {
 	init_callback = undefined;
 }
 
-// Cancel timeouts
+// Cancel timeout
 function term(term_callback = null) {
-	if (host_data.timeouts.broadcast !== null) {
-		clearTimeout(host_data.timeouts.broadcast);
-		host_data.timeouts.broadcast = null;
+	if (host_data.timeout.broadcast !== null) {
+		clearTimeout(host_data.timeout.broadcast);
+		host_data.timeout.broadcast = null;
 
 		log.msg('Unset broadcast timeout');
 	}
 
-	if (host_data.timeouts.refresh !== null) {
-		clearTimeout(host_data.timeouts.refresh);
-		host_data.timeouts.refresh = null;
+	if (host_data.timeout.refresh !== null) {
+		clearTimeout(host_data.timeout.refresh);
+		host_data.timeout.refresh = null;
 
 		log.msg('Unset refresh timeout');
 	}
@@ -180,13 +180,13 @@ function refresh_temperature() {
 
 // Periodically broadcast this host's data to WebSocket clients to update them
 function broadcast() {
-	if (host_data.timeouts.broadcast === null) {
+	if (host_data.timeout.broadcast === null) {
 		log.msg('Set broadcast timeout (' + config.system.host_data.refresh_interval + 'ms)');
 	}
 
 	send();
 
-	host_data.timeouts.broadcast = setTimeout(broadcast, config.system.host_data.refresh_interval);
+	host_data.timeout.broadcast = setTimeout(broadcast, config.system.host_data.refresh_interval);
 }
 
 // Refresh host data
@@ -216,11 +216,11 @@ function refresh() {
 	update.status('system.memory.free_pct', free_pct, false);
 	update.status('system.cpu.load_pct',    load_pct, false);
 
-	if (host_data.timeouts.refresh === null) {
+	if (host_data.timeout.refresh === null) {
 		log.msg('Set refresh timeout (' + config.system.host_data.refresh_interval + 'ms)');
 	}
 
-	host_data.timeouts.refresh = setTimeout(refresh, config.system.host_data.refresh_interval);
+	host_data.timeout.refresh = setTimeout(refresh, config.system.host_data.refresh_interval);
 }
 
 // Send this host's data to connected services to update them
@@ -242,7 +242,7 @@ module.exports = {
 	check_result : null,
 	type         : null,
 
-	timeouts : {
+	timeout : {
 		broadcast : null,
 		refresh   : null,
 	},
