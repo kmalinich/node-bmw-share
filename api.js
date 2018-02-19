@@ -93,7 +93,7 @@ function init_client(init_client_cb = null) {
 
 	// Some of these are shameful
 	app.get('/con1/backlight/:value', (req, res) => {
-		CON1.send_backlight(parseInt(req.params.value));
+		CON1.backlight(parseInt(req.params.value));
 		res.send(status.con1);
 	});
 
@@ -279,7 +279,7 @@ function init_client(init_client_cb = null) {
 	});
 
 	app.post('/rls/light-control', (req, res) => {
-		RLS.send_light_control_status(req.body);
+		RLS.light_control_status(req.body);
 		res.send(status.rls);
 	});
 
@@ -290,12 +290,12 @@ function init_client(init_client_cb = null) {
 	});
 
 	app.get('/rad/audio-control/:source', (req, res) => {
-		RAD.send_audio_control(req.params.source);
+		RAD.audio_control(req.params.source);
 		res.send(status.rad);
 	});
 
 	app.get('/rad/cassette-control/:command', (req, res) => {
-		RAD.send_cassette_control(req.params.command);
+		RAD.cassette_control(req.params.command);
 		res.send(status.rad);
 	});
 
