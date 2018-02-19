@@ -284,18 +284,23 @@ function init_client(init_client_cb = null) {
 	});
 
 
-	app.get('/rad/volume/:value', (req, res) => {
-		RAD.volume_control(req.params.value);
-		res.send(status.rad);
-	});
-
-	app.get('/rad/audio-control/:source', (req, res) => {
-		RAD.audio_control(req.params.source);
-		res.send(status.rad);
-	});
-
-	app.get('/rad/cassette-control/:command', (req, res) => {
+	app.get('/rad/cassette/:command', (req, res) => {
 		RAD.cassette_control(req.params.command);
+		res.send(status.rad);
+	});
+
+	app.get('/rad/power/:command', (req, res) => {
+		RAD.audio_power(req.params.command);
+		res.send(status.rad);
+	});
+
+	app.get('/rad/source/:command', (req, res) => {
+		RAD.audio_control(req.params.command);
+		res.send(status.rad);
+	});
+
+	app.get('/rad/volume/:command', (req, res) => {
+		RAD.volume_control(parseInt(req.params.command));
 		res.send(status.rad);
 	});
 
