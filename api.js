@@ -114,6 +114,11 @@ function init_client(init_client_cb = null) {
 		res.send(status.dsp);
 	});
 
+	app.get('/dsp/eq/:band/:value', (req, res) => {
+		DSP.eq_delta(req.params.band, req.params.value);
+		res.send(status.dsp);
+	});
+
 	app.get('/dsp/get/:value', (req, res) => {
 		DSP.request(req.params.value);
 		res.send(status.dsp);
