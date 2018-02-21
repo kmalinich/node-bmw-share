@@ -36,7 +36,7 @@ const arbids = {
 	'0x1D6' : 'SZL1', // Steering wheel controls
 	'0x000' : 'NBT1',
 
-	// Nobody has ever heard of these
+	// Appears to be message priority inversion
 	'0x77C' : '',
 	'0x77F' : '',
 	'0x7B5' : '',
