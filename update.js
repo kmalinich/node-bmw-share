@@ -1,7 +1,3 @@
-/* global config log status socket */
-
-const module_name = __filename.slice(__dirname.length + 1, -3);
-
 const object_path = require('object-path');
 
 // WIP
@@ -24,7 +20,6 @@ function update_config(key, value_new, verbose = true) {
 
 	if (verbose === true) {
 		log.change({
-			src   : module_name,
 			value : 'config.' + key,
 			old   : value_old,
 			new   : value_new,
@@ -60,7 +55,6 @@ function update_status(key, value_new, verbose = true) {
 
 	if (verbose === true) {
 		log.change({
-			src   : module_name,
 			value : 'status.' + key,
 			old   : value_old,
 			new   : value_new,

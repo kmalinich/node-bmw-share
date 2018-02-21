@@ -1,9 +1,4 @@
-/* global config log */
-
-const module_name = __filename.slice(__dirname.length + 1, -3);
-
 const chump = require('chump');
-
 
 // Send Pushover notification
 function notify(string) {
@@ -43,20 +38,14 @@ function notify(string) {
 	// Send the message, handle result within a Promise
 	client.sendMessage(message)
 		.then(() => {
-			log.msg({
-				src : module_name,
-				msg : method + ' notification sent',
-			});
+			log.msg(method + ' notification sent');
 		})
 		.catch((error) => {
-			log.msg({
-				src : module_name,
-				msg : method + ' error occured: ' + error,
-			});
+			log.msg(method + ' error occured: ' + error);
 		});
 }
 
 
 module.exports = {
-	notify : (string) => { notify(string); },
+	notify : notify,
 };
