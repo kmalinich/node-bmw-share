@@ -124,6 +124,11 @@ function init_client(init_client_cb = null) {
 		res.send(status.dsp);
 	});
 
+	app.get('/dsp/speaker-test/:command', (req, res) => {
+		DSP.speaker_test(req.params.command);
+		res.send(status.dsp);
+	});
+
 	app.post('/dsp/eq', (req, res) => {
 		DSP.eq_encode(req.body);
 		res.send(status.dsp);
