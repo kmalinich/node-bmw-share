@@ -145,8 +145,22 @@ function init_client(init_client_cb = null) {
 		res.send(status.gm);
 	});
 
+	app.get('/gm/mirror/:mirror/:action', (req, res) => {
+		GM.mirrors({
+			action : req.params.action,
+			mirror : req.params.mirror,
+		});
+
+		res.send(status.gm);
+	});
+
 	app.post('/gm/locks', (req, res) => {
 		GM.locks(req.body);
+		res.send(status.gm);
+	});
+
+	app.post('/gm/mirrors', (req, res) => {
+		GM.mirrors(req.body);
 		res.send(status.gm);
 	});
 
