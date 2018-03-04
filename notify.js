@@ -2,6 +2,11 @@ const chump = require('chump');
 
 // Send Pushover notification
 function notify(string) {
+	// Skip if config isn't loaded yet
+	if (typeof config                     === 'undefined' || config                     === null) return false;
+	if (typeof config.notification        === 'undefined' || config.notification        === null) return false;
+	if (typeof config.notification.method === 'undefined' || config.notification.method === null) return false;
+
 	let method = config.notification.method;
 	if (method !== 'pushover') return false;
 
