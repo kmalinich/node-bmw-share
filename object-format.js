@@ -1,13 +1,15 @@
-var _jsonColorizer = require('json-colorizer');
+/* eslint no-console : 0 */
 
-var log = require('log-output');
+let _jsonColorizer = require('json-colorizer');
 
-var _jsonColorizer2 = _interopRequireDefault(_jsonColorizer);
+let log = require('log-output');
+
+let _jsonColorizer2 = _interopRequireDefault(_jsonColorizer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default : obj }; }
 
 function object_format(object) {
-	var json = {
+	let json = {
 		str : JSON.stringify(object, null, 2),
 		opt : {
 			colors : {
@@ -27,7 +29,7 @@ function object_format(object) {
 		},
 	};
 
-	return (0, _jsonColorizer2.default)(json.str, json.opt);
+	console.log((0, _jsonColorizer2.default)(json.str, json.opt));
 }
 
 module.exports = object_format;
