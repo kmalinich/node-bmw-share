@@ -20,17 +20,17 @@ const arbids = {
 	'0x7C3' : 'CAS1', // Keyfob
 
 
+	'0xBF'  : 'CON1', // Touchpad
 	'0x0BF' : 'CON1', // Touchpad
 	'0x264' : 'CON1', // Rotation
 	'0x267' : 'CON1', // Buttons
-	'0x277' : 'CON1', // CON1->NBT1 ACK of init
+	'0x273' : 'CON1', // NBT1->CON1 init message
 	'0x4E7' : 'CON1', // Status
 	'0x5E7' : 'CON1', // Status
 
-	'0x000' : 'NBT1',
 	'0x228' : 'NBT1',
 	'0x24F' : 'NBT1',
-	'0x273' : 'NBT1', // NBT1->CON1 init message
+	'0x277' : 'NBT1', // CON1->NBT1 ACK init
 	'0x278' : 'NBT1',
 	'0x27A' : 'NBT1',
 	'0x341' : 'NBT1',
@@ -60,6 +60,7 @@ const arbids = {
 	'0x3B7' : '', // Window status LR
 	'0x3B8' : '', // Window status RF
 	'0x3B9' : '', // Window status RR
+	'0xFA'  : '', // Window commands
 	'0x0FA' : '', // Window commands
 	'0x1E7' : '', // Seat heating
 	'0x1C0' : 'ASC1', // Vehicle speed
