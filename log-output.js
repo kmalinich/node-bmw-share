@@ -123,8 +123,7 @@ module.exports = {
 			case 'speed values'  : return;
 		}
 
-		// Add dst, mirroring src, if dst is missing,
-		// loose validation in logic (no typecheck)
+		// Add dst by mirroring src if dst is missing
 		if (typeof data.dst === 'undefined' || data.dst === null) {
 			data.dst = data.src;
 		}
@@ -165,8 +164,8 @@ module.exports = {
 
 		// Colorize bus
 		switch (data.bus_orig) {
-			case 'can0' : data.bus = chalk.orange('C1');     break;
-			case 'can1' : data.bus = chalk.orange('C2');     break;
+			case 'can0' : data.bus = chalk.orange('C0');     break;
+			case 'can1' : data.bus = chalk.orange('C1');     break;
 			case 'dbus' : data.bus = chalk.red(data.bus);    break;
 			case 'ibus' : data.bus = chalk.cyan(data.bus);   break;
 			case 'kbus' : data.bus = chalk.yellow(data.bus); break;
