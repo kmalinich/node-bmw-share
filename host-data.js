@@ -233,7 +233,7 @@ function send() {
 function init_listeners() {
 	socket.on('recv-host-data-request', send);
 
-	log.msg('Initialized event listeners');
+	log.msg('Initialized listeners');
 }
 
 
