@@ -6,7 +6,9 @@ let log = require('log-output');
 
 let _jsonColorizer2 = _interopRequireDefault(_jsonColorizer);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default : obj }; }
+function _interopRequireDefault(obj) {
+	return obj && obj.__esModule ? obj : { default : obj };
+}
 
 function object_format(object) {
 	let json = {
