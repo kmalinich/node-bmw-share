@@ -233,6 +233,11 @@ function send() {
 function init_listeners() {
 	socket.on('recv-host-data-request', send);
 
+	// Send this host's data on server connection
+	update.on('status.server.connected', (data) => {
+		if (data.new === true) send();
+	});
+
 	log.msg('Initialized listeners');
 }
 
