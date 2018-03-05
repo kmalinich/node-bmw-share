@@ -154,6 +154,11 @@ function init_client(init_client_cb = null) {
 		res.send(status.gm);
 	});
 
+	app.get('/gm/sealed/:value', (req, res) => {
+		update.status('doors.sealed', (req.params.value === 'true'));
+		res.send(status.gm);
+	});
+
 	app.post('/gm/decode_status_open', (req, res) => {
 		GM.decode_status_open(req.body);
 		res.send(status.gm);
