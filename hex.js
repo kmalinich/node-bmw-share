@@ -51,6 +51,8 @@ function h2s(data) {
 
 // Convert integer to hex string
 function i2s(data, prefix = true) {
+	if (typeof data === 'undefined' || data === null || data === '') return false;
+
 	let hexstr = data.toString(16).toUpperCase();
 	if (hexstr.length === 1)    hexstr = '0'  + hexstr;
 	if (prefix        === true) hexstr = '0x' + hexstr;
