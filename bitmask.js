@@ -55,6 +55,7 @@ module.exports = {
 	check : (num) => {
 		// Bounce if it's over a single-bit bitmask (over 0xFF/255)
 		if (num > 0xFF) return false;
+		if (typeof num === 'undefined' || num === null || num === '') return false;
 
 		// Init return object
 		let object = {
