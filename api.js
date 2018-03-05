@@ -71,17 +71,17 @@ function init_client(init_client_cb = null) {
 		];
 
 		array_status.forEach((key) => {
-			let keys = {
-				stub : key.split('.')[0],
-				full : key,
-			};
+			socket.emit('status-tx', {
+				key : {
+					stub : key.split('.')[0],
+					full : key,
+				},
 
-			let values = {
-				stub : object_path.get(status, key),
-				full : status[keys.stub],
-			};
-
-			socket.emit('status-tx', { key : keys, value : values });
+				value : {
+					stub : object_path.get(status, key),
+					full : status[key.split('.')[0]],
+				},
+			});
 		});
 
 		// Force refresh data
@@ -294,6 +294,12 @@ function init_client(init_client_cb = null) {
 	app.get('/obc/reset/:value', (req, res) => {
 		IKE.obc_data('reset', req.params.value);
 		res.send(status.obc);
+	});
+
+
+	app.get('/power/:state', (req, res) => {
+		power.power(req.params.state);
+		res.send(status.power);
 	});
 
 

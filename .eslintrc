@@ -95,7 +95,7 @@
 		"notify": false,
 		"obc_values": false,
 		"objfmt": false,
-		"os": false,
+		"power": false,
 		"socket": false,
 		"status": true,
 		"update": false,
