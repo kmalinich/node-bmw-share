@@ -30,7 +30,18 @@ class update extends EventEmitter {
 
 		if (app_intf === 'cli') return true;
 
-		let data_api = {
+		let data_emit_key = 'config.' + key;
+		let data_emit     = {
+			old : value_old,
+			new : value_new,
+		};
+
+		this.emit(data_emit_key, data_emit);
+
+		data_emit.key = data_emit_key;
+		this.emit('config', data_emit);
+
+		api.emit('config-tx', {
 			key : {
 				stub : key.split('.')[0],
 				full : key,
@@ -39,11 +50,7 @@ class update extends EventEmitter {
 				stub : object_path.get(config, key),
 				full : config[key.split('.')[0]],
 			},
-		};
-
-		api.emit('config-tx', data_api);
-
-		this.emit(key, value_new);
+		});
 
 		return true;
 	}
@@ -66,7 +73,18 @@ class update extends EventEmitter {
 
 		if (app_intf === 'cli') return true;
 
-		let data_api = {
+		let data_emit_key = 'status.' + key;
+		let data_emit     = {
+			old : value_old,
+			new : value_new,
+		};
+
+		this.emit(data_emit_key, data_emit);
+
+		data_emit.key = data_emit_key;
+		this.emit('status', data_emit);
+
+		api.emit('status-tx', {
 			key : {
 				stub : key.split('.')[0],
 				full : key,
@@ -75,11 +93,7 @@ class update extends EventEmitter {
 				stub : object_path.get(status, key),
 				full : status[key.split('.')[0]],
 			},
-		};
-
-		api.emit('status-tx', data_api);
-
-		this.emit(key, value_new);
+		});
 
 		return true;
 	}
