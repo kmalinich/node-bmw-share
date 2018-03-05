@@ -92,12 +92,6 @@ function init_client(init_client_cb = null) {
 
 
 	// Some of these are shameful
-	app.get('/con1/backlight/:value', (req, res) => {
-		CON1.backlight(parseInt(req.params.value));
-		res.send(status.con1);
-	});
-
-
 	app.get('/dme1/encode-316/:rpm', (req, res) => {
 		DME1.encode_316(parseInt(req.params.rpm));
 		res.send(status.dme1);
@@ -132,6 +126,12 @@ function init_client(init_client_cb = null) {
 	app.post('/dsp/eq', (req, res) => {
 		DSP.eq_encode(req.body);
 		res.send(status.dsp);
+	});
+
+
+	app.get('/fem1/backlight/:value', (req, res) => {
+		FEM1.backlight(parseInt(req.params.value));
+		res.send(status.con1);
 	});
 
 
