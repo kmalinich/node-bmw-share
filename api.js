@@ -131,7 +131,7 @@ function init_client(init_client_cb = null) {
 
 	app.get('/fem1/backlight/:value', (req, res) => {
 		FEM1.backlight(parseInt(req.params.value));
-		res.send(status.con1);
+		res.send(status.fem1);
 	});
 
 
