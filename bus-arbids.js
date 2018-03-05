@@ -4,7 +4,7 @@
 // NBT1 : NBT_HU (HW07)
 const arbids = {
 	// Related to iDrive CON1 - ripped from E90/F10/G30
-	'0x202' : 'FEM1',  // Backlight dimmer
+	'0x202' : 'FEM1', // Backlight dimmer
 
 	'0x4F8' : 'KOMBI1', // Ignition status
 
