@@ -12,8 +12,8 @@ const object_path  = require('object-path');
 
 
 class update extends EventEmitter {
-	// update('system.host_data.refresh_interval', 15000, true);
-	update_config(key, value_new, verbose = true) {
+	// update.config('system.host_data.refresh_interval', 15000, true);
+	config(key, value_new, verbose = true) {
 		let value_old = object_path.get(config, key);
 
 		if (value_new === value_old) return false;
@@ -48,8 +48,8 @@ class update extends EventEmitter {
 		return true;
 	}
 
-	// update('engine.rpm', 1235, false);
-	update_status(key, value_new, verbose = true) {
+	// update.status('engine.rpm', 1235, false);
+	status(key, value_new, verbose = true) {
 		let value_old = object_path.get(status, key);
 
 		if (value_new === value_old) return false;
