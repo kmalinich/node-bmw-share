@@ -125,7 +125,9 @@ module.exports = {
 
 		// Add dst by mirroring src if dst is missing
 		if (typeof data.dst === 'undefined' || data.dst === null) {
-			data.dst = data.src;
+			data.dst = {
+				name : data.src.name,
+			};
 		}
 
 		// Save original strings
@@ -154,8 +156,8 @@ module.exports = {
 
 		// Pad strings
 		data.bus      = data.bus.padStart(2);
-		data.src.name = data.src.name.padStart(9);
-		data.dst.name = data.dst.name.padEnd(10);
+		data.dst.name = data.dst.name_orig.padEnd(10);
+		data.src.name = data.src.name_orig.padStart(9);
 		data.command  = center(data.command, 21);
 
 		// Colorize source and destination
