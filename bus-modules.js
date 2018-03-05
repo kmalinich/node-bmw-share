@@ -82,25 +82,30 @@ const modules_check = [
 	'RLS',
 ];
 
+
+// 0x80 -> IKE
+function h2n(hex) {
+	for (let name in modules) {
+		if (modules[name] === hex) return name;
+	}
+
+	// Didn't find it
+	return 'unk';
+}
+
+// IKE -> 0x80
+function n2h(name) {
+	if (typeof modules[name] !== 'undefined' && modules[name]) return modules[name];
+
+	// Didn't find it
+	return 0x00;
+}
+
+
 module.exports = {
 	modules       : modules,
 	modules_check : modules_check,
 
-	// 0x80 -> IKE
-	h2n : (hex) => {
-		for (let name in modules) {
-			if (modules[name] === hex) return name;
-		}
-
-		// Didn't find it
-		return 'unk';
-	},
-
-	// IKE -> 0x80
-	n2h : (name) => {
-		if (typeof modules[name] !== 'undefined' && modules[name]) return modules[name];
-
-		// Didn't find it
-		return 0x00;
-	},
+	h2n : h2n,
+	n2h : n2h,
 };
