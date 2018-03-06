@@ -291,6 +291,16 @@ function init_client(init_client_cb = null) {
 	});
 
 
+	app.get('/mfl/translate-button-media/:action/:button', (req, res) => {
+		MFL.translate_button_media({
+			action : req.params.action,
+			button : req.params.button,
+		});
+
+		res.send(status.mfl);
+	});
+
+
 	app.get('/obc/get/:value', (req, res) => {
 		IKE.obc_data('get', req.params.value);
 		res.send(status.obc);
