@@ -102,8 +102,8 @@ function should_not_output() {
 	// If we're not, only output if config.console.output is true
 	let active_tty = Boolean(process.stdout.isTTY) && Boolean(process.stdin.isTTY);
 	switch (active_tty) {
-		case true  : return false;
 		case false : return !config.console.output;
+		case true  : return false;
 	}
 }
 
