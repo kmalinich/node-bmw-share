@@ -24,12 +24,12 @@ const arbids = {
 	'0x0BF' : 'CON1', // Touchpad
 	'0x264' : 'CON1', // Rotation
 	'0x267' : 'CON1', // Buttons
-	'0x273' : 'CON1', // NBT1->CON1 init message
 	'0x4E7' : 'CON1', // Status
 	'0x5E7' : 'CON1', // Status
 
 	'0x228' : 'NBT1',
 	'0x24F' : 'NBT1',
+	'0x273' : 'NBT1', // NBT1->CON1 init message
 	'0x277' : 'NBT1', // CON1->NBT1 ACK init
 	'0x278' : 'NBT1',
 	'0x27A' : 'NBT1',
