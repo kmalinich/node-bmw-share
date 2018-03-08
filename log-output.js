@@ -223,8 +223,8 @@ module.exports = {
 		if (typeof data.new === 'undefined' || data.new === null) data.new = 'null';
 
 		// Colorize strings
-		data.src_fmt     = chalk.cyan(data.src_fmt);
-		data.command_fmt = chalk.cyan(data.command_fmt);
+		data.src_fmt     = chalk.blue(data.src_fmt);
+		data.command_fmt = chalk.blue(data.command_fmt);
 		data.old         = chalk.red(data.old.toString());
 		data.new         = chalk.green(data.new.toString());
 
