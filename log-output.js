@@ -182,13 +182,13 @@ module.exports = {
 
 		// Colorize command
 		switch (data.command_orig) {
-			case 'ack' : data.command = chalk.green(data.command); break;
-			case 'bro' : data.command = chalk.pink(data.command);  break;
-			case 'con' : data.command = chalk.red(data.command);   break;
-			case 'rep' : data.command = chalk.green(data.command); break;
-			case 'req' : data.command = chalk.cyan(data.command);  break;
-			case 'sta' : data.command = chalk.blue(data.command);  break;
-			case 'upd' : data.command = chalk.blue(data.command);  break;
+			case 'ack' : data.command = chalk.green(data.command);  break;
+			case 'bro' : data.command = chalk.purple(data.command); break;
+			case 'con' : data.command = chalk.red(data.command);    break;
+			case 'rep' : data.command = chalk.green(data.command);  break;
+			case 'req' : data.command = chalk.cyan(data.command);   break;
+			case 'sta' : data.command = chalk.blue(data.command);   break;
+			case 'upd' : data.command = chalk.blue(data.command);   break;
 			default    : data.command = chalk.yellow(data.command);
 		}
 
