@@ -11,7 +11,7 @@ const chalk = (0, trucolor.chalkish)((0, trucolor.palette)({}, {
 	blue   : 'rgb:51,152,219',
 	cyan   : 'rgb:0,200,200',
 	green  : 'rgb:47,223,100',
-	gray   : 'rgb:144,144,144',
+	gray   : 'rgb:172,172,172',
 	orange : 'rgb:255,153,50',
 	pink   : 'rgb:178,0,140',
 	purple : 'rgb:114,83,178',
@@ -23,7 +23,7 @@ const chalk = (0, trucolor.chalkish)((0, trucolor.palette)({}, {
 	boldblue   : 'bold rgb:51,152,219',
 	boldcyan   : 'bold rgb:0,200,200',
 	boldgreen  : 'bold rgb:47,223,100',
-	boldgray   : 'bold rgb:144,144,144',
+	boldgray   : 'bold rgb:172,172,172',
 	boldorange : 'bold rgb:255,153,50',
 	boldpink   : 'bold rgb:178,0,140',
 	boldpurple : 'bold rgb:114,83,178',
@@ -35,7 +35,7 @@ const chalk = (0, trucolor.chalkish)((0, trucolor.palette)({}, {
 	italicblue   : 'italic rgb:51,152,219',
 	italiccyan   : 'italic rgb:0,200,200',
 	italicgreen  : 'italic rgb:47,223,100',
-	italicgray   : 'italic rgb:144,144,144',
+	italicgray   : 'italic rgb:172,172,172',
 	italicorange : 'italic rgb:255,153,50',
 	italicpink   : 'italic rgb:178,0,140',
 	italicpurple : 'italic rgb:114,83,178',
@@ -151,6 +151,7 @@ module.exports = {
 			case 'unk' :
 			default    :
 				data.command = 'UNKNOWN';
+
 				switch (data.bus_orig) {
 					case 'can0' :
 					case 'can1' : data.value = '0x' + data.src.id.toString(16).toUpperCase(); break;
@@ -176,7 +177,7 @@ module.exports = {
 			case 'dbus' : data.bus = chalk.red(data.bus);    break;
 			case 'ibus' : data.bus = chalk.cyan(data.bus);   break;
 			case 'kbus' : data.bus = chalk.yellow(data.bus); break;
-			case 'node' : data.bus = chalk.pink(data.bus);   break;
+			case 'node' :
 			default     : data.bus = chalk.pink(data.bus);
 		}
 
@@ -187,12 +188,13 @@ module.exports = {
 			case 'con' : data.command = chalk.red(data.command);    break;
 			case 'rep' : data.command = chalk.green(data.command);  break;
 			case 'req' : data.command = chalk.cyan(data.command);   break;
-			case 'sta' : data.command = chalk.blue(data.command);   break;
-			case 'upd' : data.command = chalk.blue(data.command);   break;
+			case 'sta' :
+			case 'upd' : data.command = chalk.blue(data.command); break;
 			default    : data.command = chalk.yellow(data.command);
 		}
 
 		// Replace and colorize true/false
+		data.value = chalk.gray(data.value);
 		data.value = data.value.toString().replace('true', chalk.green('true')).replace('false', chalk.red('false'));
 
 		// Render gray arrows
@@ -249,6 +251,8 @@ module.exports = {
 
 		data.src = path.parse(caller()).name;
 
+		data.src_orig = data.src;
+
 		data.command = 'MESSAGE';
 
 		// Pad strings
@@ -256,8 +260,17 @@ module.exports = {
 		data.command_fmt = center(data.command, 9);
 
 		// Colorize strings
-		data.src_fmt     = chalk.gray(data.src_fmt);
 		data.command_fmt = chalk.gray(data.command_fmt);
+
+		switch (data.src_orig) {
+			case 'main'      : data.src_fmt = chalk.green(data.src_fmt);  break;
+			case 'json'      : data.src_fmt = chalk.purple(data.src_fmt); break;
+			case 'gpio'      : data.src_fmt = chalk.red(data.src_fmt);    break;
+			case 'host-data' : data.src_fmt = chalk.green(data.src_fmt);  break;
+			case 'kodi'      : data.src_fmt = chalk.cyan(data.src_fmt);   break;
+			case 'socket'    : data.src_fmt = chalk.blue(data.src_fmt);   break;
+			default          : data.src_fmt = chalk.yellow(data.src_fmt);
+		}
 
 		data.msg_fmt = data.msg;
 		data.msg_fmt = chalk.gray(data.msg_fmt);
@@ -290,7 +303,7 @@ module.exports = {
 		data.msg_fmt = data.msg;
 
 		// Colorize strings
-		data.src_fmt = chalk.pink(data.src_fmt);
+		data.src_fmt = chalk.white(data.src_fmt);
 		data.mod_fmt = chalk.orange(data.mod_fmt);
 		data.msg_fmt = colorize(data.msg_fmt);
 
