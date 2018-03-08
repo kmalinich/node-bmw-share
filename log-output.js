@@ -151,14 +151,19 @@ module.exports = {
 			case 'unk' :
 			default    :
 				data.command = 'UNKNOWN';
-				data.value   = '0x' + data.msg[0].toString(16);
+				switch (data.bus_orig) {
+					case 'can0' :
+					case 'can1' : data.value = '0x' + data.src.id.toString(16).toUpperCase(); break;
+
+					default : data.value = '0x' + data.msg.toString(16).toUpperCase();
+				}
 		}
 
 		// Pad strings
 		data.bus      = data.bus.padStart(2);
 		data.dst.name = data.dst.name_orig.padEnd(10);
 		data.src.name = data.src.name_orig.padStart(9);
-		data.command  = center(data.command, 21);
+		data.command  = center(data.command, 9);
 
 		// Colorize source and destination
 		data.src.name = chalk.yellow(data.src.name);
@@ -210,8 +215,8 @@ module.exports = {
 		data.src = path.parse(caller()).name;
 
 		// Pad strings
-		data.src_fmt     = center(data.src,     26);
-		data.command_fmt = center(data.command, 21);
+		data.src_fmt     = center(data.src,     21);
+		data.command_fmt = center(data.command, 9);
 
 		// Catch nulls
 		if (typeof data.old === 'undefined' || data.old === null) data.old = 'null';
@@ -227,11 +232,9 @@ module.exports = {
 		data.old = data.old.toString().replace('true', chalk.green('true')).replace('false', chalk.red('false'));
 		data.new = data.new.toString().replace('true', chalk.green('true')).replace('false', chalk.red('false'));
 
-		// Render gray arrow
-		// let arrows = chalk.gray('=>');
 		// Output formatted string
-		// console.log('[%s] [%s] %s: \'%s\' %s \'%s\'', data.src_fmt, data.command_fmt, data.value, data.old, arrows, data.new);
-		console.log('[%s] [%s] %s: \'%s\'', data.src_fmt, data.command_fmt, data.value, data.new);
+		data.bus = chalk.gray('ND');
+		console.log('[%s] [%s] [%s] %s: \'%s\'', data.bus, data.src_fmt, data.command_fmt, data.value, data.new);
 
 		// Send log data to WebSocket
 		api.emit('log-tx', data);
@@ -249,17 +252,20 @@ module.exports = {
 		data.command = 'MESSAGE';
 
 		// Pad strings
-		data.src_fmt     = center(data.src,     26);
-		data.command_fmt = center(data.command, 21);
+		data.src_fmt     = center(data.src,     21);
+		data.command_fmt = center(data.command, 9);
 
 		// Colorize strings
 		data.src_fmt     = chalk.gray(data.src_fmt);
 		data.command_fmt = chalk.gray(data.command_fmt);
 
-		data.msg = colorize(data.msg);
+		data.msg_fmt = data.msg;
+		data.msg_fmt = chalk.gray(data.msg_fmt);
+		data.msg_fmt = colorize(data.msg_fmt);
 
 		// Output formatted string
-		console.log('[%s] [%s] %s', data.src_fmt, data.command_fmt, data.msg);
+		data.bus = chalk.gray('ND');
+		console.log('[%s] [%s] [%s] %s', data.bus, data.src_fmt, data.command_fmt, data.msg_fmt);
 
 		// Send log data to WebSocket
 		api.emit('log-tx', data);
@@ -279,19 +285,18 @@ module.exports = {
 		data.msg = data.msg.toString();
 
 		// Pad strings
-		data.src_fmt = center(data.src, 26);
-		data.mod_fmt = center(data.mod, 21);
+		data.src_fmt = center(data.src, 21);
+		data.mod_fmt = center(data.mod, 9);
 		data.msg_fmt = data.msg;
-		// data.msg_fmt = center(data.msg, 21);
 
 		// Colorize strings
 		data.src_fmt = chalk.pink(data.src_fmt);
 		data.mod_fmt = chalk.orange(data.mod_fmt);
-		data.msg_fmt = chalk.gray(data.msg_fmt);
 		data.msg_fmt = colorize(data.msg_fmt);
 
 		// Output formatted string
-		console.log('[%s] [%s] %s', data.src_fmt, data.mod_fmt, data.msg_fmt);
+		data.bus = chalk.gray('ND');
+		console.log('[%s] [%s] [%s] %s', data.bus, data.src_fmt, data.mod_fmt, data.msg_fmt);
 
 		// Send log data to WebSocket
 		api.emit('log-tx', data);
@@ -332,11 +337,11 @@ module.exports = {
 		}
 
 		switch (data.orig.type) {
-			case 'client' : data.type = chalk.blue(center(data.type.toUpperCase(), 21));   break;
-			default       : data.type = chalk.orange(center(data.type.toUpperCase(), 21));
+			case 'client' : data.type = chalk.blue(center(data.type.toUpperCase(), 14));   break;
+			default       : data.type = chalk.orange(center(data.type.toUpperCase(), 14));
 		}
 
-		data.event = center(data.event, 21);
+		data.event = center(data.event, 14);
 		switch (data.orig.event) {
 			case 'bus-data'          : data.event = chalk.blue(data.event);   break;
 			case 'lcd-text'          : data.event = chalk.cyan(data.event);   break;
@@ -348,7 +353,8 @@ module.exports = {
 		}
 
 		// Output formatted string
-		console.log('[%s] [%s] [%s] %s', data.method, data.type, data.event, data.string);
+		data.bus = 'ND';
+		console.log('[%s] [%s] [%s] [%s] %s', data.method, data.type, data.event, data.string);
 
 		// Send log data to WebSocket
 		api.emit('log-tx', data);
