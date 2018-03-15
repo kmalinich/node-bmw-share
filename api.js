@@ -154,13 +154,32 @@ function init_client(init_client_cb = null) {
 		res.send(status.gm);
 	});
 
+	app.get('/gm/doors/closed/:value', (req, res) => {
+		update.status('doors.closed', (req.params.value == 'true'));
+		update.status('doors.open',   (req.params.value != 'true'));
+		res.send(status.doors);
+	});
+
+	app.get('/gm/doors/open/:value', (req, res) => {
+		update.status('doors.closed', (req.params.value != 'true'));
+		update.status('doors.open',   (req.params.value == 'true'));
+		res.send(status.doors);
+	});
+
 	app.get('/gm/doors/sealed/:value', (req, res) => {
 		update.status('doors.sealed', (req.params.value == 'true'));
 		res.send(status.doors);
 	});
 
-	app.get('/gm/windows/sealed/:value', (req, res) => {
-		update.status('windows.sealed', (req.params.value == 'true'));
+	app.get('/gm/windows/closed/:value', (req, res) => {
+		update.status('windows.closed', (req.params.value == 'true'));
+		update.status('windows.open',   (req.params.value != 'true'));
+		res.send(status.windows);
+	});
+
+	app.get('/gm/windows/open/:value', (req, res) => {
+		update.status('windows.closed', (req.params.value != 'true'));
+		update.status('windows.open',   (req.params.value == 'true'));
 		res.send(status.windows);
 	});
 
