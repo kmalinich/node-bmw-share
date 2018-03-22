@@ -283,6 +283,11 @@ function init_client(init_client_cb = null) {
 	});
 
 
+	app.get('/lcm/backlight/:value', (req, res) => {
+		update.status('lcm.dimmer.value_1', parseInt(req.params.value));
+		res.send(status.lcm);
+	});
+
 	app.get('/lcm/comfort-turn/:action', (req, res) => {
 		update.status('lights.turn.depress_elapsed', 0);
 		LCM.comfort_turn_flash(req.params.action);
