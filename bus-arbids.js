@@ -63,6 +63,7 @@ const arbids = {
 	'0xFA'  : '', // Window commands
 	'0x0FA' : '', // Window commands
 	'0x1E7' : '', // Seat heating
+	'0x1A1' : 'ASC1', // Vehicle speed
 	'0x1C0' : 'ASC1', // Vehicle speed
 
 
