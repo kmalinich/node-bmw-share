@@ -38,6 +38,36 @@ function check() {
 
 // Init all host data
 function init(init_callback = null) {
+	// Don't run on all nodes
+	switch (app_intf) {
+		case 'client' : break;
+
+		default : {
+			switch (config.zeromq.host) {
+				case 'localhost' :
+				case '127.0.0.1' : {
+					status.system = {
+						type : app_intf || null,
+						intf : app_intf || null,
+						host : {
+							full  : os.hostname(),
+							short : os.hostname().split('.')[0],
+						},
+					};
+
+					init_listeners();
+
+					log.msg('Initialized');
+
+					typeof init_callback === 'function' && process.nextTick(init_callback);
+					init_callback = undefined;
+
+					return;
+				}
+			}
+		}
+	}
+
 	let cpus = os.cpus();
 	let load = os.loadavg();
 
@@ -52,14 +82,13 @@ function init(init_callback = null) {
 	load_pct = parseFloat(load_pct);
 
 	status.system = {
-		type        : app_intf,
-		intf        : app_intf || null,
-		up          : os.uptime(),
+		type : app_intf || null,
+		intf : app_intf || null,
+
+		up : os.uptime(),
+
 		temperature : null,
-		host        : {
-			full  : os.hostname(),
-			short : os.hostname().split('.')[0],
-		},
+
 		cpu : {
 			arch     : os.arch(),
 			count    : cpus.length,
@@ -68,11 +97,18 @@ function init(init_callback = null) {
 			model    : cpus[0].model,
 			speed    : cpus[0].speed,
 		},
+
+		host : {
+			full  : os.hostname(),
+			short : os.hostname().split('.')[0],
+		},
+
 		memory : {
 			free     : os.freemem(),
 			total    : os.totalmem(),
 			free_pct : free_pct,
 		},
+
 		os : {
 			platform : os.platform(),
 			type     : os.type(),
@@ -82,6 +118,7 @@ function init(init_callback = null) {
 
 	check();
 	refresh_temperature();
+	init_listeners();
 	refresh();
 	broadcast();
 
@@ -91,7 +128,7 @@ function init(init_callback = null) {
 	init_callback = undefined;
 }
 
-// Cancel timeout
+// Cancel timeouts
 function term(term_callback = null) {
 	if (host_data.timeout.broadcast !== null) {
 		clearTimeout(host_data.timeout.broadcast);
@@ -180,6 +217,29 @@ function refresh_temperature() {
 
 // Periodically broadcast this host's data to WebSocket clients to update them
 function broadcast() {
+	// Don't run on all nodes
+	switch (app_intf) {
+		case 'client' : break;
+
+		default : {
+			switch (config.zeromq.host) {
+				case 'localhost' :
+				case '127.0.0.1' : {
+					status.system = {
+						type : app_intf || null,
+						intf : app_intf || null,
+						host : {
+							full  : os.hostname(),
+							short : os.hostname().split('.')[0],
+						},
+					};
+
+					return;
+				}
+			}
+		}
+	}
+
 	if (host_data.timeout.broadcast === null) {
 		log.msg('Set broadcast timeout (' + config.system.host_data.refresh_interval + 'ms)');
 	}
@@ -191,6 +251,29 @@ function broadcast() {
 
 // Refresh host data
 function refresh() {
+	// Don't run on all nodes
+	switch (app_intf) {
+		case 'client' : break;
+
+		default : {
+			switch (config.zeromq.host) {
+				case 'localhost' :
+				case '127.0.0.1' : {
+					status.system = {
+						type : app_intf || null,
+						intf : app_intf || null,
+						host : {
+							full  : os.hostname(),
+							short : os.hostname().split('.')[0],
+						},
+					};
+
+					return;
+				}
+			}
+		}
+	}
+
 	refresh_temperature();
 
 	update.status('system.up', os.uptime(), false);
@@ -226,12 +309,12 @@ function refresh() {
 // Send this host's data to connected services to update them
 function send() {
 	// log.msg('Sending host data');
-	socket.send('host-data', status.system);
+	socket.send('host-connect', status.system);
 }
 
 // Configure event listeners
 function init_listeners() {
-	socket.on('recv-host-data-request', send);
+	// socket.on('recv-host-data-request', send);
 
 	// Send this host's data on server connection
 	update.on('status.server.connected', (data) => {
