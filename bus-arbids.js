@@ -80,8 +80,15 @@ const arbids = {
 	'0x545' : 'DME1', // CEL, fuel cons, overheat, oil temp, charging, brake light switch, cruise control
 	'0x610' : 'DME1', // VIN, info
 	'0x613' : 'DME1', // Odometer, running clock, fuel level [0x615 ACK]
-	'0x615' : 'DME1', // A/C request, outside air temp, intake air temp, parking brake, door contacts
+	'0x615' : 'DME1', // A/C request, outside air temp, parking brake, door contacts
 
+	// MSS5x secondary/SMG CANBUS messages
+	'0x701' : 'DME1',
+	'0x702' : 'DME1',
+	'0x710' : 'DME1',
+	'0x711' : 'DME1',
+	'0x712' : 'DME1',
+	'0x720' : 'DME1',
 
 	// Appears to be message priority inversion
 	'0x77C' : '',
