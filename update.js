@@ -38,19 +38,19 @@ class update extends EventEmitter {
 
 		this.emit(data_emit_key, data_emit);
 
-		data_emit.key = data_emit_key;
-		this.emit('config', data_emit);
+		// data_emit.key = data_emit_key;
+		// this.emit('config', data_emit);
 
-		api.emit('config-tx', {
-			key : {
-				stub : key.split('.')[0],
-				full : key,
-			},
-			value : {
-				stub : object_path.get(config, key),
-				full : config[key.split('.')[0]],
-			},
-		});
+		// api.emit('config-tx', {
+		// 	key : {
+		// 		stub : key.split('.')[0],
+		// 		full : key,
+		// 	},
+		// 	value : {
+		// 		stub : object_path.get(config, key),
+		// 		full : config[key.split('.')[0]],
+		// 	},
+		// });
 
 		return true;
 	}
@@ -81,19 +81,19 @@ class update extends EventEmitter {
 
 		this.emit(data_emit_key, data_emit);
 
-		data_emit.key = data_emit_key;
-		this.emit('status', data_emit);
+		// data_emit.key = data_emit_key;
+		// this.emit('status', data_emit);
 
-		api.emit('status-tx', {
-			key : {
-				stub : key.split('.')[0],
-				full : key,
-			},
-			value : {
-				stub : object_path.get(status, key),
-				full : status[key.split('.')[0]],
-			},
-		});
+		// api.emit('status-tx', {
+		// 	key : {
+		// 		stub : key.split('.')[0],
+		// 		full : key,
+		// 	},
+		// 	value : {
+		// 		stub : object_path.get(status, key),
+		// 		full : status[key.split('.')[0]],
+		// 	},
+		// });
 
 		return true;
 	}
