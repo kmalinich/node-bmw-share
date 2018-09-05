@@ -63,16 +63,16 @@ const arbids = {
 	'0xFA'  : '', // Window commands
 	'0x0FA' : '', // Window commands
 	'0x1E7' : '', // Seat heating
-	'0x1A1' : 'ASC1', // Vehicle speed
-	'0x1C0' : 'ASC1', // Vehicle speed
+	'0x1A1' : 'DSC1', // Vehicle speed
+	'0x1C0' : 'DSC1', // Vehicle speed
 
 
 	// From E38/E39/E46/E53
-	'0x153' : 'ASC1', // Speed, DSC light
-	'0x1F0' : 'ASC1', // Wheel speeds
-	'0x1F3' : 'ASC1', // Transverse acceleration, VSS
-	'0x1F5' : 'ASC1', // Steering angle
-	'0x1F8' : 'ASC1', // Brake pressure
+	'0x153' : 'DSC1', // Speed, DSC light
+	'0x1F0' : 'DSC1', // Wheel speeds
+	'0x1F3' : 'DSC1', // Transverse acceleration, VSS
+	'0x1F5' : 'DSC1', // Steering angle
+	'0x1F8' : 'DSC1', // Brake pressure
 
 	'0x316' : 'DME1', // RPM
 	'0x329' : 'DME1', // Temp, brake pedal depressed, throttle position
