@@ -439,11 +439,39 @@ const arbids = {
 	'0x7B5' : '',
 };
 
-// Array of CANBUS ARBIDs to ignore
-const arbids_ignore = [
-	'0x77C',
-	'0x77F',
-	'0x7B5',
+// Array of CANBUS ARBIDs to allow
+const arbids_allow = [
+	'0x0BF',
+	'0x12F',
+	'0x130',
+	'0x153',
+	'0x1A1',
+	'0x1F0',
+	'0x1F3',
+	'0x1F5',
+	'0x1F8',
+	'0x202',
+	'0x264',
+	'0x267',
+	'0x273',
+	'0x277',
+	'0x2FC',
+	'0x316',
+	'0x329',
+	'0x338',
+	'0x34E',
+	'0x38D',
+	'0x4E7',
+	'0x4F8',
+	'0x545',
+	'0x563',
+	'0x5E3',
+	'0x5E7',
+	'0x610',
+	'0x613',
+	'0x615',
+	'0x720',
+	'0xFA8',
 ];
 
 
@@ -457,8 +485,8 @@ function h2n(hex) {
 }
 
 module.exports = {
-	arbids        : arbids,
-	arbids_ignore : arbids_ignore,
+	arbids       : arbids,
+	arbids_allow : arbids_allow,
 
 	h2n : h2n,
 };
