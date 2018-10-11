@@ -309,6 +309,11 @@ function init_client(init_client_cb = null) {
 		res.send(status.lcm);
 	});
 
+	app.post('/lcm/io-encode', (req, res) => {
+		LCM.io_encode(req.body);
+		res.send(status.lcm);
+	});
+
 	app.get('/lcm/police-lights/:action', (req, res) => {
 		LCM.police((req.params.action == 'true' || req.params.action == 'on'));
 		res.send(status.lcm);
