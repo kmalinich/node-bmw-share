@@ -92,6 +92,16 @@ function init_client(init_client_cb = null) {
 	});
 
 
+	app.get('/app/gc', (req, res) => {
+		if (typeof global.gc !== 'function') {
+			res.send({ success : false });
+			return;
+		}
+
+		global.gc();
+		res.send({ success : true });
+	});
+
 	// Some of these are shameful
 	app.get('/dme1/encode-316/:rpm', (req, res) => {
 		DME1.encode_316(parseInt(req.params.rpm));
