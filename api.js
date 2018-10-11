@@ -415,7 +415,7 @@ function init(init_cb = null) {
 			return;
 		}
 
-		global.gc();
+		global.gc(true);
 		res.send({ success : true });
 	});
 
