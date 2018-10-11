@@ -61,7 +61,7 @@ function init_client(init_client_cb = null) {
 
 		let array_status = [
 			'engine',
-			'DME',
+			'dme',
 			'fuel',
 			'gpio',
 			'lcm',
@@ -92,9 +92,9 @@ function init_client(init_client_cb = null) {
 	});
 
 	// Some of these are shameful
-	app.get('/DME/encode-316/:rpm', (req, res) => {
+	app.get('/dme/encode-316/:rpm', (req, res) => {
 		DME.encode_316(parseInt(req.params.rpm));
-		res.send(status.DME);
+		res.send(status.dme);
 	});
 
 
@@ -134,9 +134,9 @@ function init_client(init_client_cb = null) {
 	});
 
 
-	app.get('/FEM/backlight/:value', (req, res) => {
+	app.get('/fem/backlight/:value', (req, res) => {
 		FEM.backlight(parseInt(req.params.value));
-		res.send(status.FEM);
+		res.send(status.fem);
 	});
 
 
