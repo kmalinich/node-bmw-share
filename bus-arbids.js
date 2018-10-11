@@ -57,19 +57,19 @@ const arbids = {
 	'0x193' : 'LDM',
 	'0x194' : 'SZL',
 	'0x198' : 'GWS',
-	'0x19E' : 'DSC1',
-	'0x1A0' : 'DSC1',
-	'0x1A1' : 'DSC1', // Vehicle speed
+	'0x19E' : 'DSC',
+	'0x1A0' : 'DSC',
+	'0x1A1' : 'DSC', // Vehicle speed
 	'0x1A2' : 'EGS',
 	'0x1A3' : 'SMG',
-	'0x1A6' : 'DSC1',
+	'0x1A6' : 'DSC',
 	'0x1AA' : 'NBT',
 	'0x1AC' : 'ARS',
 	'0x1B4' : 'KOMBI',
 	'0x1B5' : 'IHKA',
 	'0x1B6' : 'DME',
 	'0x1B8' : 'ZBE',
-	'0x1C0' : 'DSC1', // Vehicle speed
+	'0x1C0' : 'DSC', // Vehicle speed
 	'0x1C2' : 'PDC',
 	'0x1C3' : 'PDC',
 	'0x1C6' : 'PDC',
@@ -144,8 +144,8 @@ const arbids = {
 	'0x2A2' : 'NBT',
 	'0x2A4' : 'NBT',
 	'0x2A6' : 'SZL',
-	'0x2B2' : 'DSC1',
-	'0x2B3' : 'DSC1',
+	'0x2B2' : 'DSC',
+	'0x2B3' : 'DSC',
 	'0x2B4' : 'DWA',
 	'0x2B6' : 'DWA',
 	'0x2B8' : 'NBT',
@@ -181,7 +181,7 @@ const arbids = {
 	'0x318' : 'PGS',
 	'0x319' : 'SZM',
 	'0x31C' : 'RDC',
-	'0x31D' : 'DSC1',
+	'0x31D' : 'DSC',
 	'0x322' : 'EDCK',
 	'0x326' : 'EDCK',
 	'0x328' : 'KOMBI',
@@ -212,7 +212,7 @@ const arbids = {
 	'0x364' : 'KOMBI',
 	'0x366' : 'KOMBI',
 	'0x367' : 'KOMBI',
-	'0x374' : 'DSC1',
+	'0x374' : 'DSC',
 	'0x376' : 'VGSG',
 	'0x380' : 'CAS', // VIN, info
 	'0x381' : 'DME',
@@ -411,11 +411,11 @@ const arbids = {
 
 
 	// From E38/E39/E46/E53
-	'0x153' : 'DSC1', // Speed, DSC light
-	'0x1F0' : 'DSC1', // Wheel speeds
-	'0x1F3' : 'DSC1', // Transverse acceleration, VSS
-	'0x1F5' : 'DSC1', // Steering angle
-	'0x1F8' : 'DSC1', // Brake pressure
+	'0x153' : 'DSC', // Speed, DSC light
+	'0x1F0' : 'DSC', // Wheel speeds
+	'0x1F3' : 'DSC', // Transverse acceleration, VSS
+	'0x1F5' : 'DSC', // Steering angle
+	'0x1F8' : 'DSC', // Brake pressure
 
 	'0x316' : 'DME', // RPM
 	'0x329' : 'DME', // Temp, brake pedal depressed, throttle position
