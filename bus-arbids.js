@@ -1,21 +1,21 @@
 // CANBUS ARBIDs
 //
-// CON1 : iDrive controller
-// NBT1 : NBT_HU (HW07)
+// CON : iDrive controller
+// NBT : NBT_HU (HW07)
 const arbids = {
-	// Related to iDrive CON1 - ripped from E90/F10/G30
-	'0x202' : 'FEM1', // Backlight dimmer
+	// Related to iDrive CON - ripped from E90/F10/G30
+	'0x202' : 'FEM', // Backlight dimmer
 
 	'0x4F8' : 'KOMBI1', // Ignition status
 
 	// Ripped from E60, E65, E90, G30
-	'0x0A8' : 'DME1',
-	'0x0A9' : 'DME1',
-	'0x0AA' : 'DME1',
-	'0x0AC' : 'DME1',
+	'0x0A8' : 'DME',
+	'0x0A9' : 'DME',
+	'0x0AA' : 'DME',
+	'0x0AC' : 'DME',
 	'0x0AD' : 'ACC',
 	'0x0B3' : 'AFS',
-	'0x0B4' : 'DME1',
+	'0x0B4' : 'DME',
 	'0x0B5' : 'EGS',
 	'0x0B6' : 'DSC',
 	'0x0B7' : 'ACC',
@@ -26,7 +26,7 @@ const arbids = {
 	'0x0BC' : 'VGSG',
 	'0x0BD' : 'SMG',
 	'0x0BE' : 'ARS',
-	'0x0BF' : 'CON1', // Touchpad
+	'0x0BF' : 'CON', // Touchpad
 	'0x0C0' : 'KGM',
 	'0x0C1' : 'TEL',
 	'0x0C4' : 'DSC',
@@ -47,11 +47,11 @@ const arbids = {
 	'0x0FB' : 'KGM',
 	'0x0FC' : 'KBM',
 	'0x0FD' : 'KBM',
-	'0x12F' : 'CAS1', // NBT1/ZBE1 wakeup
-	'0x130' : 'CAS1', // Ignition status, key status
+	'0x12F' : 'CAS', // NBT/ZBE1 wakeup
+	'0x130' : 'CAS', // Ignition status, key status
 	'0x135' : 'ACSM',
 	'0x15F' : 'LDM',
-	'0x172' : 'NBT1',
+	'0x172' : 'NBT',
 	'0x190' : 'ACC',
 	'0x192' : 'SZL',
 	'0x193' : 'LDM',
@@ -63,25 +63,25 @@ const arbids = {
 	'0x1A2' : 'EGS',
 	'0x1A3' : 'SMG',
 	'0x1A6' : 'DSC1',
-	'0x1AA' : 'NBT1',
+	'0x1AA' : 'NBT',
 	'0x1AC' : 'ARS',
 	'0x1B4' : 'KOMBI',
 	'0x1B5' : 'IHKA',
-	'0x1B6' : 'DME1',
+	'0x1B6' : 'DME',
 	'0x1B8' : 'ZBE',
 	'0x1C0' : 'DSC1', // Vehicle speed
 	'0x1C2' : 'PDC',
 	'0x1C3' : 'PDC',
 	'0x1C6' : 'PDC',
-	'0x1D0' : 'DME1',
+	'0x1D0' : 'DME',
 	'0x1D2' : 'EGS',  // Gearbox
 	'0x1D6' : 'SZL1', // Steering wheel controls
-	'0x1D8' : 'NBT1',
+	'0x1D8' : 'NBT',
 	'0x1D9' : 'SZL',
-	'0x1DA' : 'CAS1',
-	'0x1DC' : 'NBT1',
-	'0x1E0' : 'NBT1',
-	'0x1E2' : 'NBT1',
+	'0x1DA' : 'CAS',
+	'0x1DC' : 'NBT',
+	'0x1E0' : 'NBT',
+	'0x1E2' : 'NBT',
 	'0x1E7' : 'SZM', // Seat heating
 	'0x1E8' : 'SZM',
 	'0x1EA' : 'SZL',
@@ -95,64 +95,64 @@ const arbids = {
 	'0x1F6' : 'LM', // Turn signals
 	'0x1FC' : 'AFS',
 	'0x1FE' : 'ACSM',
-	'0x200' : 'DME1',
+	'0x200' : 'DME',
 	'0x205' : 'KOMBI',
-	'0x206' : 'DME1',
+	'0x206' : 'DME',
 	'0x20B' : 'SZM',
 	'0x20C' : 'SMFA',
 	'0x20D' : 'SZM',
-	'0x210' : 'NBT1',
+	'0x210' : 'NBT',
 	'0x211' : 'HUD',
 	'0x212' : 'EHC',
 	'0x21A' : 'LM',   // Light status
-	'0x21C' : 'NBT1', // Gateway
+	'0x21C' : 'NBT', // Gateway
 	'0x21E' : 'NVC',
 	'0x226' : 'RLS',
-	'0x228' : 'NBT1', // Operation special function
+	'0x228' : 'NBT', // Operation special function
 	'0x22A' : 'SMBF',
 	'0x22E' : 'SMBFH',
 	'0x232' : 'SMFA',
 	'0x236' : 'SMFASH',
 	'0x237' : 'ALBVBF',
 	'0x239' : 'ALBVFA',
-	'0x23A' : 'CAS1',
+	'0x23A' : 'CAS',
 	'0x23B' : 'IHKA',
 	'0x23C' : 'SMFA',
 	'0x23F' : 'SMBF',
 	'0x242' : 'IHKA',
 	'0x24A' : 'PDC',
-	'0x24F' : 'NBT1',
+	'0x24F' : 'NBT',
 	'0x252' : 'KBM',
-	'0x256' : 'CAS1',
+	'0x256' : 'CAS',
 	'0x258' : 'PGS',
-	'0x25C' : 'NBT1',
-	'0x264' : 'CON1', // Rotation
-	'0x267' : 'CON1', // Buttons
+	'0x25C' : 'NBT',
+	'0x264' : 'CON', // Rotation
+	'0x267' : 'CON', // Buttons
 	'0x26C' : 'KGM',
-	'0x26E' : 'CAS1',
-	'0x273' : 'NBT1', // NBT1->CON1 init message
-	'0x277' : 'NBT1', // CON1->NBT1 ACK init
-	'0x278' : 'NBT1', // Navigation graph
-	'0x27A' : 'NBT1', // Synchronization navigation graph
+	'0x26E' : 'CAS',
+	'0x273' : 'NBT', // NBT->CON init message
+	'0x277' : 'NBT', // CON->NBT ACK init
+	'0x278' : 'NBT', // Navigation graph
+	'0x27A' : 'NBT', // Synchronization navigation graph
 	'0x27E' : 'CVMV',
-	'0x284' : 'CAS1',
+	'0x284' : 'CAS',
 	'0x285' : 'SZM',
 	'0x28C' : 'GWS',
 	'0x292' : 'FLA',
-	'0x29F' : 'CAS1',
-	'0x2A0' : 'CAS1',
-	'0x2A2' : 'NBT1',
-	'0x2A4' : 'NBT1',
+	'0x29F' : 'CAS',
+	'0x2A0' : 'CAS',
+	'0x2A2' : 'NBT',
+	'0x2A4' : 'NBT',
 	'0x2A6' : 'SZL',
 	'0x2B2' : 'DSC1',
 	'0x2B3' : 'DSC1',
 	'0x2B4' : 'DWA',
 	'0x2B6' : 'DWA',
-	'0x2B8' : 'NBT1',
+	'0x2B8' : 'NBT',
 	'0x2BA' : 'KOMBI',
 	'0x2C0' : 'KOMBI',
 	'0x2CA' : 'KOMBI',
-	'0x2CE' : 'NBT1',
+	'0x2CE' : 'NBT',
 	'0x2D5' : 'IHKA',
 	'0x2DA' : 'HKL',
 	'0x2E2' : 'NVC',
@@ -164,17 +164,17 @@ const arbids = {
 	'0x2F0' : 'IHKA',
 	'0x2F4' : 'IHKA',
 	'0x2F6' : 'KBM',
-	'0x2F7' : 'NBT1',
+	'0x2F7' : 'NBT',
 	'0x2F8' : 'KOMBI',
 	'0x2FA' : 'ACSM',
-	'0x2FC' : 'CAS1', // Door status
+	'0x2FC' : 'CAS', // Door status
 	'0x304' : 'EGS',
 	'0x306' : 'LM',
-	'0x308' : 'DME1',
+	'0x308' : 'DME',
 	'0x310' : 'KOMBI',
 	'0x311' : 'KOMBI',
 	'0x312' : 'KOMBI',
-	'0x313' : 'NBT1',
+	'0x313' : 'NBT',
 	'0x314' : 'RLS',
 	'0x315' : 'SZM',
 	'0x317' : 'SZM',
@@ -189,22 +189,22 @@ const arbids = {
 	'0x32D' : 'DXCRB',
 	'0x32E' : 'IHKA',
 	'0x330' : 'KOMBI',
-	'0x331' : 'NBT1',
-	'0x332' : 'DME1',
+	'0x331' : 'NBT',
+	'0x332' : 'DME',
 	'0x335' : 'EKP',
 	'0x336' : 'KOMBI',
-	'0x337' : 'DME1',
+	'0x337' : 'DME',
 	// '0x338' : 'KOMBI',
-	'0x339' : 'NBT1',
+	'0x339' : 'NBT',
 	'0x33A' : 'CID',
-	'0x341' : 'NBT1',
-	'0x348' : 'NBT1', // Match navigation graph
-	'0x34A' : 'NBT1', // Navigation GPS 1
+	'0x341' : 'NBT',
+	'0x348' : 'NBT', // Match navigation graph
+	'0x34A' : 'NBT', // Navigation GPS 1
 	'0x34B' : 'SMFA',
-	'0x34C' : 'NBT1', // Navigation GPS 2
+	'0x34C' : 'NBT', // Navigation GPS 2
 	'0x34D' : 'SMBF',
-	'0x34E' : 'NBT1', // Navigation system information
-	'0x35A' : 'NBT1',
+	'0x34E' : 'NBT', // Navigation system information
+	'0x35A' : 'NBT',
 	'0x35C' : 'KOMBI',
 	'0x35E' : 'KOMBI',
 	'0x360' : 'KOMBI',
@@ -214,25 +214,25 @@ const arbids = {
 	'0x367' : 'KOMBI',
 	'0x374' : 'DSC1',
 	'0x376' : 'VGSG',
-	'0x380' : 'CAS1', // VIN, info
-	'0x381' : 'DME1',
-	'0x382' : 'DME1',
-	'0x388' : 'CAS1',
-	'0x38A' : 'NBT1',
-	'0x38D' : 'NBT1',
-	'0x38E' : 'DME1',
+	'0x380' : 'CAS', // VIN, info
+	'0x381' : 'DME',
+	'0x382' : 'DME',
+	'0x388' : 'CAS',
+	'0x38A' : 'NBT',
+	'0x38D' : 'NBT',
+	'0x38E' : 'DME',
 	'0x394' : 'KOMBI',
-	'0x395' : 'CAS1',
-	'0x398' : 'NBT1',
-	'0x399' : 'DME1',
-	'0x39E' : 'NBT1',
+	'0x395' : 'CAS',
+	'0x398' : 'NBT',
+	'0x399' : 'DME',
+	'0x39E' : 'NBT',
 	'0x3A0' : 'KGM',
-	'0x3A3' : 'NBT1',
+	'0x3A3' : 'NBT',
 	'0x3AC' : 'KGM',
 	'0x3B0' : 'LM',
 	'0x3B1' : 'EGS',
-	'0x3B3' : 'DME1',
-	'0x3B4' : 'DME1',
+	'0x3B3' : 'DME',
+	'0x3B4' : 'DME',
 	'0x3B5' : 'IHKA',
 	'0x3B6' : 'KGM', // Window status LF
 	'0x3B7' : 'KBM', // Window status LR
@@ -240,46 +240,46 @@ const arbids = {
 	'0x3B9' : 'KBM', // Window status RR
 	'0x3BA' : 'SHD',
 	'0x3BD' : 'KBM',
-	'0x3BE' : 'CAS1',
+	'0x3BE' : 'CAS',
 	'0x3BF' : 'CVMV',
 	'0x3C0' : 'SMFA',
 	'0x3C1' : 'SMBF',
-	'0x3CA' : 'NBT1',
-	'0x3CC' : 'NBT1',
+	'0x3CA' : 'NBT',
+	'0x3CC' : 'NBT',
 	'0x3D3' : 'LM',
-	'0x3D4' : 'NBT1',
-	'0x3D5' : 'CAS1',
-	'0x3D6' : 'NBT1',
+	'0x3D4' : 'NBT',
+	'0x3D5' : 'CAS',
+	'0x3D6' : 'NBT',
 	'0x3D7' : 'DWA',
-	'0x3D8' : 'NBT1',
+	'0x3D8' : 'NBT',
 	'0x3D9' : 'RLS',
-	'0x3DA' : 'NBT1',
+	'0x3DA' : 'NBT',
 	'0x3DB' : 'SMFA',
-	'0x3DC' : 'NBT1',
+	'0x3DC' : 'NBT',
 	'0x3DD' : 'LM',
-	'0x3DE' : 'NBT1',
+	'0x3DE' : 'NBT',
 	'0x3DF' : 'IHKA',
-	'0x3E0' : 'NBT1',
+	'0x3E0' : 'NBT',
 	'0x3E1' : 'LM',
-	'0x3E2' : 'NBT1',
+	'0x3E2' : 'NBT',
 	'0x3E3' : 'HKL',
-	'0x3EF' : 'DME1',
-	'0x3F0' : 'NBT1',
+	'0x3EF' : 'DME',
+	'0x3F0' : 'NBT',
 	'0x3F1' : 'LM',
-	'0x3F4' : 'NBT1',
+	'0x3F4' : 'NBT',
 	'0x3F5' : 'KBM',
-	'0x3F7' : 'NBT1',
+	'0x3F7' : 'NBT',
 	'0x3FE' : 'DIA',
-	'0x413' : 'NBT1',
-	'0x415' : 'NBT1',
-	'0x42C' : 'NBT1',
-	'0x436' : 'NBT1',
-	'0x43C' : 'NBT1',
-	'0x43D' : 'NBT1',
+	'0x413' : 'NBT',
+	'0x415' : 'NBT',
+	'0x42C' : 'NBT',
+	'0x436' : 'NBT',
+	'0x43C' : 'NBT',
+	'0x43D' : 'NBT',
 	'0x480' : 'KGM',
 	'0x481' : 'ACSM',
 	'0x482' : 'SZL',
-	'0x492' : 'DME1',
+	'0x492' : 'DME',
 	'0x496' : 'AFS',
 	'0x497' : 'EKP',
 	'0x498' : 'EGS',
@@ -302,7 +302,7 @@ const arbids = {
 	'0x4BB' : 'JNAV',
 	'0x4BC' : 'CDC',
 	'0x4BD' : 'HUD',
-	'0x4C0' : 'CAS1',
+	'0x4C0' : 'CAS',
 	'0x4C1' : 'DWA',
 	'0x4C4' : 'SHD',
 	'0x4C5' : 'RLS',
@@ -320,11 +320,11 @@ const arbids = {
 	'0x4DE' : 'GWS',
 	'0x4DF' : 'FLA',
 	'0x4E0' : 'KOMBI',
-	'0x4E2' : 'NBT1', // Gateway
-	'0x4E3' : 'NBT1', // _MM ?
+	'0x4E2' : 'NBT', // Gateway
+	'0x4E3' : 'NBT', // _MM ?
 	'0x4E4' : 'PDC',
 	'0x4E5' : 'SZM',
-	'0x4E7' : 'CON1', // Status
+	'0x4E7' : 'CON', // Status
 	'0x4EB' : 'HKL',
 	'0x4ED' : 'SMFA',
 	'0x4EE' : 'SMBF',
@@ -339,12 +339,12 @@ const arbids = {
 	'0x509' : '2LSMC',
 	'0x50A' : '2RSMC',
 	'0x50B' : 'CNV',
-	'0x563' : 'NBT1',
+	'0x563' : 'NBT',
 	'0x571' : 'DIA',
 	'0x580' : 'KGM',
 	'0x581' : 'ACSM',
 	'0x582' : 'SZL',
-	'0x592' : 'DME1',
+	'0x592' : 'DME',
 	'0x596' : 'AFS',
 	'0x597' : 'EKP',
 	'0x598' : 'EGS',
@@ -367,7 +367,7 @@ const arbids = {
 	'0x5BB' : 'JNAV',
 	'0x5BC' : 'CDC',
 	'0x5BD' : 'HUD',
-	'0x5C0' : 'CAS1',
+	'0x5C0' : 'CAS',
 	'0x5C1' : 'DWA',
 	'0x5C4' : 'SHD',
 	'0x5C5' : 'RLS',
@@ -385,11 +385,11 @@ const arbids = {
 	'0x5DE' : 'GWS',
 	'0x5DF' : 'FLA',
 	'0x5E0' : 'KOMBI',
-	'0x5E2' : 'NBT1',
-	'0x5E3' : 'NBT1', // Services
+	'0x5E2' : 'NBT',
+	'0x5E3' : 'NBT', // Services
 	'0x5E4' : 'PDC',
 	'0x5E5' : 'SZM',
-	'0x5E7' : 'CON1', // Status
+	'0x5E7' : 'CON', // Status
 	'0x5EB' : 'HKL',
 	'0x5ED' : 'SMFA',
 	'0x5EE' : 'SMBF',
@@ -404,10 +404,10 @@ const arbids = {
 	'0x609' : '2LSMC',
 	'0x60A' : '2RSMC',
 	'0x60B' : 'CNV',
-	'0x663' : 'NBT1',
+	'0x663' : 'NBT',
 	'0x671' : 'DIA',
-	'0x7C3' : 'CAS1', // Keyfob
-	'0xBF'  : 'CON1', // Touchpad
+	'0x7C3' : 'CAS', // Keyfob
+	'0xBF'  : 'CON', // Touchpad
 
 
 	// From E38/E39/E46/E53
@@ -417,21 +417,21 @@ const arbids = {
 	'0x1F5' : 'DSC1', // Steering angle
 	'0x1F8' : 'DSC1', // Brake pressure
 
-	'0x316' : 'DME1', // RPM
-	'0x329' : 'DME1', // Temp, brake pedal depressed, throttle position
-	'0x338' : 'DME1', // Sport mode status
-	'0x545' : 'DME1', // CEL, fuel cons, overheat, oil temp, charging, brake light switch, cruise control
-	'0x610' : 'DME1', // VIN, info
-	'0x613' : 'DME1', // Odometer, running clock, fuel level [0x615 ACK]
-	'0x615' : 'DME1', // A/C request, outside air temp, parking brake, door contacts
+	'0x316' : 'DME', // RPM
+	'0x329' : 'DME', // Temp, brake pedal depressed, throttle position
+	'0x338' : 'DME', // Sport mode status
+	'0x545' : 'DME', // CEL, fuel cons, overheat, oil temp, charging, brake light switch, cruise control
+	'0x610' : 'DME', // VIN, info
+	'0x613' : 'DME', // Odometer, running clock, fuel level [0x615 ACK]
+	'0x615' : 'DME', // A/C request, outside air temp, parking brake, door contacts
 
 	// MSS5x secondary/SMG CANBUS messages
-	'0x701' : 'DME1',
-	'0x702' : 'DME1',
-	'0x710' : 'DME1',
-	'0x711' : 'DME1',
-	'0x712' : 'DME1',
-	'0x720' : 'DME1',
+	'0x701' : 'DME',
+	'0x702' : 'DME',
+	'0x710' : 'DME',
+	'0x711' : 'DME',
+	'0x712' : 'DME',
+	'0x720' : 'DME',
 
 	// Appears to be message priority inversion
 	'0x77C' : '',
@@ -475,7 +475,7 @@ const arbids_allow = [
 ];
 
 
-// 0x273 -> NBT1
+// 0x273 -> NBT
 function h2n(hex) {
 	let hex_str = '0x' + hex.toString(16).padStart(0, 0).toUpperCase();
 	if (arbids[hex_str]) return arbids[hex_str];

@@ -61,7 +61,7 @@ function init_client(init_client_cb = null) {
 
 		let array_status = [
 			'engine',
-			'dme1',
+			'DME',
 			'fuel',
 			'gpio',
 			'lcm',
@@ -92,9 +92,9 @@ function init_client(init_client_cb = null) {
 	});
 
 	// Some of these are shameful
-	app.get('/dme1/encode-316/:rpm', (req, res) => {
-		DME1.encode_316(parseInt(req.params.rpm));
-		res.send(status.dme1);
+	app.get('/DME/encode-316/:rpm', (req, res) => {
+		DME.encode_316(parseInt(req.params.rpm));
+		res.send(status.DME);
 	});
 
 
@@ -134,9 +134,9 @@ function init_client(init_client_cb = null) {
 	});
 
 
-	app.get('/fem1/backlight/:value', (req, res) => {
-		FEM1.backlight(parseInt(req.params.value));
-		res.send(status.fem1);
+	app.get('/FEM/backlight/:value', (req, res) => {
+		FEM.backlight(parseInt(req.params.value));
+		res.send(status.FEM);
 	});
 
 
@@ -415,7 +415,7 @@ function init(init_cb = null) {
 			return;
 		}
 
-		global.gc(true);
+		global.gc();
 		res.send({ success : true });
 	});
 
