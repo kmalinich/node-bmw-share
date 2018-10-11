@@ -91,17 +91,6 @@ function init_client(init_client_cb = null) {
 		}, 500);
 	});
 
-
-	app.get('/app/gc', (req, res) => {
-		if (typeof global.gc !== 'function') {
-			res.send({ success : false });
-			return;
-		}
-
-		global.gc();
-		res.send({ success : true });
-	});
-
 	// Some of these are shameful
 	app.get('/dme1/encode-316/:rpm', (req, res) => {
 		DME1.encode_316(parseInt(req.params.rpm));
@@ -417,6 +406,17 @@ function init(init_cb = null) {
 		log.msg('[' + req.method + '] ' + req.originalUrl);
 		res.set('Content-Type', 'application/json');
 		next();
+	});
+
+	// Force-run garbage collection
+	app.get('/app/gc', (req, res) => {
+		if (typeof global.gc !== 'function') {
+			res.send({ success : false });
+			return;
+		}
+
+		global.gc();
+		res.send({ success : true });
 	});
 
 	app.get('/config', (req, res) => {
