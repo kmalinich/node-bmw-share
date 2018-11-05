@@ -168,7 +168,7 @@ const arbids = {
 	'0x2F8' : 'KOMBI',
 	'0x2FA' : 'ACSM',
 	'0x2FC' : 'CAS', // Door status
-	'0x304' : 'EGS',
+	'0x304' : 'EGS', // Gear status (automatic transmission)
 	'0x306' : 'LM',
 	'0x308' : 'DME',
 	'0x310' : 'KOMBI',
@@ -457,6 +457,7 @@ const arbids_allow = [
 	'0x273',
 	'0x277',
 	'0x2FC',
+	'0x304',
 	'0x316',
 	'0x329',
 	'0x338',
