@@ -3,10 +3,9 @@
 // CON : iDrive controller
 // NBT : NBT_HU (HW07)
 const arbids = {
-	// Related to iDrive CON - ripped from E90/F10/G30
 	'0x202' : 'FEM', // Backlight dimmer
 
-	'0x4F8' : 'KOMBI1', // Ignition status
+	'0x4F8' : 'KOMBI', // Ignition status
 
 	// Ripped from E60, E65, E90, G30
 	'0x0A8' : 'DME',
@@ -75,7 +74,7 @@ const arbids = {
 	'0x1C6' : 'PDC',
 	'0x1D0' : 'DME',
 	'0x1D2' : 'EGS',  // Gearbox
-	'0x1D6' : 'SZL1', // Steering wheel controls
+	'0x1D6' : 'SZL', // Steering wheel controls
 	'0x1D8' : 'NBT',
 	'0x1D9' : 'SZL',
 	'0x1DA' : 'CAS',
@@ -131,7 +130,7 @@ const arbids = {
 	'0x26C' : 'KGM',
 	'0x26E' : 'CAS',
 	'0x273' : 'NBT', // NBT->CON init message
-	'0x277' : 'NBT', // CON->NBT ACK init
+	'0x277' : 'CON', // CON->NBT ACK init
 	'0x278' : 'NBT', // Navigation graph
 	'0x27A' : 'NBT', // Synchronization navigation graph
 	'0x27E' : 'CVMV',
