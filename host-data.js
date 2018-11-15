@@ -163,9 +163,9 @@ function refresh_temperature() {
 				if (typeof error === 'undefined' || error === null) {
 					let temp_value = Math.round(value);
 					// Only output temperature message if over 65 C
-					let verbose = (temp_value >= 65);
+					let quiet = (temp_value <= 65);
 
-					update.status('system.temperature', temp_value, verbose);
+					update.status('system.temperature', temp_value, quiet);
 					return;
 				}
 
