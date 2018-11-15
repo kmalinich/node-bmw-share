@@ -13,12 +13,12 @@ const object_path  = require('object-path');
 
 class update extends EventEmitter {
 	// update.config('system.host_data.refresh_interval', 15000, true);
-	config(key, value_new, verbose = true) {
+	config(key, value_new, quiet = true) {
 		let value_old = object_path.get(config, key);
 
 		if (value_new === value_old) return false;
 
-		if (verbose === true) {
+		if (quiet === false) {
 			log.change({
 				value : 'config.' + key,
 				old   : value_old,
@@ -53,13 +53,13 @@ class update extends EventEmitter {
 		return true;
 	}
 
-	// update.status('engine.rpm', 1235, false);
-	status(key, value_new, verbose = true) {
+	// update.status('engine.rpm', 1235, true);
+	status(key, value_new, quiet = true) {
 		let value_old = object_path.get(status, key);
 
 		if (value_new === value_old) return false;
 
-		if (verbose === true) {
+		if (quiet === false) {
 			log.change({
 				value : 'status.' + key,
 				old   : value_old,

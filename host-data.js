@@ -276,15 +276,15 @@ function refresh() {
 
 	refresh_temperature();
 
-	update.status('system.up', os.uptime(), false);
+	update.status('system.up', os.uptime(), true);
 
 	let loadavg = os.loadavg();
-	update.status('system.cpu.load.0', loadavg[0], false);
-	update.status('system.cpu.load.1', loadavg[1], false);
-	update.status('system.cpu.load.3', loadavg[3], false);
+	update.status('system.cpu.load.0', loadavg[0], true);
+	update.status('system.cpu.load.1', loadavg[1], true);
+	update.status('system.cpu.load.3', loadavg[3], true);
 
-	update.status('system.memory.free',  os.freemem(),  false);
-	update.status('system.memory.total', os.totalmem(), false);
+	update.status('system.memory.free',  os.freemem(),  true);
+	update.status('system.memory.total', os.totalmem(), true);
 
 	let free_pct = status.system.memory.free / status.system.memory.total;
 	free_pct = free_pct * 100;
@@ -296,8 +296,8 @@ function refresh() {
 	load_pct = load_pct.toFixed(2);
 	load_pct = parseFloat(load_pct);
 
-	update.status('system.memory.free_pct', free_pct, false);
-	update.status('system.cpu.load_pct',    load_pct, false);
+	update.status('system.memory.free_pct', free_pct, true);
+	update.status('system.cpu.load_pct',    load_pct, true);
 
 	if (host_data.timeout.refresh === null) {
 		log.msg('Set refresh timeout (' + config.system.host_data.refresh_interval + 'ms)');

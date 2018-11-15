@@ -1,12 +1,8 @@
 // CANBUS ARBIDs
 //
-// CON : iDrive controller
-// NBT : NBT_HU (HW07)
+// Kind of a mish-mash
+// From E39, E46, E60, E90, F10, G30
 const arbids = {
-	'0x202' : 'FEM', // Backlight dimmer
-
-	'0x4F8' : 'KOMBI', // Ignition status
-
 	// Ripped from E60, E65, E90, G30
 	'0x0A8' : 'DME',
 	'0x0A9' : 'DME',
@@ -46,8 +42,8 @@ const arbids = {
 	'0x0FB' : 'KGM',
 	'0x0FC' : 'KBM',
 	'0x0FD' : 'KBM',
-	'0x12F' : 'CAS', // NBT/ZBE1 wakeup
-	'0x130' : 'CAS', // Ignition status, key status
+	'0x12F' : 'CAS', // CON/NBT power on/off (but may actually be something IHKA related?)
+	'0x130' : 'CAS', // Ignition/key status
 	'0x135' : 'ACSM',
 	'0x15F' : 'LDM',
 	'0x172' : 'NBT',
@@ -58,7 +54,7 @@ const arbids = {
 	'0x198' : 'GWS',
 	'0x19E' : 'DSC',
 	'0x1A0' : 'DSC',
-	'0x1A1' : 'DSC', // Vehicle speed
+	'0x1A1' : 'DSC', // KCAN2 Vehicle speed
 	'0x1A2' : 'EGS',
 	'0x1A3' : 'SMG',
 	'0x1A6' : 'DSC',
@@ -67,13 +63,13 @@ const arbids = {
 	'0x1B4' : 'KOMBI',
 	'0x1B5' : 'IHKA',
 	'0x1B6' : 'DME',
-	'0x1B8' : 'ZBE',
+	'0x1B8' : 'CON', // KCAN1 CON
 	'0x1C0' : 'DSC', // Vehicle speed
 	'0x1C2' : 'PDC',
 	'0x1C3' : 'PDC',
 	'0x1C6' : 'PDC',
 	'0x1D0' : 'DME',
-	'0x1D2' : 'EGS',  // Gearbox
+	'0x1D2' : 'EGS', // Gearbox
 	'0x1D6' : 'SZL', // Steering wheel controls
 	'0x1D8' : 'NBT',
 	'0x1D9' : 'SZL',
@@ -90,34 +86,34 @@ const arbids = {
 	'0x1EE' : 'SZL',
 	'0x1EF' : 'SZM',
 	'0x1F2' : 'SZM',
-	// '0x1F3' : 'SZM',
 	'0x1F6' : 'LM', // Turn signals
 	'0x1FC' : 'AFS',
 	'0x1FE' : 'ACSM',
 	'0x200' : 'DME',
+	'0x202' : 'FEM', // Backlight dimmer
 	'0x205' : 'KOMBI',
 	'0x206' : 'DME',
 	'0x20B' : 'SZM',
-	'0x20C' : 'SMFA',
+	'0x20C' : 'SM', // Seat module, front driver
 	'0x20D' : 'SZM',
 	'0x210' : 'NBT',
 	'0x211' : 'HUD',
 	'0x212' : 'EHC',
-	'0x21A' : 'LM',   // Light status
+	'0x21A' : 'LM',  // Light status
 	'0x21C' : 'NBT', // Gateway
 	'0x21E' : 'NVC',
 	'0x226' : 'RLS',
-	'0x228' : 'NBT', // Operation special function
-	'0x22A' : 'SMBF',
-	'0x22E' : 'SMBFH',
-	'0x232' : 'SMFA',
-	'0x236' : 'SMFASH',
-	'0x237' : 'ALBVBF',
-	'0x239' : 'ALBVFA',
+	'0x228' : 'NBT',  // Operation special function
+	'0x22A' : 'SM',   // Seat module,                  front passenger
+	'0x22E' : 'SM',   // Seat module,                  rear  passenger
+	'0x232' : 'SM',   // Seat module,                  front driver
+	'0x236' : 'SM',   // Seat module,                  rear  driver
+	'0x237' : 'ALBV', // E60 M5 active backrest width, front passenger
+	'0x239' : 'ALBV', // E60 M5 active backrest width, front driver
 	'0x23A' : 'CAS',
 	'0x23B' : 'IHKA',
-	'0x23C' : 'SMFA',
-	'0x23F' : 'SMBF',
+	'0x23C' : 'SM', // Seat module, front driver
+	'0x23F' : 'SM', // Seat module, front passenger
 	'0x242' : 'IHKA',
 	'0x24A' : 'PDC',
 	'0x24F' : 'NBT',
@@ -193,15 +189,14 @@ const arbids = {
 	'0x335' : 'EKP',
 	'0x336' : 'KOMBI',
 	'0x337' : 'DME',
-	// '0x338' : 'KOMBI',
 	'0x339' : 'NBT',
 	'0x33A' : 'CID',
 	'0x341' : 'NBT',
 	'0x348' : 'NBT', // Match navigation graph
 	'0x34A' : 'NBT', // Navigation GPS 1
-	'0x34B' : 'SMFA',
+	'0x34B' : 'SM',  // Seat module, front driver
 	'0x34C' : 'NBT', // Navigation GPS 2
-	'0x34D' : 'SMBF',
+	'0x34D' : 'SM',  // Seat module, front passenger
 	'0x34E' : 'NBT', // Navigation system information
 	'0x35A' : 'NBT',
 	'0x35C' : 'KOMBI',
@@ -233,16 +228,16 @@ const arbids = {
 	'0x3B3' : 'DME',
 	'0x3B4' : 'DME',
 	'0x3B5' : 'IHKA',
-	'0x3B6' : 'KGM', // Window status LF
-	'0x3B7' : 'KBM', // Window status LR
-	'0x3B8' : 'KGM', // Window status RF
-	'0x3B9' : 'KBM', // Window status RR
+	'0x3B6' : 'KBM', // Window status, front left
+	'0x3B7' : 'KBM', // Window status, rear  left
+	'0x3B8' : 'KBM', // Window status, front right
+	'0x3B9' : 'KBM', // Window status, rear  right
 	'0x3BA' : 'SHD',
 	'0x3BD' : 'KBM',
 	'0x3BE' : 'CAS',
 	'0x3BF' : 'CVMV',
-	'0x3C0' : 'SMFA',
-	'0x3C1' : 'SMBF',
+	'0x3C0' : 'SM', // Seat module, front driver
+	'0x3C1' : 'SM', // Seat module, front passenger
 	'0x3CA' : 'NBT',
 	'0x3CC' : 'NBT',
 	'0x3D3' : 'LM',
@@ -253,7 +248,7 @@ const arbids = {
 	'0x3D8' : 'NBT',
 	'0x3D9' : 'RLS',
 	'0x3DA' : 'NBT',
-	'0x3DB' : 'SMFA',
+	'0x3DB' : 'SM', // Seat module, front driver
 	'0x3DC' : 'NBT',
 	'0x3DD' : 'LM',
 	'0x3DE' : 'NBT',
@@ -311,26 +306,27 @@ const arbids = {
 	'0x4D4' : 'SDARS',
 	'0x4D5' : 'SVS',
 	'0x4D7' : 'NVC',
-	'0x4D9' : 'ALBVFA',
-	'0x4DA' : 'ALBVBF',
+	'0x4D9' : 'ALBV', // E60 M5 active backrest width, front driver
+	'0x4DA' : 'ALBV', // E60 M5 active backrest width, front passenger
 	'0x4DB' : 'DAB',
-	'0x4DC' : 'BEHO', // Authority/Agency module
+	'0x4DC' : 'BEHO', // Authority/agency module
 	'0x4DD' : 'TLC',
 	'0x4DE' : 'GWS',
 	'0x4DF' : 'FLA',
 	'0x4E0' : 'KOMBI',
 	'0x4E2' : 'NBT', // Gateway
-	'0x4E3' : 'NBT', // _MM ?
+	'0x4E3' : 'NBT',
 	'0x4E4' : 'PDC',
 	'0x4E5' : 'SZM',
 	'0x4E7' : 'CON', // Status
 	'0x4EB' : 'HKL',
-	'0x4ED' : 'SMFA',
-	'0x4EE' : 'SMBF',
+	'0x4ED' : 'SM', // Seat module, front driver
+	'0x4EE' : 'SM', // Seat module, front passenger
 	'0x4F0' : 'LM',
 	'0x4F1' : 'AHM',
 	'0x4F2' : 'KBM',
 	'0x4F3' : 'CID',
+	'0x4F8' : 'KOMBI', // Ignition status
 	'0x4FA' : 'SHZH',
 	'0x4FD' : 'DIA',
 	'0x4FE' : 'DIA',
@@ -376,10 +372,10 @@ const arbids = {
 	'0x5D4' : 'SDARS',
 	'0x5D5' : 'SVS',
 	'0x5D7' : 'NVC',
-	'0x5D9' : 'ALBVFA',
-	'0x5DA' : 'ALBVBF',
+	'0x5D9' : 'ALBV', // E60 M5 active backrest width, front driver
+	'0x5DA' : 'ALBV', // E60 M5 active backrest width, front passenger
 	'0x5DB' : 'DAB',
-	'0x5DC' : 'BEHO', // Authority/Agency module
+	'0x5DC' : 'BEHO', // Authority/agency module
 	'0x5DD' : 'TLC',
 	'0x5DE' : 'GWS',
 	'0x5DF' : 'FLA',
@@ -390,8 +386,8 @@ const arbids = {
 	'0x5E5' : 'SZM',
 	'0x5E7' : 'CON', // Status
 	'0x5EB' : 'HKL',
-	'0x5ED' : 'SMFA',
-	'0x5EE' : 'SMBF',
+	'0x5ED' : 'SM', // Seat module, front driver
+	'0x5EE' : 'SM', // Seat module, front passenger
 	'0x5F0' : 'LM',
 	'0x5F1' : 'AHM',
 	'0x5F2' : 'KBM',
@@ -406,7 +402,9 @@ const arbids = {
 	'0x663' : 'NBT',
 	'0x671' : 'DIA',
 	'0x7C3' : 'CAS', // Keyfob
-	'0xBF'  : 'CON', // Touchpad
+
+	// '0x1F3' : 'SZM',
+	// '0x338' : 'KOMBI',
 
 
 	// From E38/E39/E46/E53
@@ -415,6 +413,8 @@ const arbids = {
 	'0x1F3' : 'DSC', // Transverse acceleration, VSS
 	'0x1F5' : 'DSC', // Steering angle
 	'0x1F8' : 'DSC', // Brake pressure
+	'0x77F' : 'DSC', // E39 DSC 5.7 brake pressure
+	'0x7B5' : 'DSC', // E39 DSC 5.7 brake pressure
 
 	'0x316' : 'DME', // RPM
 	'0x329' : 'DME', // Temp, brake pedal depressed, throttle position
@@ -432,15 +432,13 @@ const arbids = {
 	'0x712' : 'DME',
 	'0x720' : 'DME',
 
-	// Appears to be message priority inversion
+	// Might be "message priority inversion"
 	'0x77C' : '',
-	'0x77F' : '',
-	'0x7B5' : '',
 };
 
 // Array of CANBUS ARBIDs to allow
 const arbids_allow = [
-	'0x0BF',
+	'0x0BF', // CON touchpad
 	'0x12F',
 	'0x130',
 	'0x153',
