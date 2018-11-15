@@ -160,31 +160,31 @@ function init_client(init_client_cb = null) {
 	});
 
 	app.get('/gm/doors/closed/:value', (req, res) => {
-		update.status('doors.closed', (req.params.value == 'true'));
-		update.status('doors.open',   (req.params.value != 'true'));
+		update.status('doors.closed', (req.params.value == 'true'), false);
+		update.status('doors.open',   (req.params.value != 'true'), false);
 		res.send(status.doors);
 	});
 
 	app.get('/gm/doors/open/:value', (req, res) => {
-		update.status('doors.closed', (req.params.value != 'true'));
-		update.status('doors.open',   (req.params.value == 'true'));
+		update.status('doors.closed', (req.params.value != 'true'), false);
+		update.status('doors.open',   (req.params.value == 'true'), false);
 		res.send(status.doors);
 	});
 
 	app.get('/gm/doors/sealed/:value', (req, res) => {
-		update.status('doors.sealed', (req.params.value == 'true'));
+		update.status('doors.sealed', (req.params.value == 'true'), false);
 		res.send(status.doors);
 	});
 
 	app.get('/gm/windows/closed/:value', (req, res) => {
-		update.status('windows.closed', (req.params.value == 'true'));
-		update.status('windows.open',   (req.params.value != 'true'));
+		update.status('windows.closed', (req.params.value == 'true'), false);
+		update.status('windows.open',   (req.params.value != 'true'), false);
 		res.send(status.windows);
 	});
 
 	app.get('/gm/windows/open/:value', (req, res) => {
-		update.status('windows.closed', (req.params.value != 'true'));
-		update.status('windows.open',   (req.params.value == 'true'));
+		update.status('windows.closed', (req.params.value != 'true'), false);
+		update.status('windows.open',   (req.params.value == 'true'), false);
 		res.send(status.windows);
 	});
 
@@ -289,12 +289,12 @@ function init_client(init_client_cb = null) {
 
 
 	app.get('/lcm/backlight/:value', (req, res) => {
-		update.status('lcm.dimmer.value_1', parseInt(req.params.value));
+		update.status('lcm.dimmer.value_1', parseInt(req.params.value), false);
 		res.send(status.lcm);
 	});
 
 	app.get('/lcm/comfort-turn/:action', (req, res) => {
-		update.status('lights.turn.depress_elapsed', 0);
+		update.status('lights.turn.depress_elapsed', 0, false);
 		LCM.comfort_turn_flash(req.params.action);
 		res.send(status.lcm);
 	});
