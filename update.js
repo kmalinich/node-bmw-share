@@ -53,7 +53,7 @@ class update extends EventEmitter {
 		return true;
 	}
 
-	// update.status('engine.rpm', 1235, true);
+	// update.status('engine.rpm', 1235, false);
 	status(key, value_new, quiet = true) {
 		let value_old = object_path.get(status, key);
 
