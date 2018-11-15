@@ -430,7 +430,7 @@ const arbids = {
 	'0x710' : 'DME',
 	'0x711' : 'DME',
 	'0x712' : 'DME',
-	'0x720' : 'DME',
+	'0x720' : 'DME', // Coolant temp/Intake air temp/Exhaust gas temp/Oil temp/Voltage/Speed/Fuel pump duty
 
 	// Might be "message priority inversion"
 	'0x77C' : '',
@@ -438,7 +438,7 @@ const arbids = {
 
 // Array of CANBUS ARBIDs to allow
 const arbids_allow = [
-	'0x0BF', // CON touchpad
+	'0x0BF',
 	'0x12F',
 	'0x130',
 	'0x153',
