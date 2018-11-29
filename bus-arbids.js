@@ -27,10 +27,10 @@ const arbids = {
 	'0x0C4' : 'DSC',
 	'0x0C8' : 'SZL',
 	'0x0CE' : 'DSC',
-	'0x0D2' : 'SZM',
+	'0x0D2' : 'SZM', // Operation seat adjustment BF
 	'0x0D5' : 'LDM',
 	'0x0D7' : 'ACSM',
-	'0x0DA' : 'SZM',
+	'0x0DA' : 'SZM', // Operation seat adjustment FA
 	'0x0E1' : 'DSCB',
 	'0x0E2' : 'KGM',
 	'0x0E6' : 'KBM',
@@ -77,25 +77,25 @@ const arbids = {
 	'0x1DC' : 'NBT',
 	'0x1E0' : 'NBT',
 	'0x1E2' : 'NBT',
-	'0x1E7' : 'SZM', // Seat heating
-	'0x1E8' : 'SZM',
+	'0x1E7' : 'SZM', // Seat climate/heating, front driver
+	'0x1E8' : 'SZM', // Seat climate/heating, front passenger
 	'0x1EA' : 'SZL',
-	'0x1EB' : 'SZM',
-	'0x1EC' : 'SZM',
-	'0x1ED' : 'SZM',
+	'0x1EB' : 'SZM', // Seat active massage, front left
+	'0x1EC' : 'SZM', // Seat active massage, front right
+	'0x1ED' : 'SZM', // Seat active bolster, front left
 	'0x1EE' : 'SZL',
-	'0x1EF' : 'SZM',
-	'0x1F2' : 'SZM',
-	'0x1F6' : 'LM', // Turn signals
+	'0x1EF' : 'SZM', // Seat active bolster, front right
+	'0x1F2' : 'SZM', // Operation seat memory BF
+	'0x1F6' : 'LM',  // Turn signals
 	'0x1FC' : 'AFS',
 	'0x1FE' : 'ACSM',
 	'0x200' : 'DME',
 	'0x202' : 'FEM', // Backlight dimmer
 	'0x205' : 'KOMBI',
 	'0x206' : 'DME',
-	'0x20B' : 'SZM',
-	'0x20C' : 'SM', // Seat module, front driver
-	'0x20D' : 'SZM',
+	'0x20B' : 'SZM', // Memory adjustment
+	'0x20C' : 'SM',  // Seat module, front driver
+	'0x20D' : 'SZM', // Steering column position
 	'0x210' : 'NBT',
 	'0x211' : 'HUD',
 	'0x212' : 'EHC',
@@ -104,9 +104,9 @@ const arbids = {
 	'0x21E' : 'NVC',
 	'0x226' : 'RLS',
 	'0x228' : 'NBT',  // Operation special function
-	'0x22A' : 'SM',   // Seat module,                  front passenger
+	'0x22A' : 'SM',   // Seat module,                  front passenger, status message
 	'0x22E' : 'SM',   // Seat module,                  rear  passenger
-	'0x232' : 'SM',   // Seat module,                  front driver
+	'0x232' : 'SM',   // Seat module,                  front driver, status message
 	'0x236' : 'SM',   // Seat module,                  rear  driver
 	'0x237' : 'ALBV', // E60 M5 active backrest width, front passenger
 	'0x239' : 'ALBV', // E60 M5 active backrest width, front driver
@@ -131,7 +131,7 @@ const arbids = {
 	'0x27A' : 'NBT', // Synchronization navigation graph
 	'0x27E' : 'CVMV',
 	'0x284' : 'CAS',
-	'0x285' : 'SZM',
+	'0x285' : 'SZM', // Control roller blinds
 	'0x28C' : 'GWS',
 	'0x292' : 'FLA',
 	'0x29F' : 'CAS',
@@ -171,10 +171,10 @@ const arbids = {
 	'0x312' : 'KOMBI',
 	'0x313' : 'NBT',
 	'0x314' : 'RLS',
-	'0x315' : 'SZM',
-	'0x317' : 'SZM',
+	'0x315' : 'SZM', // Vehicle mode (sport mode)
+	'0x317' : 'SZM', // PDC button
 	'0x318' : 'PGS',
-	'0x319' : 'SZM',
+	'0x319' : 'SZM', // RDC button
 	'0x31C' : 'RDC',
 	'0x31D' : 'DSC',
 	'0x322' : 'EDCK',
@@ -317,7 +317,7 @@ const arbids = {
 	'0x4E2' : 'NBT', // Gateway
 	'0x4E3' : 'NBT',
 	'0x4E4' : 'PDC',
-	'0x4E5' : 'SZM',
+	'0x4E5' : 'SZM', // Network management
 	'0x4E7' : 'CON', // Status
 	'0x4EB' : 'HKL',
 	'0x4ED' : 'SM', // Seat module, front driver
@@ -383,7 +383,7 @@ const arbids = {
 	'0x5E2' : 'NBT',
 	'0x5E3' : 'NBT', // Services
 	'0x5E4' : 'PDC',
-	'0x5E5' : 'SZM',
+	'0x5E5' : 'SZM', // Services
 	'0x5E7' : 'CON', // Status
 	'0x5EB' : 'HKL',
 	'0x5ED' : 'SM', // Seat module, front driver
@@ -444,11 +444,17 @@ const arbids_allow = [
 	'0x153',
 	'0x1A1',
 	'0x1B4',
+	'0x1EB',
+	'0x1EC',
+	'0x1ED',
+	'0x1EF',
 	'0x1F0',
 	'0x1F3',
 	'0x1F5',
 	'0x1F8',
 	'0x202',
+	'0x22A',
+	'0x232',
 	'0x264',
 	'0x267',
 	'0x273',
@@ -456,6 +462,7 @@ const arbids_allow = [
 	'0x2FC',
 	'0x304',
 	'0x316',
+	'0x317',
 	'0x329',
 	'0x338',
 	'0x34E',
