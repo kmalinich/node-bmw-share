@@ -11,22 +11,30 @@ app.use(body_parser.json());
 // Only load socket.io server if this is the client app
 const io = require('socket.io')(server);
 
+
 // Ghetto workaround so the different interface processes
 // have their respective API servers listening on different
 // ports
 function get_port() {
+	let port_base = config.api.port;
+
+	let port_offset;
 	switch (app_intf) {
-		case 'can0'   : return config.api.port;
-		case 'can1'   : return config.api.port + 1;
-		case 'client' : return config.api.port + 2;
-		case 'dbus'   : return config.api.port + 3;
-		case 'ibus'   : return config.api.port + 4;
-		case 'kbus'   : return config.api.port + 5;
-		case 'lcd'    : return config.api.port + 6;
-		default       : return config.api.port + 7;
+		case 'can0'   : port_offset = 0; break;
+		case 'can1'   : port_offset = 1; break;
+		case 'client' : port_offset = 2; break;
+		case 'dbus'   : port_offset = 3; break;
+		case 'ibus'   : port_offset = 4; break;
+		case 'kbus'   : port_offset = 5; break;
+		case 'lcd'    : port_offset = 6; break;
+
+		default       : port_offset = 7;
 	}
+
+	return port_base + port_offset;
 }
 
+// Emit WebSocket data/events
 function emit(topic, data, emit_cb = null) {
 	// Bounce if this isn't the client app
 	if (app_intf !== 'client') {
@@ -35,8 +43,62 @@ function emit(topic, data, emit_cb = null) {
 		return;
 	}
 
+	if (topic !== 'status-tx') {
+		typeof emit_cb === 'function' && process.nextTick(emit_cb);
+		emit_cb = undefined;
+		return;
+	}
+
+	switch (data.key.full) {
+		case 'dme.voltage' : break;
+
+		case 'engine.atmospheric_pressure.psi'    : break;
+		case 'engine.aux_fan_speed'               : break;
+		case 'engine.torque.after_interventions'  : break;
+		case 'engine.torque.before_interventions' : break;
+		case 'engine.torque.loss'                 : break;
+		case 'engine.torque.output'               : break;
+
+		case 'fuel.level'        : break;
+		case 'fuel.pump.percent' : break;
+
+		case 'gpio.relay_0' : break;
+		case 'gpio.relay_1' : break;
+
+		case 'lcm.voltage.terminal_30' : break;
+
+		case 'obc.average_speed.mph'  : break;
+		case 'obc.consumption.c1.mpg' : break;
+		case 'obc.consumption.c2.mpg' : break;
+		case 'obc.range.mi'           : break;
+
+		case 'system.cpu.load_pct' : break;
+		case 'system.temperature'  : break;
+
+		case 'temperature.coolant.c'  : break;
+		case 'temperature.exhaust.c'  : break;
+		case 'temperature.exterior.c' : break;
+		case 'temperature.intake.c'   : break;
+		case 'temperature.oil.c'      : break;
+
+		case 'vehicle.dsc.torque_reduction_1'  : break;
+		case 'vehicle.dsc.torque_reduction_2'  : break;
+		case 'vehicle.ignition_level'          : break;
+		case 'vehicle.steering.angle'          : break;
+		case 'vehicle.wheel_speed.front.left'  : break;
+		case 'vehicle.wheel_speed.front.right' : break;
+		case 'vehicle.wheel_speed.rear.left'   : break;
+		case 'vehicle.wheel_speed.rear.right'  : break;
+
+		default : {
+			typeof emit_cb === 'function' && process.nextTick(emit_cb);
+			emit_cb = undefined;
+			return;
+		}
+	}
+
 	io.emit(topic, data);
-	// log.msg('Emitted ' + topic + ' message' });
+	// log.msg('Emitted ' + topic + ' message');
 
 	typeof emit_cb === 'function' && process.nextTick(emit_cb);
 	emit_cb = undefined;

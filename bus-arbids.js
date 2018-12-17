@@ -439,6 +439,7 @@ const arbids = {
 // Array of CANBUS ARBIDs to allow
 const arbids_allow = [
 	'0x0BF',
+	'0x0CE',
 	'0x12F',
 	'0x130',
 	'0x153',
