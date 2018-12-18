@@ -25,9 +25,9 @@ function ok2minmax(value) {
 
 
 module.exports = {
-	ceil2  : (value) => { return ceil2(value);  },
-	floor2 : (value) => { return floor2(value); },
-	round2 : (value) => { return round2(value); },
+	ceil2  : (value, places = 2) => { return ceil2(value,  places); },
+	floor2 : (value, places = 2) => { return floor2(value, places); },
+	round2 : (value, places = 2) => { return round2(value, places); },
 
 	ok2minmax : (value) => { return ok2minmax(value); },
 };
