@@ -18,7 +18,7 @@ function round2(value, places = 2) {
 
 // For use with ADC sensor stats (5V sensors)
 function ok2minmax(value) {
-	if (value < 0.4) return false;
+	if (value < 0.9) return false;
 	if (value > 4.6) return false;
 	return true;
 }
