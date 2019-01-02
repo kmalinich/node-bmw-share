@@ -486,7 +486,7 @@ const arbids_allow = [
 
 // 0x273 -> NBT
 function h2n(hex) {
-	let hex_str = '0x' + hex.toString(16).padStart(0, 0).toUpperCase();
+	let hex_str = '0x' + hex.toString(16).padStart(3, 0).toUpperCase();
 	if (arbids[hex_str]) return arbids[hex_str];
 
 	// Didn't find it
