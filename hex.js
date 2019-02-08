@@ -50,12 +50,11 @@ function h2s(data) {
 }
 
 // Convert integer to hex string
-function i2s(data, prefix = true) {
+function i2s(data, prefix = true, length = 2) {
 	if (typeof data === 'undefined' || data === null || data === '') return false;
 
-	let hexstr = data.toString(16).toUpperCase();
-	if (hexstr.length === 1)    hexstr = '0'  + hexstr;
-	if (prefix        === true) hexstr = '0x' + hexstr;
+	let hexstr = data.toString(16).toUpperCase().padStart(length, '0');
+	if (prefix === true) hexstr = '0x' + hexstr;
 	return hexstr;
 }
 
