@@ -185,6 +185,10 @@ function refresh_temperature() {
 
 			// Save rounded temp value
 			let temp_value = Math.round(system_temp.get('TC0D') + system_temp.get('TC0E'));
+
+			// On iMac14,2 temp value is negative for some reason, but still accurate
+			temp_value = Math.abs(temp_value);
+
 			// Only output temperature message if over 65 C
 			let verbose = (temp_value >= 65);
 
