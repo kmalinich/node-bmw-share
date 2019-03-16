@@ -49,6 +49,7 @@ function init(init_callback = null) {
 					status.system = {
 						type : app_intf || null,
 						intf : app_intf || null,
+
 						host : {
 							full  : os.hostname(),
 							short : os.hostname().split('.')[0],
@@ -71,15 +72,9 @@ function init(init_callback = null) {
 	let cpus = os.cpus();
 	let load = os.loadavg();
 
-	let free_pct = os.freemem() / os.totalmem();
-	free_pct = free_pct * 100;
-	free_pct = free_pct.toFixed(2);
-	free_pct = parseFloat(free_pct);
+	let free_pct = num.round2(os.freemem() * 100 / os.totalmem());
 
-	let load_pct = load[0] / cpus.length;
-	load_pct = load_pct * 100;
-	load_pct = load_pct.toFixed(2);
-	load_pct = parseFloat(load_pct);
+	let load_pct = num.round2(load[0] * 100 / cpus.length);
 
 	status.system = {
 		type : app_intf || null,
@@ -266,6 +261,7 @@ function refresh() {
 					status.system = {
 						type : app_intf || null,
 						intf : app_intf || null,
+
 						host : {
 							full  : os.hostname(),
 							short : os.hostname().split('.')[0],
@@ -285,20 +281,14 @@ function refresh() {
 	let loadavg = os.loadavg();
 	update.status('system.cpu.load.0', loadavg[0]);
 	update.status('system.cpu.load.1', loadavg[1]);
+	update.status('system.cpu.load.2', loadavg[2]);
 	update.status('system.cpu.load.3', loadavg[3]);
 
-	update.status('system.memory.free',  os.freemem());
-	update.status('system.memory.total', os.totalmem());
+	update.status('system.memory.free',  num.round2(os.freemem() / 1048576));
+	update.status('system.memory.total', num.round2(os.totalmem() / 1048576));
 
-	let free_pct = status.system.memory.free / status.system.memory.total;
-	free_pct = free_pct * 100;
-	free_pct = free_pct.toFixed(2);
-	free_pct = parseFloat(free_pct);
-
-	let load_pct = status.system.cpu.load[0] / status.system.cpu.count;
-	load_pct = load_pct * 100;
-	load_pct = load_pct.toFixed(2);
-	load_pct = parseFloat(load_pct);
+	let free_pct = num.round2(status.system.memory.free * 100 / status.system.memory.total);
+	let load_pct = num.round2(status.system.cpu.load[0] * 100 / status.system.cpu.count);
 
 	update.status('system.memory.free_pct', free_pct);
 	update.status('system.cpu.load_pct',    load_pct);
