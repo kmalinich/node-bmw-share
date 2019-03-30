@@ -492,6 +492,7 @@ function init(init_cb = null) {
 
 	app.post('/config', (req, res) => {
 		config = req.body;
+		json.config_write();
 		res.send(config);
 	});
 
@@ -517,6 +518,7 @@ function term(term_cb = null) {
 	typeof term_cb === 'function' && process.nextTick(term_cb);
 	term_cb = undefined;
 }
+
 
 module.exports = {
 	// Main functions
