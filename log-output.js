@@ -1,6 +1,5 @@
 /* eslint no-console: 0 */
 
-const align    = require('multipad');
 const caller   = require('callers-path');
 const path     = require('path');
 const trucolor = require('trucolor');
@@ -46,7 +45,17 @@ const chalk = (0, trucolor.chalkish)((0, trucolor.palette)({}, {
 
 
 function center(string, width) {
-	return align.center(string, width, ' ');
+	let character = ' ';
+
+	string = string.toString();
+	width  = parseInt(width);
+
+	while (string.width < width) {
+		string = character + string;
+		if (string.width < width) string = string + character;
+	}
+
+	return string;
 }
 
 function colorize(string) {
