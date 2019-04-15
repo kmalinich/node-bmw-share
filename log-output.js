@@ -44,15 +44,15 @@ const chalk = (0, trucolor.chalkish)((0, trucolor.palette)({}, {
 }));
 
 
-function center(string, width) {
+function center(string, length) {
 	let character = ' ';
 
 	string = string.toString();
-	width  = parseInt(width);
+	length  = parseInt(length);
 
-	while (string.width < width) {
+	while (string.length < length) {
 		string = character + string;
-		if (string.width < width) string = string + character;
+		if (string.length < length) string = string + character;
 	}
 
 	return string;
