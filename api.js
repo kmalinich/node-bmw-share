@@ -192,6 +192,10 @@ function init_client(init_client_cb = null) {
 
 	app.post('/dsp/eq', (req, res) => {
 		DSP.eq_encode(req.body);
+
+		// Update config object value
+		config.media.dsp.eq = req.body;
+
 		res.send(status.dsp);
 	});
 
