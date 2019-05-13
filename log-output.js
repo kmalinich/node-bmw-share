@@ -213,7 +213,7 @@ module.exports = {
 		console.log('[%s] [%s%s%s] [%s]', data.bus, data.src.name, arrows, data.dst.name, data.command, data.value);
 
 		// Send log data to WebSocket
-		api.emit('log-tx', data);
+		typeof api !== 'undefined' && api.emit('log-tx', data);
 	},
 
 	// Formatted output for when a value changes
@@ -248,7 +248,7 @@ module.exports = {
 		console.log('[%s] [%s] [%s] %s: \'%s\'', data.bus, data.src_fmt, data.command_fmt, data.value, data.new);
 
 		// Send log data to WebSocket
-		api.emit('log-tx', data);
+		typeof api !== 'undefined' && api.emit('log-tx', data);
 	},
 
 	msg : (data) => {
@@ -290,7 +290,7 @@ module.exports = {
 		console.log('[%s] [%s] [%s] %s', data.bus, data.src_fmt, data.command_fmt, data.msg_fmt);
 
 		// Send log data to WebSocket
-		api.emit('log-tx', data);
+		typeof api !== 'undefined' && api.emit('log-tx', data);
 	},
 
 	module : (data) => {
@@ -321,7 +321,7 @@ module.exports = {
 		console.log('[%s] [%s] [%s] %s', data.bus, data.src_fmt, data.mod_fmt, data.msg_fmt);
 
 		// Send log data to WebSocket
-		api.emit('log-tx', data);
+		typeof api !== 'undefined' && api.emit('log-tx', data);
 	},
 
 	// Dynamic log message output
@@ -379,6 +379,6 @@ module.exports = {
 		console.log('[%s] [%s] [%s] [%s] %s', data.method, data.type, data.event, data.string);
 
 		// Send log data to WebSocket
-		api.emit('log-tx', data);
+		typeof api !== 'undefined' && api.emit('log-tx', data);
 	},
 };
