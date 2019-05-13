@@ -113,8 +113,8 @@ function init_client(init_client_cb = null) {
 		return;
 	}
 
-	io.on('connection', (socket) => {
-		socket.on('disconnect', (reason) => {
+	io.on('connection', (socket_conn) => {
+		socket_conn.on('disconnect', (reason) => {
 			log.msg('socket.io client disconnected, reason: ' + reason);
 		});
 
@@ -133,7 +133,7 @@ function init_client(init_client_cb = null) {
 		];
 
 		array_status.forEach((key) => {
-			socket.emit('status-tx', {
+			socket_conn.emit('status-tx', {
 				key : {
 					stub : key.split('.')[0],
 					full : key,
