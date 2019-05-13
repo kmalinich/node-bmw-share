@@ -26,9 +26,8 @@ function get_port() {
 		case 'dbus'   : port_offset = 3; break;
 		case 'ibus'   : port_offset = 4; break;
 		case 'kbus'   : port_offset = 5; break;
-		case 'lcd'    : port_offset = 6; break;
 
-		default       : port_offset = 7;
+		default : port_offset = 7;
 	}
 
 	return port_base + port_offset;
