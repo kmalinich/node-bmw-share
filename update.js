@@ -38,6 +38,8 @@ class update extends EventEmitter {
 
 		this.emit(data_emit_key, data_emit);
 
+		if (typeof api === 'undefined') return true;
+
 		api.emit('config-tx', {
 			key : {
 				stub : key.split('.')[0],
@@ -78,6 +80,8 @@ class update extends EventEmitter {
 		};
 
 		this.emit(data_emit_key, data_emit);
+
+		if (typeof api === 'undefined') return true;
 
 		api.emit('status-tx', {
 			key : {
