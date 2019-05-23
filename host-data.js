@@ -6,7 +6,7 @@ let system_temp;
 function get_host_data_type() {
 	switch (process.arch + process.platform) {
 		case 'armlinux'  : return 'pi-temperature';
-		case 'x64darwin' : return 'smc';
+		// case 'x64darwin' : return 'smc';
 		case 'x64linux'  : return 'lm_sensors.js';
 	}
 }
@@ -20,7 +20,7 @@ function check() {
 	// Save check result
 	switch (process.arch + process.platform) {
 		case 'armlinux'  : host_data.check_result = true; break;
-		case 'x64darwin' : host_data.check_result = true; break;
+		// case 'x64darwin' : host_data.check_result = true; break;
 		case 'x64linux'  : host_data.check_result = true; break;
 		default          : host_data.check_result = false;
 	}
@@ -171,25 +171,25 @@ function refresh_temperature() {
 			break;
 		}
 
-		case 'smc' : { // x64darwin
-			// TC0D : Hackintosh
-			// TC0E : 2016 rMBP
+		// case 'smc' : { // x64darwin
+		// 	// TC0D : Hackintosh
+		// 	// TC0E : 2016 rMBP
 
-			// Either TC0D or TC0E is always 0.. so
-			// .. yeah, that's gross
+		// 	// Either TC0D or TC0E is always 0.. so
+		// 	// .. yeah, that's gross
 
-			// Save rounded temp value
-			let temp_value = Math.round(system_temp.get('TC0D') + system_temp.get('TC0E'));
+		// 	// Save rounded temp value
+		// 	let temp_value = Math.round(system_temp.get('TC0D') + system_temp.get('TC0E'));
 
-			// On iMac14,2 temp value is negative for some reason, but still accurate
-			temp_value = Math.abs(temp_value);
+		// 	// On iMac14,2 temp value is negative for some reason, but still accurate
+		// 	temp_value = Math.abs(temp_value);
 
-			// Only output temperature message if over 65 C
-			let verbose = (temp_value >= 65);
+		// 	// Only output temperature message if over 65 C
+		// 	let verbose = (temp_value >= 65);
 
-			update.status('system.temperature', temp_value, verbose);
-			break;
-		}
+		// 	update.status('system.temperature', temp_value, verbose);
+		// 	break;
+		// }
 
 		case 'lm_sensors.js' : { // x64 linux
 			system_temp.sensors().then((sensors) => {
