@@ -59,10 +59,10 @@ function emit(topic, data, emit_cb = null) {
 		case 'engine.torque.loss'                 : break;
 		case 'engine.torque.output'               : break;
 
-		case 'engine.torque_values.after_interventions'  : break;
-		case 'engine.torque_values.before_interventions' : break;
-		case 'engine.torque_values.loss'                 : break;
-		case 'engine.torque_values.output'               : break;
+		case 'engine.torque_value.after_interventions'  : break;
+		case 'engine.torque_value.before_interventions' : break;
+		case 'engine.torque_value.loss'                 : break;
+		case 'engine.torque_value.output'               : break;
 
 		case 'engine.horsepower.after_interventions'  : break;
 		case 'engine.horsepower.before_interventions' : break;
