@@ -51,12 +51,23 @@ function emit(topic, data, emit_cb = null) {
 	switch (data.key.full) {
 		case 'dme.voltage' : break;
 
-		case 'engine.atmospheric_pressure.psi'    : break;
-		case 'engine.aux_fan_speed'               : break;
+		case 'engine.atmospheric_pressure.psi' : break;
+		case 'engine.aux_fan_speed'            : break;
+
 		case 'engine.torque.after_interventions'  : break;
 		case 'engine.torque.before_interventions' : break;
 		case 'engine.torque.loss'                 : break;
 		case 'engine.torque.output'               : break;
+
+		case 'engine.torque_values.after_interventions'  : break;
+		case 'engine.torque_values.before_interventions' : break;
+		case 'engine.torque_values.loss'                 : break;
+		case 'engine.torque_values.output'               : break;
+
+		case 'engine.horsepower.after_interventions'  : break;
+		case 'engine.horsepower.before_interventions' : break;
+		case 'engine.horsepower.loss'                 : break;
+		case 'engine.horsepower.output'               : break;
 
 		case 'fuel.level'        : break;
 		case 'fuel.pump.percent' : break;
