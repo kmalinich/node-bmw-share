@@ -1,3 +1,4 @@
+/*.md
+/*.sh
 /.git
-/node_modules
-/test/*
+/LICENSE

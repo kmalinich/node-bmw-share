@@ -4,6 +4,3 @@
 *.swp
 .DS_Store
 ._*
-/node_modules/
-/package-lock.json
-/test/
