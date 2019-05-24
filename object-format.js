@@ -1,37 +1,48 @@
-/* eslint no-console : 0 */
+/* eslint no-console     : 0 */
+/* eslint no-unused-vars : 0 */
 
-let _jsonColorizer = require('json-colorizer');
+const colorize = require('json-colorizer');
 
-let log = require('log-output');
+// 24bit color chalk-style palette
+const chalk = {
+	black  : '#303030',
+	blue   : '#3398db',
+	cyan   : '#00c8c8',
+	green  : '#2fdf64',
+	gray   : '#acacac',
+	orange : '#ff9932',
+	pink   : '#b2008c',
+	purple : '#7253b2',
+	red    : '#e74c3c',
+	white  : '#e0e0e0',
+	yellow : '#ffcc32',
+};
 
-let _jsonColorizer2 = _interopRequireDefault(_jsonColorizer);
-
-function _interopRequireDefault(obj) {
-	return obj && obj.__esModule ? obj : { default : obj };
-}
 
 function object_format(object) {
 	let json = {
 		str : JSON.stringify(object, null, 2),
 		opt : {
 			colors : {
-				COMMA : log.chalk.boldwhite,
-				COLON : log.chalk.boldwhite,
+				BOOLEAN_LITERAL : '#FF9932', // italic
 
-				BOOLEAN_LITERAL : log.chalk.italicornange,
-				NULL_LITERAL    : log.chalk.italicgray,
+				BRACE   : '#ACACAC',
+				BRACKET : 'green',
 
-				STRING_KEY     : log.chalk.blue,
-				NUMBER_LITERAL : log.chalk.cyan,
+				COLON : 'whiteBright.bold',
+				COMMA : 'whiteBright.bold',
 
-				BRACE          : log.chalk.gray,
-				BRACKET        : log.chalk.gray,
-				STRING_LITERAL : log.chalk.yellow,
+				NULL_LITERAL   : 'gray.italic',
+				NUMBER_LITERAL : '#00C8C8',
+
+				STRING_KEY     : 'magenta.bold',
+				STRING_LITERAL : '#FFCC32',
 			},
 		},
 	};
 
-	console.log((0, _jsonColorizer2.default)(json.str, json.opt));
+	console.log(colorize(json.str, json.opt));
 }
+
 
 module.exports = object_format;

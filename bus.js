@@ -5,10 +5,12 @@ const bus_object = {
 	modules : require('bus-modules'), // DBUS/IBUS/KBUS module IDs
 };
 
+
 switch (app_intf) {
 	case 'client' : {
 		bus_object.cmds = require('bus-cmds'); // IBUS/KBUS shared commands
 	}
 }
+
 
 module.exports = bus_object;

@@ -103,9 +103,11 @@ function n2h(name) {
 
 
 module.exports = {
+	// Variables
 	modules       : modules,
 	modules_check : modules_check,
 
+	// Functions
 	h2n : h2n,
 	n2h : n2h,
 };

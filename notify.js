@@ -52,5 +52,6 @@ function notify(string) {
 
 
 module.exports = {
+	// Functions
 	notify : notify,
 };

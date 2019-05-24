@@ -501,9 +501,12 @@ function h2n(hex) {
 	return 'unk';
 }
 
+
 module.exports = {
+	// Variables
 	arbids       : arbids,
 	arbids_allow : arbids_allow,
 
+	// Functions
 	h2n : h2n,
 };

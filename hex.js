@@ -58,7 +58,9 @@ function i2s(data, prefix = true, length = 2) {
 	return hexstr;
 }
 
+
 module.exports = {
+	// Functions
 	a2h : (data) => { return a2h(data); },
 	h2a : (data) => { return h2a(data); },
 	h2s : (data) => { return h2s(data); },
