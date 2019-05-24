@@ -381,10 +381,7 @@ function socket(data) {
 }
 
 
-module.exports = {
-	// Variables
-	chalk : chalk,
-
+const log_output = {
 	// Functions
 	bus    : bus,
 	change : change,
@@ -393,3 +390,6 @@ module.exports = {
 	send   : send,
 	socket : socket,
 };
+
+
+module.exports = log_output;
