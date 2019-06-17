@@ -1,5 +1,4 @@
-// const module_name = __filename.slice(__dirname.length + 1, -3).replace('-', '_');
-
+// DBUS/IBUS/KBUS modules IDs
 const modules = {
 	ABG  : 0xA4, // Airbag
 	AHL  : 0x66, // Adaptive headlight unit
