@@ -163,18 +163,17 @@ function init_client(init_client_cb = null) {
 		}, 500);
 	});
 
+
 	// Some of these are shameful
+
+	// DME
 	app.get('/dme/encode-316/:rpm', (req, res) => {
 		DME.encode_316(parseInt(req.params.rpm));
 		res.send(status.dme);
 	});
 
 
-	app.get('/dsp/mode/:mode', (req, res) => {
-		DSP.dsp_mode(req.params.mode);
-		res.send(status.dsp);
-	});
-
+	// DSP
 	app.get('/dsp/eq/:band/:value', (req, res) => {
 		DSP.eq_delta(req.params.band, req.params.value);
 		res.send(status.dsp);
@@ -195,6 +194,11 @@ function init_client(init_client_cb = null) {
 		res.send(status.dsp);
 	});
 
+	app.get('/dsp/mode/:mode', (req, res) => {
+		DSP.dsp_mode(req.params.mode);
+		res.send(status.dsp);
+	});
+
 	app.get('/dsp/speaker-test/:command', (req, res) => {
 		DSP.speaker_test(req.params.command);
 		res.send(status.dsp);
@@ -210,11 +214,30 @@ function init_client(init_client_cb = null) {
 	});
 
 
+	// FEM
 	app.get('/fem/backlight/:value', (req, res) => {
 		FEM.backlight(parseInt(req.params.value));
 		res.send(status.fem);
 	});
 
+
+	// GM
+	app.get('/gm/doors/closed/:value', (req, res) => {
+		update.status('doors.closed', (req.params.value == 'true'), false);
+		update.status('doors.open',   (req.params.value != 'true'), false);
+		res.send(status.doors);
+	});
+
+	app.get('/gm/doors/open/:value', (req, res) => {
+		update.status('doors.closed', (req.params.value != 'true'), false);
+		update.status('doors.open',   (req.params.value == 'true'), false);
+		res.send(status.doors);
+	});
+
+	app.get('/gm/doors/sealed/:value', (req, res) => {
+		update.status('doors.sealed', (req.params.value == 'true'), false);
+		res.send(status.doors);
+	});
 
 	app.get('/gm/get/:value', (req, res) => {
 		GM.request(req.params.value);
@@ -233,23 +256,6 @@ function init_client(init_client_cb = null) {
 		});
 
 		res.send(status.gm);
-	});
-
-	app.get('/gm/doors/closed/:value', (req, res) => {
-		update.status('doors.closed', (req.params.value == 'true'), false);
-		update.status('doors.open',   (req.params.value != 'true'), false);
-		res.send(status.doors);
-	});
-
-	app.get('/gm/doors/open/:value', (req, res) => {
-		update.status('doors.closed', (req.params.value != 'true'), false);
-		update.status('doors.open',   (req.params.value == 'true'), false);
-		res.send(status.doors);
-	});
-
-	app.get('/gm/doors/sealed/:value', (req, res) => {
-		update.status('doors.sealed', (req.params.value == 'true'), false);
-		res.send(status.doors);
 	});
 
 	app.get('/gm/windows/closed/:value', (req, res) => {
@@ -285,17 +291,7 @@ function init_client(init_client_cb = null) {
 	});
 
 
-	app.get('/hdmi/cec/command/:action', (req, res) => {
-		hdmi_cec.command(req.params.action);
-		res.send(status.hdmi.cec);
-	});
-
-	app.get('/hdmi/rpi/command/:action', (req, res) => {
-		hdmi_rpi.command(req.params.action);
-		res.send(status.hdmi.rpi);
-	});
-
-
+	// GPIO
 	app.get('/gpio/set/:relay/:value', (req, res) => {
 		gpio.set(req.params.relay, req.params.value);
 		res.send(status.gpio);
@@ -307,6 +303,19 @@ function init_client(init_client_cb = null) {
 	});
 
 
+	// HDMI
+	app.get('/hdmi/cec/command/:action', (req, res) => {
+		hdmi_cec.command(req.params.action);
+		res.send(status.hdmi.cec);
+	});
+
+	app.get('/hdmi/rpi/command/:action', (req, res) => {
+		hdmi_rpi.command(req.params.action);
+		res.send(status.hdmi.rpi);
+	});
+
+
+	// IHKA
 	app.get('/ihka/get/:value', (req, res) => {
 		IHKA.request(req.params.value);
 		res.send(status.ihka);
@@ -323,18 +332,24 @@ function init_client(init_client_cb = null) {
 	});
 
 
+	// IKE
+	app.get('/ike/get/:value', (req, res) => {
+		IKE.request(req.params.value);
+		res.send(status.ike);
+	});
+
 	app.get('/ike/ignition/:value', (req, res) => {
 		IKE.ignition(req.params.value);
 		res.send(status.ike);
 	});
 
-	app.get('/ike/text/normal/:value', (req, res) => {
-		IKE.text(req.params.value);
+	app.get('/ike/text/nopad/:value', (req, res) => {
+		IKE.text_nopad(req.params.value);
 		res.send(status.ike);
 	});
 
-	app.get('/ike/text/nopad/:value', (req, res) => {
-		IKE.text_nopad(req.params.value);
+	app.get('/ike/text/normal/:value', (req, res) => {
+		IKE.text(req.params.value);
 		res.send(status.ike);
 	});
 
@@ -358,12 +373,8 @@ function init_client(init_client_cb = null) {
 		res.send(status.ike);
 	});
 
-	app.get('/ike/get/:value', (req, res) => {
-		IKE.request(req.params.value);
-		res.send(status.ike);
-	});
 
-
+	// LCM
 	app.get('/lcm/backlight/:value', (req, res) => {
 		update.status('lcm.dimmer.value_1', parseInt(req.params.value), false);
 		res.send(status.lcm);
@@ -401,6 +412,7 @@ function init_client(init_client_cb = null) {
 	});
 
 
+	// MFL
 	app.get('/mfl/translate-button-media/:action/:button', (req, res) => {
 		MFL.translate_button_media({
 			action : req.params.action,
@@ -411,18 +423,14 @@ function init_client(init_client_cb = null) {
 	});
 
 
-	app.get('/obc/get/:value', (req, res) => {
-		IKE.obc_data('get', req.params.value);
-		res.send(status.obc);
-	});
-
+	// OBC
 	app.get('/obc/get-all', (req, res) => {
 		IKE.obc_refresh();
 		res.send(status.obc);
 	});
 
-	app.get('/obc/set/clock', (req, res) => {
-		IKE.obc_clock();
+	app.get('/obc/get/:value', (req, res) => {
+		IKE.obc_data('get', req.params.value);
 		res.send(status.obc);
 	});
 
@@ -431,24 +439,20 @@ function init_client(init_client_cb = null) {
 		res.send(status.obc);
 	});
 
+	app.get('/obc/set/clock', (req, res) => {
+		IKE.obc_clock();
+		res.send(status.obc);
+	});
 
+
+	// POWER
 	app.get('/power/:state', (req, res) => {
 		power.power(req.params.state);
 		res.send(status.power);
 	});
 
 
-	app.get('/rls/get/:value', (req, res) => {
-		RLS.request(req.params.value);
-		res.send(status.rls);
-	});
-
-	app.post('/rls/light-control', (req, res) => {
-		RLS.light_control_status(req.body);
-		res.send(status.rls);
-	});
-
-
+	// RAD
 	app.get('/rad/cassette/:command', (req, res) => {
 		RAD.cassette_control(req.params.command);
 		res.send(status.rad);
@@ -470,6 +474,26 @@ function init_client(init_client_cb = null) {
 	});
 
 
+	// RLS
+	app.get('/rls/get/:value', (req, res) => {
+		RLS.request(req.params.value);
+		res.send(status.rls);
+	});
+
+	app.post('/rls/light-control', (req, res) => {
+		RLS.light_control_status(req.body);
+		res.send(status.rls);
+	});
+
+
+	// SZM
+	app.get('/szm/button/:button', (req, res) => {
+		SZM.encode_button(req.params.button);
+		res.send(status.szm);
+	});
+
+
+	// TEL
 	app.post('/tel/led', (req, res) => {
 		TEL.led(req.body);
 		res.send(status.tel);
