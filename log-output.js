@@ -44,6 +44,21 @@ const chalk = (0, trucolor.chalkish)((0, trucolor.palette)({}, {
 }));
 
 
+// Reorganize log message data if needed
+function prep_msg(data) {
+	// Account for older format
+	if (typeof data === 'object' && typeof data.msg === 'undefined') {
+		data = { msg : data };
+	}
+
+	// Handle single-string input
+	if (typeof data === 'string') data = { msg : data };
+
+	return data;
+}
+
+
+// Space-pad a string on both ends to center it
 function center(string, length) {
 	let character = ' ';
 
@@ -58,47 +73,78 @@ function center(string, length) {
 	return string;
 }
 
+// FYI: The string.replace commands are in a specific order for a specific reason
 function colorize(string) {
 	string = string.toString();
 
+	// Purple
+	string = string.replace('Event:', chalk.purple('Event:'));
+
+	// Yellow
 	string = string.replace('Attempting',    chalk.yellow('Attempting'));
 	string = string.replace('Connecting',    chalk.yellow('Connecting'));
+	string = string.replace('Ending',        chalk.yellow('Ending'));
 	string = string.replace('Initializing',  chalk.yellow('Initializing'));
+	string = string.replace('Opening',       chalk.yellow('Opening'));
+	string = string.replace('Reconnecting',  chalk.yellow('Reconnecting'));
 	string = string.replace('Resetting',     chalk.yellow('Resetting'));
 	string = string.replace('Shutting down', chalk.yellow('Shutting down'));
 	string = string.replace('Starting',      chalk.yellow('Starting'));
 	string = string.replace('Stopping',      chalk.yellow('Stopping'));
 	string = string.replace('Terminating',   chalk.yellow('Terminating'));
 
+	// Red
+	string = string.replace(' close',        chalk.red(' close'));
 	string = string.replace(' closed',       chalk.red(' closed'));
 	string = string.replace(' disconnected', chalk.red(' disconnected'));
 	string = string.replace('Disconnected',  chalk.red('Disconnected'));
 	string = string.replace('Error',         chalk.red('Error'));
+	string = string.replace('error',         chalk.red('error'));
 	string = string.replace('Failed ',       chalk.red('Failed '));
+	string = string.replace('false',         chalk.red('false'));
+	string = string.replace('Shut down',     chalk.red('Shut down'));
 	string = string.replace('SIGINT',        chalk.red('SIGINT'));
 	string = string.replace('SIGTERM',       chalk.red('SIGTERM'));
-	string = string.replace('Shut down',     chalk.red('Shut down'));
 	string = string.replace('Stopped',       chalk.red('Stopped'));
 	string = string.replace('Terminated',    chalk.red('Terminated'));
 	string = string.replace('Unset',         chalk.red('Unset'));
-	string = string.replace('error',         chalk.red('error'));
-	string = string.replace('false',         chalk.red('false'));
 
+	// Green
 	string = string.replace(' connected',   chalk.green(' connected'));
 	string = string.replace(' opened',      chalk.green(' opened'));
+	string = string.replace(' ready',       chalk.green(' ready'));
 	string = string.replace('Connected ',   chalk.green('Connected '));
 	string = string.replace('Initialized',  chalk.green('Initialized'));
 	string = string.replace('Listening ',   chalk.green('Listening '));
+	string = string.replace('listening ',   chalk.green('listening '));
 	string = string.replace('Loaded ',      chalk.green('Loaded '));
+	string = string.replace('Opened',       chalk.green('Opened'));
 	string = string.replace('Read ',        chalk.green('Read '));
 	string = string.replace('Reset ',       chalk.green('Reset '));
 	string = string.replace('Set ',         chalk.green('Set '));
 	string = string.replace('Started',      chalk.green('Started'));
-	string = string.replace('Wrote',        chalk.green('Wrote'));
 	string = string.replace('true',         chalk.green('true'));
+	string = string.replace('Wrote',        chalk.green('Wrote'));
 
 	return string;
 }
+
+// Colorize data source string by name
+function colorize_src(orig, fmt) {
+	switch (orig) {
+		case 'host-data' : fmt = chalk.green(fmt);  break;
+		case 'json'      : fmt = chalk.purple(fmt); break;
+		case 'gpio'      : fmt = chalk.red(fmt);    break;
+		case 'power'     : fmt = chalk.red(fmt);    break;
+		case 'kodi'      : fmt = chalk.cyan(fmt);   break;
+		case 'socket'    : fmt = chalk.orange(fmt); break;
+		case 'api'       : fmt = chalk.orange(fmt); break;
+		default          : fmt = chalk.yellow(fmt);
+	}
+
+	return fmt;
+}
+
 
 // Should we output to stdout?
 function should_not_output() {
@@ -143,23 +189,23 @@ module.exports = {
 		data.bus_orig      = data.bus;
 		data.src.name_orig = data.src.name;
 		data.dst.name_orig = data.dst.name;
-		data.command_orig  = data.command;
+		data.topic_orig    = data.topic;
 
 		// Format bus
 		data.bus = data.bus.charAt(0).toUpperCase() + data.bus.charAt(1).toUpperCase();
 
 		// Format command
-		switch (data.command_orig) {
-			case 'ack' : data.command = 'ACK';       break;
-			case 'bro' : data.command = 'BROADCAST'; break;
-			case 'con' : data.command = 'CONTROL';   break;
-			case 'rep' : data.command = 'REPLY';     break;
-			case 'req' : data.command = 'REQUEST';   break;
-			case 'sta' : data.command = 'STATUS';    break;
-			case 'upd' : data.command = 'UPDATE';    break;
+		switch (data.topic_orig) {
+			case 'ack' : data.topic = 'ACK';       break;
+			case 'bro' : data.topic = 'BROADCAST'; break;
+			case 'con' : data.topic = 'CONTROL';   break;
+			case 'rep' : data.topic = 'REPLY';     break;
+			case 'req' : data.topic = 'REQUEST';   break;
+			case 'sta' : data.topic = 'STATUS';    break;
+			case 'upd' : data.topic = 'UPDATE';    break;
 			case 'unk' :
 			default    :
-				data.command = 'UNKNOWN';
+				data.topic = 'UNKNOWN';
 
 				switch (data.bus_orig) {
 					case 'can0' :
@@ -173,7 +219,7 @@ module.exports = {
 		data.bus      = data.bus.padStart(2);
 		data.dst.name = data.dst.name_orig.padEnd(10);
 		data.src.name = data.src.name_orig.padStart(9);
-		data.command  = center(data.command, 9);
+		data.topic    = center(data.topic, 9);
 
 		// Colorize source and destination
 		data.src.name = chalk.yellow(data.src.name);
@@ -181,25 +227,25 @@ module.exports = {
 
 		// Colorize bus
 		switch (data.bus_orig) {
-			case 'can0' : data.bus = chalk.orange('C0');     break;
-			case 'can1' : data.bus = chalk.orange('C1');     break;
-			case 'dbus' : data.bus = chalk.red(data.bus);    break;
-			case 'ibus' : data.bus = chalk.cyan(data.bus);   break;
-			case 'kbus' : data.bus = chalk.yellow(data.bus); break;
-			case 'node' :
+			case 'can0' : data.bus = chalk.orange('C0'); break;
+			case 'can1' : data.bus = chalk.orange('C1'); break;
+			case 'dbus' : data.bus = chalk.red('DB');    break;
+			case 'ibus' : data.bus = chalk.cyan('IB');   break;
+			case 'kbus' : data.bus = chalk.yellow('KB'); break;
+			case 'node' : data.bus = chalk.purple('ND'); break;
 			default     : data.bus = chalk.pink(data.bus);
 		}
 
 		// Colorize command
-		switch (data.command_orig) {
-			case 'ack' : data.command = chalk.green(data.command);  break;
-			case 'bro' : data.command = chalk.purple(data.command); break;
-			case 'con' : data.command = chalk.red(data.command);    break;
-			case 'rep' : data.command = chalk.green(data.command);  break;
-			case 'req' : data.command = chalk.cyan(data.command);   break;
+		switch (data.topic_orig) {
+			case 'ack' : data.topic = chalk.green(data.topic);  break;
+			case 'bro' : data.topic = chalk.purple(data.topic); break;
+			case 'con' : data.topic = chalk.red(data.topic);    break;
+			case 'rep' : data.topic = chalk.green(data.topic);  break;
+			case 'req' : data.topic = chalk.cyan(data.topic);   break;
 			case 'sta' :
-			case 'upd' : data.command = chalk.blue(data.command); break;
-			default    : data.command = chalk.yellow(data.command);
+			case 'upd' : data.topic = chalk.blue(data.topic); break;
+			default    : data.topic = chalk.yellow(data.topic);
 		}
 
 		// Replace and colorize true/false
@@ -210,119 +256,181 @@ module.exports = {
 		let arrows = chalk.gray('>>');
 
 		// Output formatted string
-		console.log('[%s] [%s%s%s] [%s]', data.bus, data.src.name, arrows, data.dst.name, data.command, data.value);
+		console.log('[%s] [%s%s%s] [%s]', data.bus, data.src.name, arrows, data.dst.name, data.topic, data.value);
 
 		// Send log data to WebSocket
 		typeof api !== 'undefined' && api.emit('log-tx', data);
-	},
+	}, // bus()
 
 	// Formatted output for when a value changes
 	change : (data) => {
 		// Bounce if we're supposed to write to stdout
 		if (should_not_output()) return;
 
-		data.command = 'CHANGE';
+		data.topic = 'CHANGE';
 
 		data.src = path.parse(caller()).name;
 
 		// Pad strings
-		data.src_fmt     = center(data.src,     21);
-		data.command_fmt = center(data.command, 9);
+		data.src_fmt   = center(data.src,  21);
+		data.topic_fmt = center(data.topic, 9);
 
 		// Catch nulls
 		if (typeof data.old === 'undefined' || data.old === null) data.old = 'null';
 		if (typeof data.new === 'undefined' || data.new === null) data.new = 'null';
 
 		// Colorize strings
-		data.src_fmt     = chalk.blue(data.src_fmt);
-		data.command_fmt = chalk.blue(data.command_fmt);
-		data.old         = chalk.red(data.old.toString());
-		data.new         = chalk.green(data.new.toString());
+		data.src_fmt   = chalk.blue(data.src_fmt);
+		data.topic_fmt = chalk.cyan(data.topic_fmt);
+		data.old       = chalk.red(data.old.toString());
+		data.new       = chalk.green(data.new.toString());
 
 		// Replace and colorize true/false
 		data.old = data.old.toString().replace('true', chalk.green('true')).replace('false', chalk.red('false'));
 		data.new = data.new.toString().replace('true', chalk.green('true')).replace('false', chalk.red('false'));
 
 		// Output formatted string
-		data.bus = chalk.gray('ND');
-		console.log('[%s] [%s] [%s] %s: \'%s\'', data.bus, data.src_fmt, data.command_fmt, data.value, data.new);
+		data.bus = chalk.blue('CH');
+		console.log('[%s] [%s] [%s] %s: \'%s\'', data.bus, data.src_fmt, data.topic_fmt, data.value, data.new);
 
 		// Send log data to WebSocket
 		typeof api !== 'undefined' && api.emit('log-tx', data);
-	},
+	}, // change()
 
-	msg : (data) => {
-		// Bounce if we're supposed to write to stdout
-		if (should_not_output()) return;
-
-		// Handle single-string input
-		if (typeof data === 'string') data = { msg : data };
+	error : (data) => {
+		// Prepare log data
+		data = prep_msg(data);
 
 		data.src = path.parse(caller()).name;
 
 		data.src_orig = data.src;
 
-		data.command = 'MESSAGE';
+		data.topic = 'ERROR';
 
 		// Pad strings
-		data.src_fmt     = center(data.src,     21);
-		data.command_fmt = center(data.command, 9);
+		data.src_fmt   = center(data.src,  21);
+		data.topic_fmt = center(data.topic, 9);
 
 		// Colorize strings
-		data.command_fmt = chalk.gray(data.command_fmt);
-
-		switch (data.src_orig) {
-			case 'main'      : data.src_fmt = chalk.green(data.src_fmt);  break;
-			case 'json'      : data.src_fmt = chalk.purple(data.src_fmt); break;
-			case 'gpio'      : data.src_fmt = chalk.red(data.src_fmt);    break;
-			case 'host-data' : data.src_fmt = chalk.green(data.src_fmt);  break;
-			case 'kodi'      : data.src_fmt = chalk.cyan(data.src_fmt);   break;
-			case 'socket'    : data.src_fmt = chalk.blue(data.src_fmt);   break;
-			default          : data.src_fmt = chalk.yellow(data.src_fmt);
-		}
+		data.topic_fmt = chalk.red(data.topic_fmt);
+		data.src_fmt   = chalk.red(data.src_fmt);
 
 		data.msg_fmt = data.msg;
-		data.msg_fmt = chalk.gray(data.msg_fmt);
-		data.msg_fmt = colorize(data.msg_fmt);
 
 		// Output formatted string
-		data.bus = chalk.gray('ND');
-		console.log('[%s] [%s] [%s] %s', data.bus, data.src_fmt, data.command_fmt, data.msg_fmt);
+		data.bus = chalk.red('ER');
+		console.log('[%s] [%s] [%s] %s', data.bus, data.src_fmt, data.topic_fmt, data.msg_fmt);
 
 		// Send log data to WebSocket
 		typeof api !== 'undefined' && api.emit('log-tx', data);
-	},
+	}, // error()
+
+	lib : (data) => {
+		// Bounce if we're supposed to write to stdout
+		if (should_not_output()) return;
+
+		// Prepare log data
+		data = prep_msg(data);
+
+		data.src = path.parse(caller()).name;
+
+		data.src_orig = data.src;
+
+		data.topic = 'LIBRARY';
+
+		// Pad strings
+		data.src_fmt   = center(data.src,  21);
+		data.topic_fmt = center(data.topic, 9);
+
+		// Colorize strings
+		data.src_fmt   = colorize_src(data.src_orig, data.src_fmt);
+		data.topic_fmt = chalk.orange(data.topic_fmt);
+
+		data.msg_fmt = data.msg;
+		// Only colorize log message if it is a string
+		if (typeof data.msg_fmt === 'string') {
+			data.msg_fmt = chalk.gray(data.msg_fmt);
+			data.msg_fmt = colorize(data.msg_fmt);
+		}
+
+		// Output formatted string
+		data.bus = chalk.purple('LB');
+		console.log('[%s] [%s] [%s] %s', data.bus, data.src_fmt, data.topic_fmt, data.msg_fmt);
+
+		// Send log data to WebSocket
+		typeof api !== 'undefined' && api.emit('log-tx', data);
+	}, // lib()
+
+	msg : (data) => {
+		// Bounce if we're supposed to write to stdout
+		if (should_not_output()) return;
+
+		// Prepare log data
+		data = prep_msg(data);
+
+		data.src = path.parse(caller()).name;
+
+		data.src_orig = data.src;
+
+		data.topic = 'MESSAGE';
+
+		// Pad strings
+		data.src_fmt   = center(data.src,  21);
+		data.topic_fmt = center(data.topic, 9);
+
+		// Colorize strings
+		data.src_fmt   = colorize_src(data.src_orig, data.src_fmt);
+		data.topic_fmt = chalk.gray(data.topic_fmt);
+
+		data.msg_fmt = data.msg;
+		// Only colorize log message if it is a string
+		if (typeof data.msg_fmt === 'string') {
+			data.msg_fmt = chalk.gray(data.msg_fmt);
+			data.msg_fmt = colorize(data.msg_fmt);
+		}
+
+		// Output formatted string
+		data.bus = chalk.gray('ND');
+		console.log('[%s] [%s] [%s] %s', data.bus, data.src_fmt, data.topic_fmt, data.msg_fmt);
+
+		// Send log data to WebSocket
+		typeof api !== 'undefined' && api.emit('log-tx', data);
+	}, // msg()
 
 	module : (data) => {
 		// Bounce if we're supposed to write to stdout
 		if (should_not_output()) return;
 
-		// Handle single-string input
-		if (typeof data === 'string') data = { msg : data };
+		// Prepare log data
+		data = prep_msg(data);
 
 		data.src = path.parse(caller()).name;
 
-		data.mod = 'MODULE';
-
-		data.msg = data.msg.toString();
+		data.topic = 'VMODULE';
 
 		// Pad strings
-		data.src_fmt = center(data.src, 21);
-		data.mod_fmt = center(data.mod, 9);
-		data.msg_fmt = data.msg;
+		data.src_fmt   = center(data.src,  21);
+		data.topic_fmt = center(data.topic, 9);
 
 		// Colorize strings
-		data.src_fmt = chalk.white(data.src_fmt);
-		data.mod_fmt = chalk.orange(data.mod_fmt);
-		data.msg_fmt = colorize(data.msg_fmt);
+		data.src_fmt   = chalk.white(data.src_fmt);
+		data.topic_fmt = chalk.pink(data.topic_fmt);
+
+		data.msg_fmt = data.msg;
+		// Only colorize log message if it is a string
+		if (typeof data.msg_fmt === 'string') {
+			data.msg_fmt = chalk.gray(data.msg_fmt);
+			data.msg_fmt = colorize(data.msg_fmt);
+		}
 
 		// Output formatted string
-		data.bus = chalk.gray('ND');
-		console.log('[%s] [%s] [%s] %s', data.bus, data.src_fmt, data.mod_fmt, data.msg_fmt);
+		data.bus = chalk.pink('VM');
+		console.log('[%s] [%s] [%s] %s', data.bus, data.src_fmt, data.topic_fmt, data.msg_fmt);
 
 		// Send log data to WebSocket
 		typeof api !== 'undefined' && api.emit('log-tx', data);
-	},
+	}, // module()
+
 
 	// Dynamic log message output
 	send : (data) => {
@@ -340,7 +448,8 @@ module.exports = {
 				name : data.dst,
 			},
 		});
-	},
+	}, // send()
+
 
 	socket : (data) => {
 		// Bounce if we're supposed to write to stdout
@@ -380,5 +489,5 @@ module.exports = {
 
 		// Send log data to WebSocket
 		typeof api !== 'undefined' && api.emit('log-tx', data);
-	},
+	}, // socket()
 };

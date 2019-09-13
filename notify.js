@@ -43,10 +43,10 @@ function notify(string) {
 	// Send the message, handle result within a Promise
 	client.sendMessage(message)
 		.then(() => {
-			log.msg(method + ' notification sent');
+			log.lib(method + ' notification sent');
 		})
 		.catch((error) => {
-			log.msg(method + ' error occured: ' + error);
+			log.lib(method + ' error occured: ' + error);
 		});
 }
 

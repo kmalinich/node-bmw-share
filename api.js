@@ -108,7 +108,7 @@ function emit(topic, data, emit_cb = null) {
 	}
 
 	io.emit(topic, data);
-	// log.msg('Emitted ' + topic + ' message');
+	// log.lib('Emitted ' + topic + ' message');
 
 	typeof emit_cb === 'function' && process.nextTick(emit_cb);
 	emit_cb = undefined;
@@ -117,7 +117,7 @@ function emit(topic, data, emit_cb = null) {
 function init_client(init_client_cb = null) {
 	// Only load socket.io server if this is the client app
 	if (app_intf !== 'client') {
-		log.msg('Not loading client-only API functions');
+		log.lib('Not loading client-only API functions');
 
 		typeof init_client_cb === 'function' && process.nextTick(init_client_cb);
 		init_client_cb = undefined;
@@ -126,10 +126,10 @@ function init_client(init_client_cb = null) {
 
 	io.on('connection', (socket_conn) => {
 		socket_conn.on('disconnect', (reason) => {
-			log.msg('socket.io client disconnected, reason: ' + reason);
+			log.lib('socket.io client disconnected, reason: ' + reason);
 		});
 
-		log.msg('socket.io client connected');
+		log.lib('socket.io client connected');
 
 		let array_status = [
 			'engine',
@@ -500,7 +500,7 @@ function init_client(init_client_cb = null) {
 	});
 
 
-	log.msg('Initialized client-only API functions');
+	log.lib('Initialized client-only API functions');
 
 	typeof init_client_cb === 'function' && process.nextTick(init_client_cb);
 	init_client_cb = undefined;
@@ -508,7 +508,7 @@ function init_client(init_client_cb = null) {
 
 function init(init_cb = null) {
 	app.all('*', (req, res, next) => {
-		log.msg('[' + req.method + '] ' + req.originalUrl);
+		log.lib('[' + req.method + '] ' + req.originalUrl);
 		res.set('Content-Type', 'application/json');
 		next();
 	});
@@ -544,14 +544,14 @@ function init(init_cb = null) {
 	});
 
 	server.listen(get_port(), () => {
-		log.msg('Express listening on port ' + get_port());
+		log.lib('Express listening on port ' + get_port());
 	});
 
 	init_client(init_cb);
 }
 
 function term(term_cb = null) {
-	log.msg('Terminated');
+	log.lib('Terminated');
 
 	typeof term_cb === 'function' && process.nextTick(term_cb);
 	term_cb = undefined;

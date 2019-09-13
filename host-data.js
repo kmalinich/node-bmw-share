@@ -31,7 +31,7 @@ function check() {
 	// Load appropriate temperature library
 	system_temp = require(host_data.type);
 
-	log.msg('Check passed: ' + host_data.check_result + ', type: ' + host_data.type);
+	log.lib('Check passed: ' + host_data.check_result + ', type: ' + host_data.type);
 
 	return host_data.check_result;
 }
@@ -58,7 +58,7 @@ function init(init_callback = null) {
 
 					init_listeners();
 
-					log.msg('Initialized');
+					log.lib('Initialized');
 
 					typeof init_callback === 'function' && process.nextTick(init_callback);
 					init_callback = undefined;
@@ -117,7 +117,7 @@ function init(init_callback = null) {
 	refresh();
 	broadcast();
 
-	log.msg('Initialized');
+	log.lib('Initialized');
 
 	typeof init_callback === 'function' && process.nextTick(init_callback);
 	init_callback = undefined;
@@ -129,17 +129,17 @@ function term(term_callback = null) {
 		clearTimeout(host_data.timeout.broadcast);
 		host_data.timeout.broadcast = null;
 
-		log.msg('Unset broadcast timeout');
+		log.lib('Unset broadcast timeout');
 	}
 
 	if (host_data.timeout.refresh !== null) {
 		clearTimeout(host_data.timeout.refresh);
 		host_data.timeout.refresh = null;
 
-		log.msg('Unset refresh timeout');
+		log.lib('Unset refresh timeout');
 	}
 
-	log.msg('Terminated');
+	log.lib('Terminated');
 
 	typeof term_callback === 'function' && process.nextTick(term_callback);
 	term_callback = undefined;
@@ -166,7 +166,7 @@ function refresh_temperature() {
 
 				update.status('system.temperature', 0);
 
-				log.msg(host_data.type + ' error: ' + error);
+				log.lib(host_data.type + ' error: ' + error);
 			});
 			break;
 		}
@@ -206,12 +206,12 @@ function refresh_temperature() {
 			}).catch((error) => {
 				update.status('system.temperature', 0);
 
-				log.msg(host_data.type + ' error: ' + error);
+				log.lib(host_data.type + ' error: ' + error);
 			});
 		}
 	}
 
-	// log.msg('System temp: ' + status.system.temperature + 'c');
+	// log.lib('System temp: ' + status.system.temperature + 'c');
 }
 
 // Periodically broadcast this host's data to WebSocket clients to update them
@@ -240,7 +240,7 @@ function broadcast() {
 	}
 
 	if (host_data.timeout.broadcast === null) {
-		log.msg('Set broadcast timeout (' + config.system.host_data.refresh_interval + 'ms)');
+		log.lib('Set broadcast timeout (' + config.system.host_data.refresh_interval + 'ms)');
 	}
 
 	send();
@@ -294,7 +294,7 @@ function refresh() {
 	update.status('system.cpu.load_pct',    load_pct);
 
 	if (host_data.timeout.refresh === null) {
-		log.msg('Set refresh timeout (' + config.system.host_data.refresh_interval + 'ms)');
+		log.lib('Set refresh timeout (' + config.system.host_data.refresh_interval + 'ms)');
 	}
 
 	host_data.timeout.refresh = setTimeout(refresh, config.system.host_data.refresh_interval);
@@ -302,7 +302,7 @@ function refresh() {
 
 // Send this host's data to connected services to update them
 function send() {
-	// log.msg('Sending host data');
+	// log.lib('Sending host data');
 	socket.send('host-connect', status.system);
 }
 
@@ -315,7 +315,7 @@ function init_listeners() {
 		if (data.new === true) send();
 	});
 
-	log.msg('Initialized listeners');
+	log.lib('Initialized listeners');
 }
 
 
