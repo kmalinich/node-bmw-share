@@ -1,10 +1,9 @@
 // ASCII to hex for IKE/MID message
-function a2h(str) {
+function a2h(data) {
 	let array = [];
 
-	for (let n = 0, l = str.length; n < l; n++) {
-		let hex = str.charCodeAt(n);
-		array.push(hex);
+	for (let n = 0, l = data.length; n < l; n++) {
+		array.push(data.charCodeAt(n));
 	}
 
 	return array;
@@ -42,6 +41,9 @@ function h2s(data) {
 }
 
 // Convert integer to hex string
+// Useful for CANBUS ARBIDs, etc
+//
+// hex.i2s(191) => '0xBF'
 function i2s(data, prefix = true, length = 2) {
 	if (typeof data === 'undefined' || data === null || data === '') return false;
 
@@ -57,5 +59,5 @@ module.exports = {
 	h2a : (data) => { return h2a(data); },
 	h2s : (data) => { return h2s(data); },
 
-	i2s : (data, prefix) => { return i2s(data, prefix); },
+	i2s : (data, prefix, length) => { return i2s(data, prefix, length); },
 };
