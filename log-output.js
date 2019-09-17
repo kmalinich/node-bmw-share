@@ -185,6 +185,8 @@ module.exports = {
 			};
 		}
 
+		data.topic = data.command;
+
 		// Save original strings
 		data.bus_orig      = data.bus;
 		data.src.name_orig = data.src.name;
@@ -209,9 +211,9 @@ module.exports = {
 
 				switch (data.bus_orig) {
 					case 'can0' :
-					case 'can1' : data.value = '0x' + data.src.id.toString(16).toUpperCase(); break;
+					case 'can1' : data.value = hex.i2s(data.src.id, true, 3); break;
 
-					default : data.value = '0x' + data.msg.toString(16).toUpperCase();
+					default : data.value = hex.i2s(data.msg[0]);
 				}
 		}
 
