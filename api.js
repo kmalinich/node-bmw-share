@@ -69,6 +69,7 @@ function emit(topic, data, emit_cb = null) {
 		case 'engine.horsepower.loss'                 : break;
 		case 'engine.horsepower.output'               : break;
 
+		case 'fuel.consumption'  : break;
 		case 'fuel.level'        : break;
 		case 'fuel.pump.percent' : break;
 
