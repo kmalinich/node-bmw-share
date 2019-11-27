@@ -53,7 +53,7 @@ function i2s(data, prefix = true, length = 2) {
 }
 
 
-export default  {
+export default {
 	// Functions
 	a2h : (data) => a2h(data),
 	h2a : (data) => h2a(data),

@@ -13,4 +13,4 @@ switch (app_intf) {
 }
 
 
-export default  bus_object;
+export default bus_object;

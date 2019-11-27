@@ -101,7 +101,7 @@ function n2h(name) {
 }
 
 
-export default  {
+export default {
 	// Variables
 	modules,
 	modules_check,

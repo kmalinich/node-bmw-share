@@ -503,7 +503,7 @@ function h2n(hex) {
 }
 
 
-export default  {
+export default {
 	// Variables
 	arbids,
 	arbids_allow,

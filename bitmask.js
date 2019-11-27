@@ -155,7 +155,7 @@ function unset(num, bit) {
 }
 
 
-export default  {
+export default {
 	// Variables
 	b,
 	bit,

@@ -51,7 +51,7 @@ function notify(string) {
 }
 
 
-export default  {
+export default {
 	// Functions
 	notify,
 };

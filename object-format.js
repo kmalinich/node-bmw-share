@@ -45,4 +45,4 @@ function object_format(object) {
 }
 
 
-export default  object_format;
+export default object_format;

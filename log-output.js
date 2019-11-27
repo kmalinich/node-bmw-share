@@ -163,7 +163,7 @@ function should_not_output() {
 }
 
 
-export default  {
+export default {
 	// 24bit color chalk-style palette
 	chalk,
 

@@ -319,7 +319,7 @@ function init_listeners() {
 }
 
 
-export default  {
+export default {
 	// Variables
 	check_result : null,
 	type         : null,

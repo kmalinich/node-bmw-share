@@ -103,4 +103,4 @@ class update extends EventEmitter {
 }
 
 
-export default  update;
+export default update;
