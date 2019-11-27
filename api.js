@@ -16,7 +16,7 @@ const io = require('socket.io')(server);
 // have their respective API servers listening on different
 // ports
 function get_port() {
-	let port_base = config.api.port;
+	const port_base = config.api.port;
 
 	let port_offset;
 	switch (app_intf) {
@@ -132,7 +132,7 @@ function init_client(init_client_cb = null) {
 
 		log.lib('socket.io client connected');
 
-		let array_status = [
+		const array_status = [
 			'engine',
 			'dme',
 			'fuel',
@@ -561,9 +561,9 @@ function term(term_cb = null) {
 
 module.exports = {
 	// Main functions
-	emit : emit,
+	emit,
 
 	// Start/stop functions
-	init : init,
-	term : term,
+	init,
+	term,
 };

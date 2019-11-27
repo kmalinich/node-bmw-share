@@ -495,7 +495,7 @@ const arbids_allow = [
 
 // 0x273 -> NBT
 function h2n(hex) {
-	let hex_str = '0x' + hex.toString(16).padStart(3, 0).toUpperCase();
+	const hex_str = '0x' + hex.toString(16).padStart(3, 0).toUpperCase();
 	if (arbids[hex_str]) return arbids[hex_str];
 
 	// Didn't find it
@@ -505,9 +505,9 @@ function h2n(hex) {
 
 module.exports = {
 	// Variables
-	arbids       : arbids,
-	arbids_allow : arbids_allow,
+	arbids,
+	arbids_allow,
 
 	// Functions
-	h2n : h2n,
+	h2n,
 };

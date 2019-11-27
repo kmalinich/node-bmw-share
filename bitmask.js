@@ -57,7 +57,7 @@ function check(num) {
 	if (typeof num === 'undefined' || num === null || num === '') return false;
 
 	// Init return object
-	let object = {
+	const object = {
 		data : {
 			dec   : num,
 			hex   : hex.i2s(num),
@@ -157,15 +157,15 @@ function unset(num, bit) {
 
 module.exports = {
 	// Variables
-	b   : b,
-	bit : bit,
-	dec : dec,
+	b,
+	bit,
+	dec,
 
 	// Functions
-	check  : check,
-	create : create,
-	set    : set,
-	test   : test,
-	toggle : toggle,
-	unset  : unset,
+	check,
+	create,
+	set,
+	test,
+	toggle,
+	unset,
 };

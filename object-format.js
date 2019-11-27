@@ -20,7 +20,7 @@ const chalk = {
 
 
 function object_format(object) {
-	let json = {
+	const json = {
 		str : JSON.stringify(object, null, 2),
 		opt : {
 			colors : {

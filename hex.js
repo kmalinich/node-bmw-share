@@ -1,6 +1,6 @@
 // ASCII to hex for IKE/MID message
 function a2h(data) {
-	let array = [];
+	const array = [];
 
 	for (let n = 0, l = data.length; n < l; n++) {
 		array.push(data.charCodeAt(n));
@@ -55,9 +55,9 @@ function i2s(data, prefix = true, length = 2) {
 
 module.exports = {
 	// Functions
-	a2h : (data) => { return a2h(data); },
-	h2a : (data) => { return h2a(data); },
-	h2s : (data) => { return h2s(data); },
+	a2h : (data) => a2h(data),
+	h2a : (data) => h2a(data),
+	h2s : (data) => h2s(data),
 
-	i2s : (data, prefix, length) => { return i2s(data, prefix, length); },
+	i2s : (data, prefix, length) => i2s(data, prefix, length),
 };

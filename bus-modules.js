@@ -84,7 +84,7 @@ const modules_check = [
 
 // 0x80 -> IKE
 function h2n(hex) {
-	for (let name in modules) {
+	for (const name in modules) {
 		if (modules[name] === hex) return name;
 	}
 
@@ -103,10 +103,10 @@ function n2h(name) {
 
 module.exports = {
 	// Variables
-	modules       : modules,
-	modules_check : modules_check,
+	modules,
+	modules_check,
 
 	// Functions
-	h2n : h2n,
-	n2h : n2h,
+	h2n,
+	n2h,
 };

@@ -60,14 +60,14 @@ function prep_msg(data) {
 
 // Space-pad a string on both ends to center it
 function center(string, length) {
-	let character = ' ';
+	const character = ' ';
 
 	string = string.toString();
 	length  = parseInt(length);
 
 	while (string.length < length) {
 		string = character + string;
-		if (string.length < length) string = string + character;
+		if (string.length < length) string += character;
 	}
 
 	return string;
@@ -155,7 +155,7 @@ function should_not_output() {
 
 	// If we're in a TTY, output to stdout
 	// If we're not, only output if config.console.output is true
-	let active_tty = Boolean(process.stdout.isTTY) && Boolean(process.stdin.isTTY);
+	const active_tty = Boolean(process.stdout.isTTY) && Boolean(process.stdin.isTTY);
 	switch (active_tty) {
 		case false : return !config.console.output;
 		case true  : return false;
@@ -165,7 +165,7 @@ function should_not_output() {
 
 module.exports = {
 	// 24bit color chalk-style palette
-	chalk : chalk,
+	chalk,
 
 	// Dynamic bus message output
 	bus : (data) => {
@@ -255,7 +255,7 @@ module.exports = {
 		data.value = data.value.toString().replace('true', chalk.green('true')).replace('false', chalk.red('false'));
 
 		// Render gray arrows
-		let arrows = chalk.gray('>>');
+		const arrows = chalk.gray('>>');
 
 		// Output formatted string
 		console.log('[%s] [%s%s%s] [%s]', data.bus, data.src.name, arrows, data.dst.name, data.topic, data.value);

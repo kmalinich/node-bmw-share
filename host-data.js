@@ -69,12 +69,12 @@ function init(init_callback = null) {
 		}
 	}
 
-	let cpus = os.cpus();
-	let load = os.loadavg();
+	const cpus = os.cpus();
+	const load = os.loadavg();
 
-	let free_pct = num.round2(os.freemem() * 100 / os.totalmem());
+	const free_pct = num.round2(os.freemem() * 100 / os.totalmem());
 
-	let load_pct = num.round2(load[0] * 100 / cpus.length);
+	const load_pct = num.round2(load[0] * 100 / cpus.length);
 
 	status.system = {
 		type : app_intf || null,
@@ -85,12 +85,12 @@ function init(init_callback = null) {
 		temperature : null,
 
 		cpu : {
-			arch     : os.arch(),
-			count    : cpus.length,
-			load     : load,
-			load_pct : load_pct,
-			model    : cpus[0].model,
-			speed    : cpus[0].speed,
+			arch  : os.arch(),
+			count : cpus.length,
+			load,
+			load_pct,
+			model : cpus[0].model,
+			speed : cpus[0].speed,
 		},
 
 		host : {
@@ -99,9 +99,9 @@ function init(init_callback = null) {
 		},
 
 		memory : {
-			free     : os.freemem(),
-			total    : os.totalmem(),
-			free_pct : free_pct,
+			free  : os.freemem(),
+			total : os.totalmem(),
+			free_pct,
 		},
 
 		os : {
@@ -156,9 +156,9 @@ function refresh_temperature() {
 		case 'pi-temperature' : { // arm
 			system_temp.measure((error, value) => {
 				if (typeof error === 'undefined' || error === null) {
-					let temp_value = Math.round(value);
+					const temp_value = Math.round(value);
 					// Only output temperature message if over 65 C
-					let quiet = (temp_value <= 65);
+					const quiet = (temp_value <= 65);
 
 					update.status('system.temperature', temp_value, quiet);
 					return;
@@ -197,10 +197,10 @@ function refresh_temperature() {
 				// Needed to add small config to /etc/sensors.d/coretemp.conf,
 				// the lm_sensors.js library doesn't handle sensors with spaces
 				// in their names
-				let temp_value = Math.round(sensors['coretemp-isa-0000'].sensors['package'].input);
+				const temp_value = Math.round(sensors['coretemp-isa-0000'].sensors.package.input);
 
 				// Only output temperature message if over 65 C
-				let verbose = (temp_value >= 65);
+				const verbose = (temp_value >= 65);
 
 				update.status('system.temperature', temp_value, verbose);
 			}).catch((error) => {
@@ -278,7 +278,7 @@ function refresh() {
 
 	update.status('system.up', os.uptime());
 
-	let loadavg = os.loadavg();
+	const loadavg = os.loadavg();
 	update.status('system.cpu.load.0', loadavg[0]);
 	update.status('system.cpu.load.1', loadavg[1]);
 	update.status('system.cpu.load.2', loadavg[2]);
@@ -287,8 +287,8 @@ function refresh() {
 	update.status('system.memory.free',  num.round2(os.freemem() / 1048576));
 	update.status('system.memory.total', num.round2(os.totalmem() / 1048576));
 
-	let free_pct = num.round2(status.system.memory.free * 100 / status.system.memory.total);
-	let load_pct = num.round2(status.system.cpu.load[0] * 100 / status.system.cpu.count);
+	const free_pct = num.round2(status.system.memory.free * 100 / status.system.memory.total);
+	const load_pct = num.round2(status.system.cpu.load[0] * 100 / status.system.cpu.count);
 
 	update.status('system.memory.free_pct', free_pct);
 	update.status('system.cpu.load_pct',    load_pct);
@@ -330,11 +330,11 @@ module.exports = {
 	},
 
 	// Functions
-	broadcast      : broadcast,
-	check          : check,
-	init           : init,
-	init_listeners : init_listeners,
-	refresh        : refresh,
-	send           : send,
-	term           : term,
+	broadcast,
+	check,
+	init,
+	init_listeners,
+	refresh,
+	send,
+	term,
 };

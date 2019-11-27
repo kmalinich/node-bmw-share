@@ -7,7 +7,7 @@ function notify(string) {
 	if (typeof config.notification        === 'undefined' || config.notification        === null) return false;
 	if (typeof config.notification.method === 'undefined' || config.notification.method === null) return false;
 
-	let method = config.notification.method;
+	const method = config.notification.method;
 	if (method !== 'pushover') return false;
 
 	let conf = config.notification.config;
@@ -16,29 +16,29 @@ function notify(string) {
 	conf = config.notification.config[method];
 
 	// Instantiate client with Pushover API token
-	let client = new chump.Client(conf.token);
+	const client = new chump.Client(conf.token);
 
 	// Instantiate destination user
 	let user;
 	if (typeof conf.device !== 'undefined' && conf.device !== null) { user = new chump.User(conf.user_id, conf.device); }
 	else { user = new chump.User(conf.user_id); }
 
-	let priority = new chump.Priority(conf.priority);
-	let sound    = new chump.Sound(conf.sound);
+	const priority = new chump.Priority(conf.priority);
+	const sound    = new chump.Sound(conf.sound);
 
 	// Instantiate a message
-	let message_opts = {
-		user       : user,
+	const message_opts = {
+		user,
 		message    : string,
 		title      : conf.title,
 		enableHtml : conf.html,
 		url        : conf.url.string,
 		urlTitle   : conf.url.title,
-		priority   : priority,
-		sound      : sound,
+		priority,
+		sound,
 	};
 
-	let message = new chump.Message(message_opts);
+	const message = new chump.Message(message_opts);
 
 	// Send the message, handle result within a Promise
 	client.sendMessage(message)
@@ -53,5 +53,5 @@ function notify(string) {
 
 module.exports = {
 	// Functions
-	notify : notify,
+	notify,
 };
