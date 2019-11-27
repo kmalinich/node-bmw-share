@@ -1,4 +1,4 @@
-const chump = require('chump');
+import chump from 'chump';
 
 // Send Pushover notification
 function notify(string) {
@@ -51,7 +51,7 @@ function notify(string) {
 }
 
 
-module.exports = {
+export default  {
 	// Functions
 	notify,
 };

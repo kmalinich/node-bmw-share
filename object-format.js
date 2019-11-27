@@ -1,7 +1,7 @@
 /* eslint no-console     : 0 */
 /* eslint no-unused-vars : 0 */
 
-const colorize = require('json-colorizer');
+import colorize from 'json-colorizer';
 
 // 24bit color chalk-style palette
 const chalk = {
@@ -45,4 +45,4 @@ function object_format(object) {
 }
 
 
-module.exports = object_format;
+export default  object_format;

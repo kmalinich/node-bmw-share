@@ -1,5 +1,8 @@
-const EventEmitter = require('events');
-const object_path  = require('object-path');
+import EventEmitter from 'events';
+import object_path  from 'object-path';
+
+// Bump up default max event listeners
+EventEmitter.defaultMaxListeners = 20;
 
 // WIP
 // const status_transform = {
@@ -100,4 +103,4 @@ class update extends EventEmitter {
 }
 
 
-module.exports = update;
+export default  update;

@@ -1,8 +1,8 @@
 /* eslint no-console: 0 */
 
-const caller   = require('callers-path');
-const path     = require('path');
-const trucolor = require('trucolor');
+import caller   from 'callers-path';
+import path     from 'path';
+import trucolor from 'trucolor';
 
 // 24bit color chalk-style palette
 const chalk = (0, trucolor.chalkish)((0, trucolor.palette)({}, {
@@ -163,7 +163,7 @@ function should_not_output() {
 }
 
 
-module.exports = {
+export default  {
 	// 24bit color chalk-style palette
 	chalk,
 

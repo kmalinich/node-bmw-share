@@ -1,4 +1,4 @@
-const os = require('os');
+import os from 'os';
 
 let system_temp;
 
@@ -319,7 +319,7 @@ function init_listeners() {
 }
 
 
-module.exports = {
+export default  {
 	// Variables
 	check_result : null,
 	type         : null,

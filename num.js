@@ -24,7 +24,7 @@ function ok2minmax(value) {
 }
 
 
-module.exports = {
+export default  {
 	// Functions
 	ceil2  : (value, places = 2) => ceil2(value,  places),
 	floor2 : (value, places = 2) => floor2(value, places),
