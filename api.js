@@ -1,15 +1,17 @@
-import object_path from 'object-path';
-import express     from 'express';
 import body_parser from 'body-parser';
+import express     from 'express';
+import http        from 'http';
+import object_path from 'object-path';
+import socket_io   from 'socket.io';
 
 const app     = express();
-const server  = require('http').Server(app);
+const server  = http.Server(app);
 
 // body-parser to handle POSTed JSON
 app.use(body_parser.json());
 
 // Only load socket.io server if this is the client app
-const io = require('socket.io')(server);
+const io = socket_io(server);
 
 
 // Extremely scientifical conversion of very loosely falsey or truthy values to proper boolean
