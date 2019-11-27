@@ -1,16 +1,36 @@
-const object_path = require('object-path');
+import object_path from 'object-path';
+import express     from 'express';
+import body_parser from 'body-parser';
 
-const express = require('express');
 const app     = express();
 const server  = require('http').Server(app);
 
 // body-parser to handle POSTed JSON
-const body_parser = require('body-parser');
 app.use(body_parser.json());
 
 // Only load socket.io server if this is the client app
 const io = require('socket.io')(server);
 
+
+// Extremely scientifical conversion of very loosely falsey or truthy values to proper boolean
+function val2bool(value = null) {
+	if (typeof value === 'undefined' || value === null) return false;
+
+	value = value.toString().toLowerCase();
+
+	switch (value) {
+		case '1'     :
+		case 'go'    :
+		case 'on'    :
+		case 'one'   :
+		case 'start' :
+		case 't'     :
+		case 'true'  :
+		case 'yes'   : return true;
+
+		default : return false;
+	}
+}
 
 // Ghetto workaround so the different interface processes
 // have their respective API servers listening on different
@@ -224,19 +244,22 @@ function init_client(init_client_cb = null) {
 
 	// GM
 	app.get('/gm/doors/closed/:value', (req, res) => {
-		update.status('doors.closed', (req.params.value == 'true'), false);
-		update.status('doors.open',   (req.params.value != 'true'), false);
+		const value = val2bool(req.params.value);
+		update.status('doors.closed',  value, false);
+		update.status('doors.open',   !value, false);
 		res.send(status.doors);
 	});
 
 	app.get('/gm/doors/open/:value', (req, res) => {
-		update.status('doors.closed', (req.params.value != 'true'), false);
-		update.status('doors.open',   (req.params.value == 'true'), false);
+		const value = val2bool(req.params.value);
+		update.status('doors.closed', !value, false);
+		update.status('doors.open',    value, false);
 		res.send(status.doors);
 	});
 
 	app.get('/gm/doors/sealed/:value', (req, res) => {
-		update.status('doors.sealed', (req.params.value == 'true'), false);
+		const value = val2bool(req.params.value);
+		update.status('doors.sealed', value, false);
 		res.send(status.doors);
 	});
 
@@ -260,14 +283,16 @@ function init_client(init_client_cb = null) {
 	});
 
 	app.get('/gm/windows/closed/:value', (req, res) => {
-		update.status('windows.closed', (req.params.value == 'true'), false);
-		update.status('windows.open',   (req.params.value != 'true'), false);
+		const value = val2bool(req.params.value);
+		update.status('windows.closed',  value, false);
+		update.status('windows.open',   !value, false);
 		res.send(status.windows);
 	});
 
 	app.get('/gm/windows/open/:value', (req, res) => {
-		update.status('windows.closed', (req.params.value != 'true'), false);
-		update.status('windows.open',   (req.params.value == 'true'), false);
+		const value = val2bool(req.params.value);
+		update.status('windows.closed', !value, false);
+		update.status('windows.open',    value, false);
 		res.send(status.windows);
 	});
 
@@ -403,12 +428,14 @@ function init_client(init_client_cb = null) {
 	});
 
 	app.get('/lcm/police-lights/:action', (req, res) => {
-		LCM.police((req.params.action == 'true' || req.params.action == 'on'));
+		const value = val2bool(req.params.value);
+		LCM.police(value);
 		res.send(status.lcm);
 	});
 
 	app.get('/lcm/welcome-lights/:action', (req, res) => {
-		LCM.welcome_lights((req.params.action == 'true' || req.params.action == 'on'));
+		const value = val2bool(req.params.value);
+		LCM.welcome_lights(value);
 		res.send(status.lcm);
 	});
 
@@ -559,7 +586,7 @@ function term(term_cb = null) {
 }
 
 
-module.exports = {
+export default {
 	// Main functions
 	emit,
 

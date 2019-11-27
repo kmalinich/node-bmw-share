@@ -239,9 +239,11 @@
 		],
 		"import/export": "error",
 		"import/first": "error",
+		"import/no-amd": "warn",
 		"import/no-commonjs": "warn",
 		"import/no-duplicates": "error",
-		"import/no-nodejs-modules": "warn",
+		"import/no-nodejs-modules": "off",
+		"import/no-unresolved": "off",
 		"import/no-webpack-loader-syntax": "error",
 		"indent": [
 			"error",
