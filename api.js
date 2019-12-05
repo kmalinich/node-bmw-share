@@ -54,6 +54,9 @@ function emit(topic, data, emit_cb = null) {
 		case 'engine.atmospheric_pressure.psi' : break;
 		case 'engine.aux_fan_speed'            : break;
 
+		case 'engine.throttle.pedal' : break;
+		case 'engine.rpm'            : break;
+
 		case 'engine.torque.after_interventions'  : break;
 		case 'engine.torque.before_interventions' : break;
 		case 'engine.torque.loss'                 : break;
