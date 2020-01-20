@@ -151,12 +151,17 @@
 		"power": false,
 		"socket": false,
 		"status": true,
-		"terminating": true,
+		"terminating": false,
 		"update": false,
 		"weather": false
 	},
 	"parserOptions": {
-		"ecmaVersion": 9,
+		"ecmaFeatures": {
+			"globalReturn": false,
+			"impliedStrict": true,
+			"jsx": false
+		},
+		"ecmaVersion": 11,
 		"sourceType": "module"
 	},
 	"plugins": [
@@ -190,6 +195,7 @@
 			}
 		],
 		"camelcase": "off",
+		"class-methods-use-this": "off",
 		"comma-dangle": [
 			"error",
 			{
@@ -239,9 +245,10 @@
 		],
 		"import/export": "error",
 		"import/first": "error",
-		"import/no-commonjs": "warn",
+		"import/no-amd": "warn",
+		"import/no-commonjs": "off",
 		"import/no-duplicates": "error",
-		"import/no-nodejs-modules": "warn",
+		"import/no-nodejs-modules": "off",
 		"import/no-webpack-loader-syntax": "error",
 		"indent": [
 			"error",
@@ -275,9 +282,9 @@
 			"error",
 			"unix"
 		],
-		"new-cap": "warn",
+		"new-cap": "off",
 		"new-parens": "error",
-		"newline-per-chained-call": "warn",
+		"newline-per-chained-call": "off",
 		"no-array-constructor": "error",
 		"no-caller": "error",
 		"no-class-assign": "error",
@@ -589,5 +596,16 @@
 			"error",
 			"never"
 		]
+	},
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"moduleDirectory": [
+					"node_modules",
+					"lib/",
+					"share/"
+				]
+			}
+		}
 	}
 }

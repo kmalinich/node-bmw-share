@@ -227,19 +227,19 @@ function init_client(init_client_cb = null) {
 
 	// GM
 	app.get('/gm/doors/closed/:value', (req, res) => {
-		update.status('doors.closed', (req.params.value == 'true'), false);
-		update.status('doors.open',   (req.params.value != 'true'), false);
+		update.status('doors.closed', (req.params.value.toString() === 'true'), false);
+		update.status('doors.open',   (req.params.value.toString() !== 'true'), false);
 		res.send(status.doors);
 	});
 
 	app.get('/gm/doors/open/:value', (req, res) => {
-		update.status('doors.closed', (req.params.value != 'true'), false);
-		update.status('doors.open',   (req.params.value == 'true'), false);
+		update.status('doors.closed', (req.params.value.toString() !== 'true'), false);
+		update.status('doors.open',   (req.params.value.toString() === 'true'), false);
 		res.send(status.doors);
 	});
 
 	app.get('/gm/doors/sealed/:value', (req, res) => {
-		update.status('doors.sealed', (req.params.value == 'true'), false);
+		update.status('doors.sealed', (req.params.value.toString() === 'true'), false);
 		res.send(status.doors);
 	});
 
@@ -263,14 +263,14 @@ function init_client(init_client_cb = null) {
 	});
 
 	app.get('/gm/windows/closed/:value', (req, res) => {
-		update.status('windows.closed', (req.params.value == 'true'), false);
-		update.status('windows.open',   (req.params.value != 'true'), false);
+		update.status('windows.closed', (req.params.value.toString() === 'true'), false);
+		update.status('windows.open',   (req.params.value.toString() !== 'true'), false);
 		res.send(status.windows);
 	});
 
 	app.get('/gm/windows/open/:value', (req, res) => {
-		update.status('windows.closed', (req.params.value != 'true'), false);
-		update.status('windows.open',   (req.params.value == 'true'), false);
+		update.status('windows.closed', (req.params.value.toString() !== 'true'), false);
+		update.status('windows.open',   (req.params.value.toString() === 'true'), false);
 		res.send(status.windows);
 	});
 
@@ -406,12 +406,12 @@ function init_client(init_client_cb = null) {
 	});
 
 	app.get('/lcm/police-lights/:action', (req, res) => {
-		LCM.police((req.params.action == 'true' || req.params.action == 'on'));
+		LCM.police((req.params.action.toString() === 'true' || req.params.action.toString() === 'on'));
 		res.send(status.lcm);
 	});
 
 	app.get('/lcm/welcome-lights/:action', (req, res) => {
-		LCM.welcome_lights((req.params.action == 'true' || req.params.action == 'on'));
+		LCM.welcome_lights((req.params.action.toString() === 'true' || req.params.action.toString() === 'on'));
 		res.send(status.lcm);
 	});
 
