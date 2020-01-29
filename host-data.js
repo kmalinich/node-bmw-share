@@ -5,24 +5,21 @@ let system_temp;
 // Determine supporting library to load
 function get_host_data_type() {
 	switch (process.arch + process.platform) {
-		case 'armlinux'  : return 'pi-temperature';
-		// case 'x64darwin' : return 'smc';
-		case 'x64linux'  : return 'lm_sensors.js';
+		case 'armlinux' : return 'pi-temperature';
+
+		default : return null;
 	}
 }
 
 // Check if we can get temp data
-// (support is on macOS and RPi)
 function check() {
 	// Don't check the logic twice, and only notify the first time
 	if (host_data.check_result !== null) return host_data.check_result;
 
 	// Save check result
 	switch (process.arch + process.platform) {
-		case 'armlinux'  : host_data.check_result = true; break;
-		// case 'x64darwin' : host_data.check_result = true; break;
-		case 'x64linux'  : host_data.check_result = true; break;
-		default          : host_data.check_result = false;
+		case 'armlinux' : host_data.check_result = true; break;
+		default         : host_data.check_result = false;
 	}
 
 	// Save host type
@@ -39,35 +36,21 @@ function check() {
 // Init all host data
 function init(init_callback = null) {
 	// Don't run on all nodes
-	switch (app_intf) {
-		case 'client' : break;
+	if (app_intf !== 'client') {
+		log.lib('Initialized');
 
-		default : {
-			switch (config.zeromq.host) {
-				case 'localhost' :
-				case '127.0.0.1' : {
-					status.system = {
-						type : app_intf || null,
-						intf : app_intf || null,
+		typeof init_callback === 'function' && process.nextTick(init_callback);
+		init_callback = undefined;
 
-						host : {
-							full  : os.hostname(),
-							short : os.hostname().split('.')[0],
-						},
-					};
-
-					init_listeners();
-
-					log.lib('Initialized');
-
-					typeof init_callback === 'function' && process.nextTick(init_callback);
-					init_callback = undefined;
-
-					return;
-				}
-			}
-		}
+		return;
 	}
+
+	init_listeners();
+
+	log.lib('Initialized');
+
+	typeof init_callback === 'function' && process.nextTick(init_callback);
+	init_callback = undefined;
 
 	const cpus = os.cpus();
 	const load = os.loadavg();
@@ -152,64 +135,22 @@ function refresh_temperature() {
 		return false;
 	}
 
-	switch (host_data.type) {
-		case 'pi-temperature' : { // arm
-			system_temp.measure((error, value) => {
-				if (typeof error === 'undefined' || error === null) {
-					const temp_value = Math.round(value);
-					// Only output temperature message if over 65 C
-					const quiet = (temp_value <= 65);
+	if (host_data.type !== 'pi-temperature') return;
 
-					update.status('system.temperature', temp_value, quiet);
-					return;
-				}
+	system_temp.measure((error, value) => {
+		if (typeof error === 'undefined' || error === null) {
+			const temp_value = Math.round(value);
+			// Only output temperature message if over 65 C
+			const quiet = (temp_value <= 65);
 
-				update.status('system.temperature', 0);
-
-				log.lib(host_data.type + ' error: ' + error);
-			});
-			break;
+			update.status('system.temperature', temp_value, quiet);
+			return;
 		}
 
-		// case 'smc' : { // x64darwin
-		// 	// TC0D : Hackintosh
-		// 	// TC0E : 2016 rMBP
+		update.status('system.temperature', 0);
 
-		// 	// Either TC0D or TC0E is always 0.. so
-		// 	// .. yeah, that's gross
-
-		// 	// Save rounded temp value
-		// 	let temp_value = Math.round(system_temp.get('TC0D') + system_temp.get('TC0E'));
-
-		// 	// On iMac14,2 temp value is negative for some reason, but still accurate
-		// 	temp_value = Math.abs(temp_value);
-
-		// 	// Only output temperature message if over 65 C
-		// 	let verbose = (temp_value >= 65);
-
-		// 	update.status('system.temperature', temp_value, verbose);
-		// 	break;
-		// }
-
-		case 'lm_sensors.js' : { // x64 linux
-			system_temp.sensors().then((sensors) => {
-				// Using coretemp package temperature
-				// Needed to add small config to /etc/sensors.d/coretemp.conf,
-				// the lm_sensors.js library doesn't handle sensors with spaces
-				// in their names
-				const temp_value = Math.round(sensors['coretemp-isa-0000'].sensors.package.input);
-
-				// Only output temperature message if over 65 C
-				const verbose = (temp_value >= 65);
-
-				update.status('system.temperature', temp_value, verbose);
-			}).catch((error) => {
-				update.status('system.temperature', 0);
-
-				log.lib(host_data.type + ' error: ' + error);
-			});
-		}
-	}
+		log.lib(host_data.type + ' error: ' + error);
+	});
 
 	// log.lib('System temp: ' + status.system.temperature + 'c');
 }
@@ -217,27 +158,7 @@ function refresh_temperature() {
 // Periodically broadcast this host's data to WebSocket clients to update them
 function broadcast() {
 	// Don't run on all nodes
-	switch (app_intf) {
-		case 'client' : break;
-
-		default : {
-			switch (config.zeromq.host) {
-				case 'localhost' :
-				case '127.0.0.1' : {
-					status.system = {
-						type : app_intf || null,
-						intf : app_intf || null,
-						host : {
-							full  : os.hostname(),
-							short : os.hostname().split('.')[0],
-						},
-					};
-
-					return;
-				}
-			}
-		}
-	}
+	if (app_intf !== 'client') return;
 
 	if (host_data.timeout.broadcast === null) {
 		log.lib('Set broadcast timeout (' + config.system.host_data.refresh_interval + 'ms)');
@@ -251,28 +172,7 @@ function broadcast() {
 // Refresh host data
 function refresh() {
 	// Don't run on all nodes
-	switch (app_intf) {
-		case 'client' : break;
-
-		default : {
-			switch (config.zeromq.host) {
-				case 'localhost' :
-				case '127.0.0.1' : {
-					status.system = {
-						type : app_intf || null,
-						intf : app_intf || null,
-
-						host : {
-							full  : os.hostname(),
-							short : os.hostname().split('.')[0],
-						},
-					};
-
-					return;
-				}
-			}
-		}
-	}
+	if (app_intf !== 'client') return;
 
 	refresh_temperature();
 
