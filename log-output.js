@@ -82,12 +82,18 @@ function colorize(string) {
 
 	// Yellow
 	string = string.replace('Attempting',    chalk.yellow('Attempting'));
+	string = string.replace('Checking',      chalk.yellow('Checking'));
+	string = string.replace('Closing',       chalk.yellow('Closing'));
+	string = string.replace('Configuring',   chalk.yellow('Configuring'));
 	string = string.replace('Connecting',    chalk.yellow('Connecting'));
 	string = string.replace('Ending',        chalk.yellow('Ending'));
 	string = string.replace('Initializing',  chalk.yellow('Initializing'));
+	string = string.replace('Instantiating', chalk.yellow('Instantiating'));
 	string = string.replace('Opening',       chalk.yellow('Opening'));
 	string = string.replace('Reconnecting',  chalk.yellow('Reconnecting'));
+	string = string.replace('Removing',      chalk.yellow('Removing'));
 	string = string.replace('Resetting',     chalk.yellow('Resetting'));
+	string = string.replace('Setting',       chalk.yellow('Setting'));
 	string = string.replace('Shutting down', chalk.yellow('Shutting down'));
 	string = string.replace('Starting',      chalk.yellow('Starting'));
 	string = string.replace('Stopping',      chalk.yellow('Stopping'));
@@ -96,35 +102,42 @@ function colorize(string) {
 	// Red
 	string = string.replace(' close',        chalk.red(' close'));
 	string = string.replace(' closed',       chalk.red(' closed'));
+	string = string.replace('Closed',        chalk.red('Closed'));
 	string = string.replace(' disconnected', chalk.red(' disconnected'));
 	string = string.replace('Disconnected',  chalk.red('Disconnected'));
 	string = string.replace('Error',         chalk.red('Error'));
-	string = string.replace('error',         chalk.red('error'));
+	string = string.replace(' error',        chalk.red(' error'));
 	string = string.replace('Failed ',       chalk.red('Failed '));
-	string = string.replace('false',         chalk.red('false'));
-	string = string.replace('Shut down',     chalk.red('Shut down'));
+	string = string.replace('Removed',       chalk.red('Removed'));
 	string = string.replace('SIGINT',        chalk.red('SIGINT'));
 	string = string.replace('SIGTERM',       chalk.red('SIGTERM'));
+	string = string.replace('Shut down',     chalk.red('Shut down'));
 	string = string.replace('Stopped',       chalk.red('Stopped'));
 	string = string.replace('Terminated',    chalk.red('Terminated'));
+	string = string.replace(' not ready',    chalk.red(' not ready'));
 	string = string.replace('Unset',         chalk.red('Unset'));
+	string = string.replace('error',         chalk.red('error'));
+	string = string.replace('false',         chalk.red('false'));
 
 	// Green
+	string = string.replace(' OK',          chalk.green(' OK'));
 	string = string.replace(' connected',   chalk.green(' connected'));
 	string = string.replace(' opened',      chalk.green(' opened'));
 	string = string.replace(' ready',       chalk.green(' ready'));
+	string = string.replace('Configured',   chalk.green('Configured'));
 	string = string.replace('Connected ',   chalk.green('Connected '));
 	string = string.replace('Initialized',  chalk.green('Initialized'));
+	string = string.replace('Instantiated', chalk.green('Instantiated'));
 	string = string.replace('Listening ',   chalk.green('Listening '));
-	string = string.replace('listening ',   chalk.green('listening '));
 	string = string.replace('Loaded ',      chalk.green('Loaded '));
 	string = string.replace('Opened',       chalk.green('Opened'));
 	string = string.replace('Read ',        chalk.green('Read '));
 	string = string.replace('Reset ',       chalk.green('Reset '));
 	string = string.replace('Set ',         chalk.green('Set '));
 	string = string.replace('Started',      chalk.green('Started'));
-	string = string.replace('true',         chalk.green('true'));
 	string = string.replace('Wrote',        chalk.green('Wrote'));
+	string = string.replace('listening ',   chalk.green('listening '));
+	string = string.replace('true',         chalk.green('true'));
 
 	return string;
 }
