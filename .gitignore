@@ -3,6 +3,7 @@
 *.swo
 *.swp
 .DS_Store
+.eslintcache
 ._*
 
 /node_modules
