@@ -1,3 +1,5 @@
+/* eslint-disable no-redeclare */
+
 const EventEmitter = require('events');
 const object_path  = require('object-path');
 
