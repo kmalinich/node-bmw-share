@@ -45,9 +45,9 @@ const chalk = (0, trucolor.chalkish)((0, trucolor.palette)({}, {
 
 
 // If     in a TTY, output to stdout
-// If NOT in a TTY, only output to stdout if config.console.output is true
+// If NOT in a TTY, only output to stdout if config.console.output is truthy
 function stdoutOK() {
-	return process.stdout._type === 'tty' || config?.console?.output;
+	return process.stdout._type === 'tty' || typeof config !== 'object' || config?.console?.output;
 } // stdoutOK()
 
 
@@ -70,7 +70,7 @@ function center(string, length) {
 	const character = ' ';
 
 	string = string.toString();
-	length  = parseInt(length);
+	length = parseInt(length);
 
 	while (string.length < length) {
 		string = character + string;
