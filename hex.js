@@ -23,10 +23,10 @@ function h2a(data) {
 function h2s(data) {
 	data = Buffer.from(data);
 
-	// IKE text, BMBT/MID/GT menu text
-	if (data[0] === 0x21) data = data.slice(4); // MID menu
-	if (data[0] === 0x23) data = data.slice(4);
-	if (data[0] === 0x24) data = data.slice(3);
+	if (data[0] === 0x1A) data = data.slice(3); // Check control message
+	if (data[0] === 0x21) data = data.slice(4); // MID menu text
+	if (data[0] === 0x23) data = data.slice(4); // IKE text
+	if (data[0] === 0x24) data = data.slice(3); // OBC text
 
 	// IKE text suffix
 	if (data[data.length - 1] === 0x04) data = data.slice(0, -1);
