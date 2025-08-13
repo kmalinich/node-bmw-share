@@ -1,47 +1,48 @@
 /* eslint no-console: 0 */
 
-const caller   = require('callers-path');
-const path     = require('path');
-const trucolor = require('trucolor');
+const caller = require('callers-path');
+const chalk  = require('chalk');
+const path   = require('path');
 
-// 24bit color chalk-style palette
-const chalk = (0, trucolor.chalkish)((0, trucolor.palette)({}, {
-	black  : 'rgb:48,48,48',
-	blue   : 'rgb:51,152,219',
-	cyan   : 'rgb:0,200,200',
-	green  : 'rgb:47,223,100',
-	gray   : 'rgb:172,172,172',
-	orange : 'rgb:255,153,50',
-	pink   : 'rgb:178,0,140',
-	purple : 'rgb:114,83,178',
-	red    : 'rgb:231,76,60',
-	white  : 'rgb:224,224,224',
-	yellow : 'rgb:255,204,50',
 
-	boldblack  : 'bold rgb:48,48,48',
-	boldblue   : 'bold rgb:51,152,219',
-	boldcyan   : 'bold rgb:0,200,200',
-	boldgreen  : 'bold rgb:47,223,100',
-	boldgray   : 'bold rgb:172,172,172',
-	boldorange : 'bold rgb:255,153,50',
-	boldpink   : 'bold rgb:178,0,140',
-	boldpurple : 'bold rgb:114,83,178',
-	boldred    : 'bold rgb:231,76,60',
-	boldwhite  : 'bold rgb:224,224,224',
-	boldyellow : 'bold rgb:255,204,50',
+// 24bit color palette
+const color = {
+	black  : chalk.rgb(48, 48, 48),
+	blue   : chalk.rgb(51, 152, 219),
+	cyan   : chalk.rgb(0, 200, 200),
+	green  : chalk.rgb(47, 223, 100),
+	gray   : chalk.rgb(172, 172, 172),
+	orange : chalk.rgb(255, 153, 50),
+	pink   : chalk.rgb(178, 0, 140),
+	purple : chalk.rgb(114, 83, 178),
+	red    : chalk.rgb(231, 76, 60),
+	white  : chalk.rgb(224, 224, 224),
+	yellow : chalk.rgb(255, 204, 50),
 
-	italicblack  : 'italic rgb:48,48,48',
-	italicblue   : 'italic rgb:51,152,219',
-	italiccyan   : 'italic rgb:0,200,200',
-	italicgreen  : 'italic rgb:47,223,100',
-	italicgray   : 'italic rgb:172,172,172',
-	italicorange : 'italic rgb:255,153,50',
-	italicpink   : 'italic rgb:178,0,140',
-	italicpurple : 'italic rgb:114,83,178',
-	italicred    : 'italic rgb:231,76,60',
-	italicwhite  : 'italic rgb:224,224,224',
-	italicyellow : 'italic rgb:255,204,50',
-}));
+	boldblack  : chalk.bold.rgb(48, 48, 48),
+	boldblue   : chalk.bold.rgb(51, 152, 219),
+	boldcyan   : chalk.bold.rgb(0, 200, 200),
+	boldgreen  : chalk.bold.rgb(47, 223, 100),
+	boldgray   : chalk.bold.rgb(172, 172, 172),
+	boldorange : chalk.bold.rgb(255, 153, 50),
+	boldpink   : chalk.bold.rgb(178, 0, 140),
+	boldpurple : chalk.bold.rgb(114, 83, 178),
+	boldred    : chalk.bold.rgb(231, 76, 60),
+	boldwhite  : chalk.bold.rgb(224, 224, 224),
+	boldyellow : chalk.bold.rgb(255, 204, 50),
+
+	italicblack  : chalk.italic.rgb(48, 48, 48),
+	italicblue   : chalk.italic.rgb(51, 152, 219),
+	italiccyan   : chalk.italic.rgb(0, 200, 200),
+	italicgreen  : chalk.italic.rgb(47, 223, 100),
+	italicgray   : chalk.italic.rgb(172, 172, 172),
+	italicorange : chalk.italic.rgb(255, 153, 50),
+	italicpink   : chalk.italic.rgb(178, 0, 140),
+	italicpurple : chalk.italic.rgb(114, 83, 178),
+	italicred    : chalk.italic.rgb(231, 76, 60),
+	italicwhite  : chalk.italic.rgb(224, 224, 224),
+	italicyellow : chalk.italic.rgb(255, 204, 50),
+};
 
 
 // If     in a TTY, output to stdout
@@ -85,66 +86,66 @@ function colorize(string) {
 	string = string.toString();
 
 	// Purple
-	string = string.replace('Event:', chalk.purple('Event:'));
+	string = string.replace('Event:', color.purple('Event:'));
 
 	// Yellow
-	string = string.replace('Attempting',    chalk.yellow('Attempting'));
-	string = string.replace('Checking',      chalk.yellow('Checking'));
-	string = string.replace('Closing',       chalk.yellow('Closing'));
-	string = string.replace('Configuring',   chalk.yellow('Configuring'));
-	string = string.replace('Connecting',    chalk.yellow('Connecting'));
-	string = string.replace('Ending',        chalk.yellow('Ending'));
-	string = string.replace('Initializing',  chalk.yellow('Initializing'));
-	string = string.replace('Instantiating', chalk.yellow('Instantiating'));
-	string = string.replace('Opening',       chalk.yellow('Opening'));
-	string = string.replace('Reconnecting',  chalk.yellow('Reconnecting'));
-	string = string.replace('Removing',      chalk.yellow('Removing'));
-	string = string.replace('Resetting',     chalk.yellow('Resetting'));
-	string = string.replace('Setting',       chalk.yellow('Setting'));
-	string = string.replace('Shutting down', chalk.yellow('Shutting down'));
-	string = string.replace('Starting',      chalk.yellow('Starting'));
-	string = string.replace('Stopping',      chalk.yellow('Stopping'));
-	string = string.replace('Terminating',   chalk.yellow('Terminating'));
+	string = string.replace('Attempting',    color.yellow('Attempting'));
+	string = string.replace('Checking',      color.yellow('Checking'));
+	string = string.replace('Closing',       color.yellow('Closing'));
+	string = string.replace('Configuring',   color.yellow('Configuring'));
+	string = string.replace('Connecting',    color.yellow('Connecting'));
+	string = string.replace('Ending',        color.yellow('Ending'));
+	string = string.replace('Initializing',  color.yellow('Initializing'));
+	string = string.replace('Instantiating', color.yellow('Instantiating'));
+	string = string.replace('Opening',       color.yellow('Opening'));
+	string = string.replace('Reconnecting',  color.yellow('Reconnecting'));
+	string = string.replace('Removing',      color.yellow('Removing'));
+	string = string.replace('Resetting',     color.yellow('Resetting'));
+	string = string.replace('Setting',       color.yellow('Setting'));
+	string = string.replace('Shutting down', color.yellow('Shutting down'));
+	string = string.replace('Starting',      color.yellow('Starting'));
+	string = string.replace('Stopping',      color.yellow('Stopping'));
+	string = string.replace('Terminating',   color.yellow('Terminating'));
 
 	// Red
-	string = string.replace(' close',        chalk.red(' close'));
-	string = string.replace(' closed',       chalk.red(' closed'));
-	string = string.replace('Closed',        chalk.red('Closed'));
-	string = string.replace(' disconnected', chalk.red(' disconnected'));
-	string = string.replace('Disconnected',  chalk.red('Disconnected'));
-	string = string.replace('Error',         chalk.red('Error'));
-	string = string.replace(' error',        chalk.red(' error'));
-	string = string.replace('Failed ',       chalk.red('Failed '));
-	string = string.replace('Removed',       chalk.red('Removed'));
-	string = string.replace('SIGINT',        chalk.red('SIGINT'));
-	string = string.replace('SIGTERM',       chalk.red('SIGTERM'));
-	string = string.replace('Shut down',     chalk.red('Shut down'));
-	string = string.replace('Stopped',       chalk.red('Stopped'));
-	string = string.replace('Terminated',    chalk.red('Terminated'));
-	string = string.replace(' not ready',    chalk.red(' not ready'));
-	string = string.replace('Unset',         chalk.red('Unset'));
-	string = string.replace('error',         chalk.red('error'));
-	string = string.replace('false',         chalk.red('false'));
+	string = string.replace(' close',        color.red(' close'));
+	string = string.replace(' closed',       color.red(' closed'));
+	string = string.replace('Closed',        color.red('Closed'));
+	string = string.replace(' disconnected', color.red(' disconnected'));
+	string = string.replace('Disconnected',  color.red('Disconnected'));
+	string = string.replace('Error',         color.red('Error'));
+	string = string.replace(' error',        color.red(' error'));
+	string = string.replace('Failed ',       color.red('Failed '));
+	string = string.replace('Removed',       color.red('Removed'));
+	string = string.replace('SIGINT',        color.red('SIGINT'));
+	string = string.replace('SIGTERM',       color.red('SIGTERM'));
+	string = string.replace('Shut down',     color.red('Shut down'));
+	string = string.replace('Stopped',       color.red('Stopped'));
+	string = string.replace('Terminated',    color.red('Terminated'));
+	string = string.replace(' not ready',    color.red(' not ready'));
+	string = string.replace('Unset',         color.red('Unset'));
+	string = string.replace('error',         color.red('error'));
+	string = string.replace('false',         color.red('false'));
 
 	// Green
-	string = string.replace(' OK',          chalk.green(' OK'));
-	string = string.replace(' connected',   chalk.green(' connected'));
-	string = string.replace(' opened',      chalk.green(' opened'));
-	string = string.replace(' ready',       chalk.green(' ready'));
-	string = string.replace('Configured',   chalk.green('Configured'));
-	string = string.replace('Connected ',   chalk.green('Connected '));
-	string = string.replace('Initialized',  chalk.green('Initialized'));
-	string = string.replace('Instantiated', chalk.green('Instantiated'));
-	string = string.replace('Listening ',   chalk.green('Listening '));
-	string = string.replace('Loaded ',      chalk.green('Loaded '));
-	string = string.replace('Opened',       chalk.green('Opened'));
-	string = string.replace('Read ',        chalk.green('Read '));
-	string = string.replace('Reset ',       chalk.green('Reset '));
-	string = string.replace('Set ',         chalk.green('Set '));
-	string = string.replace('Started',      chalk.green('Started'));
-	string = string.replace('Wrote',        chalk.green('Wrote'));
-	string = string.replace('listening ',   chalk.green('listening '));
-	string = string.replace('true',         chalk.green('true'));
+	string = string.replace(' OK',          color.green(' OK'));
+	string = string.replace(' connected',   color.green(' connected'));
+	string = string.replace(' opened',      color.green(' opened'));
+	string = string.replace(' ready',       color.green(' ready'));
+	string = string.replace('Configured',   color.green('Configured'));
+	string = string.replace('Connected ',   color.green('Connected '));
+	string = string.replace('Initialized',  color.green('Initialized'));
+	string = string.replace('Instantiated', color.green('Instantiated'));
+	string = string.replace('Listening ',   color.green('Listening '));
+	string = string.replace('Loaded ',      color.green('Loaded '));
+	string = string.replace('Opened',       color.green('Opened'));
+	string = string.replace('Read ',        color.green('Read '));
+	string = string.replace('Reset ',       color.green('Reset '));
+	string = string.replace('Set ',         color.green('Set '));
+	string = string.replace('Started',      color.green('Started'));
+	string = string.replace('Wrote',        color.green('Wrote'));
+	string = string.replace('listening ',   color.green('listening '));
+	string = string.replace('true',         color.green('true'));
 
 	return string;
 } // colorize(string)
@@ -152,15 +153,15 @@ function colorize(string) {
 // Colorize data source string by name
 function colorizeBySource(orig, fmt) {
 	switch (orig) {
-		case 'host-data' : return chalk.green(fmt);
-		case 'json'      : return chalk.purple(fmt);
-		case 'gpio'      : return chalk.red(fmt);
-		case 'power'     : return chalk.red(fmt);
-		case 'kodi'      : return chalk.cyan(fmt);
-		case 'socket'    : return chalk.orange(fmt);
-		case 'api'       : return chalk.orange(fmt);
+		case 'host-data' : return color.green(fmt);
+		case 'json'      : return color.purple(fmt);
+		case 'gpio'      : return color.red(fmt);
+		case 'power'     : return color.red(fmt);
+		case 'kodi'      : return color.cyan(fmt);
+		case 'socket'    : return color.orange(fmt);
+		case 'api'       : return color.orange(fmt);
 
-		default : return chalk.yellow(fmt);
+		default : return color.yellow(fmt);
 	}
 } // colorizeBySource(orig, fmt)
 
@@ -222,38 +223,38 @@ function logBus(data) {
 	data.topic    = center(data.topic, 9);
 
 	// Colorize source and destination
-	data.src.name = chalk.yellow(data.src.name);
-	data.dst.name = chalk.green(data.dst.name);
+	data.src.name = color.yellow(data.src.name);
+	data.dst.name = color.green(data.dst.name);
 
 	// Colorize bus
 	switch (data.bus_orig) {
-		case 'can0' : data.bus = chalk.orange('C0'); break;
-		case 'can1' : data.bus = chalk.orange('C1'); break;
-		case 'dbus' : data.bus = chalk.red('DB');    break;
-		case 'ibus' : data.bus = chalk.cyan('IB');   break;
-		case 'kbus' : data.bus = chalk.yellow('KB'); break;
-		case 'node' : data.bus = chalk.purple('ND'); break;
-		default     : data.bus = chalk.pink(data.bus);
+		case 'can0' : data.bus = color.orange('C0'); break;
+		case 'can1' : data.bus = color.orange('C1'); break;
+		case 'dbus' : data.bus = color.red('DB');    break;
+		case 'ibus' : data.bus = color.cyan('IB');   break;
+		case 'kbus' : data.bus = color.yellow('KB'); break;
+		case 'node' : data.bus = color.purple('ND'); break;
+		default     : data.bus = color.pink(data.bus);
 	}
 
 	// Colorize command
 	switch (data.topic_orig) {
-		case 'ack' : data.topic = chalk.green(data.topic);  break;
-		case 'bro' : data.topic = chalk.purple(data.topic); break;
-		case 'con' : data.topic = chalk.red(data.topic);    break;
-		case 'rep' : data.topic = chalk.green(data.topic);  break;
-		case 'req' : data.topic = chalk.cyan(data.topic);   break;
+		case 'ack' : data.topic = color.green(data.topic);  break;
+		case 'bro' : data.topic = color.purple(data.topic); break;
+		case 'con' : data.topic = color.red(data.topic);    break;
+		case 'rep' : data.topic = color.green(data.topic);  break;
+		case 'req' : data.topic = color.cyan(data.topic);   break;
 		case 'sta' :
-		case 'upd' : data.topic = chalk.blue(data.topic); break;
-		default    : data.topic = chalk.yellow(data.topic);
+		case 'upd' : data.topic = color.blue(data.topic); break;
+		default    : data.topic = color.yellow(data.topic);
 	}
 
 	// Replace and colorize true/false
-	data.value = chalk.gray(data.value);
-	data.value = data.value.toString().replace('true', chalk.green('true')).replace('false', chalk.red('false'));
+	data.value = color.gray(data.value);
+	data.value = data.value.toString().replace('true', color.green('true')).replace('false', color.red('false'));
 
 	// Render gray arrows
-	const arrows = chalk.gray('>>');
+	const arrows = color.gray('>>');
 
 	// Output formatted string
 	console.log('[%s] [%s%s%s] [%s]', data.bus, data.src.name, arrows, data.dst.name, data.topic, data.value);
@@ -280,17 +281,17 @@ function logChange(data) {
 	if (typeof data.new === 'undefined' || data.new === null) data.new = 'null';
 
 	// Colorize strings
-	data.src_fmt   = chalk.blue(data.src_fmt);
-	data.topic_fmt = chalk.cyan(data.topic_fmt);
-	data.old       = chalk.red(data.old.toString());
-	data.new       = chalk.green(data.new.toString());
+	data.src_fmt   = color.blue(data.src_fmt);
+	data.topic_fmt = color.cyan(data.topic_fmt);
+	data.old       = color.red(data.old.toString());
+	data.new       = color.green(data.new.toString());
 
 	// Replace and colorize true/false
-	data.old = data.old.toString().replace('true', chalk.green('true')).replace('false', chalk.red('false'));
-	data.new = data.new.toString().replace('true', chalk.green('true')).replace('false', chalk.red('false'));
+	data.old = data.old.toString().replace('true', color.green('true')).replace('false', color.red('false'));
+	data.new = data.new.toString().replace('true', color.green('true')).replace('false', color.red('false'));
 
 	// Output formatted string
-	data.bus = chalk.blue('CH');
+	data.bus = color.blue('CH');
 	console.log('[%s] [%s] [%s] %s: \'%s\'', data.bus, data.src_fmt, data.topic_fmt, data.value, data.new);
 
 	// Send log data to WebSocket
@@ -312,13 +313,13 @@ function logError(data) {
 	data.topic_fmt = center(data.topic, 9);
 
 	// Colorize strings
-	data.topic_fmt = chalk.red(data.topic_fmt);
-	data.src_fmt   = chalk.red(data.src_fmt);
+	data.topic_fmt = color.red(data.topic_fmt);
+	data.src_fmt   = color.red(data.src_fmt);
 
 	data.msg_fmt = data.msg;
 
 	// Output formatted string
-	data.bus = chalk.red('ER');
+	data.bus = color.red('ER');
 	console.log('[%s] [%s] [%s] %s', data.bus, data.src_fmt, data.topic_fmt, data.msg_fmt);
 
 	// Send log data to WebSocket
@@ -344,17 +345,17 @@ function logLib(data) {
 
 	// Colorize strings
 	data.src_fmt   = colorizeBySource(data.src_orig, data.src_fmt);
-	data.topic_fmt = chalk.orange(data.topic_fmt);
+	data.topic_fmt = color.orange(data.topic_fmt);
 
 	data.msg_fmt = data.msg;
 	// Only colorize log message if it is a string
 	if (typeof data.msg_fmt === 'string') {
-		data.msg_fmt = chalk.gray(data.msg_fmt);
+		data.msg_fmt = color.gray(data.msg_fmt);
 		data.msg_fmt = colorize(data.msg_fmt);
 	}
 
 	// Output formatted string
-	data.bus = chalk.purple('LB');
+	data.bus = color.purple('LB');
 	console.log('[%s] [%s] [%s] %s', data.bus, data.src_fmt, data.topic_fmt, data.msg_fmt);
 
 	// Send log data to WebSocket
@@ -380,17 +381,17 @@ function logMsg(data) {
 
 	// Colorize strings
 	data.src_fmt   = colorizeBySource(data.src_orig, data.src_fmt);
-	data.topic_fmt = chalk.gray(data.topic_fmt);
+	data.topic_fmt = color.gray(data.topic_fmt);
 
 	data.msg_fmt = data.msg;
 	// Only colorize log message if it is a string
 	if (typeof data.msg_fmt === 'string') {
-		data.msg_fmt = chalk.gray(data.msg_fmt);
+		data.msg_fmt = color.gray(data.msg_fmt);
 		data.msg_fmt = colorize(data.msg_fmt);
 	}
 
 	// Output formatted string
-	data.bus = chalk.gray('ND');
+	data.bus = color.gray('ND');
 	console.log('[%s] [%s] [%s] %s', data.bus, data.src_fmt, data.topic_fmt, data.msg_fmt);
 
 	// Send log data to WebSocket
@@ -413,18 +414,18 @@ function logModule(data) {
 	data.topic_fmt = center(data.topic, 9);
 
 	// Colorize strings
-	data.src_fmt   = chalk.white(data.src_fmt);
-	data.topic_fmt = chalk.pink(data.topic_fmt);
+	data.src_fmt   = color.white(data.src_fmt);
+	data.topic_fmt = color.pink(data.topic_fmt);
 
 	data.msg_fmt = data.msg;
 	// Only colorize log message if it is a string
 	if (typeof data.msg_fmt === 'string') {
-		data.msg_fmt = chalk.gray(data.msg_fmt);
+		data.msg_fmt = color.gray(data.msg_fmt);
 		data.msg_fmt = colorize(data.msg_fmt);
 	}
 
 	// Output formatted string
-	data.bus = chalk.pink('VM');
+	data.bus = color.pink('VM');
 	console.log('[%s] [%s] [%s] %s', data.bus, data.src_fmt, data.topic_fmt, data.msg_fmt);
 
 	// Send log data to WebSocket
@@ -458,24 +459,24 @@ function logSocket(data) {
 
 	// Colorize strings
 	switch (data.orig.method) {
-		case 'tx' : data.method = chalk.red(data.method.toUpperCase()); break;
-		default   : data.method = chalk.green(data.method.toUpperCase());
+		case 'tx' : data.method = color.red(data.method.toUpperCase()); break;
+		default   : data.method = color.green(data.method.toUpperCase());
 	}
 
 	switch (data.orig.type) {
-		case 'client' : data.type = chalk.blue(center(data.type.toUpperCase(), 14));   break;
-		default       : data.type = chalk.orange(center(data.type.toUpperCase(), 14));
+		case 'client' : data.type = color.blue(center(data.type.toUpperCase(), 14));   break;
+		default       : data.type = color.orange(center(data.type.toUpperCase(), 14));
 	}
 
 	data.event = center(data.event, 14);
 	switch (data.orig.event) {
-		case 'bus-data'          : data.event = chalk.blue(data.event);   break;
-		case 'lcd-text'          : data.event = chalk.cyan(data.event);   break;
-		case 'log-bus'           : data.event = chalk.green(data.event);  break;
-		case 'log-msg'           : data.event = chalk.gray(data.event);   break;
-		case 'host-data'         : data.event = chalk.pink(data.event);   break;
-		case 'host-data-request' : data.event = chalk.purple(data.event); break;
-		default                  : data.event = chalk.orange(data.event);
+		case 'bus-data'          : data.event = color.blue(data.event);   break;
+		case 'lcd-text'          : data.event = color.cyan(data.event);   break;
+		case 'log-bus'           : data.event = color.green(data.event);  break;
+		case 'log-msg'           : data.event = color.gray(data.event);   break;
+		case 'host-data'         : data.event = color.pink(data.event);   break;
+		case 'host-data-request' : data.event = color.purple(data.event); break;
+		default                  : data.event = color.orange(data.event);
 	}
 
 	// Output formatted string
