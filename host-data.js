@@ -40,7 +40,6 @@ function init(init_callback = null) {
 		log.lib('Initialized');
 
 		typeof init_callback === 'function' && process.nextTick(init_callback);
-		init_callback = undefined;
 
 		return;
 	}
@@ -103,7 +102,6 @@ function init(init_callback = null) {
 	log.lib('Initialized');
 
 	typeof init_callback === 'function' && process.nextTick(init_callback);
-	init_callback = undefined;
 }
 
 // Cancel timeouts
@@ -125,7 +123,6 @@ function term(term_callback = null) {
 	log.lib('Terminated');
 
 	typeof term_callback === 'function' && process.nextTick(term_callback);
-	term_callback = undefined;
 }
 
 // Get+save RPi temp
