@@ -52,6 +52,33 @@ function stdoutOK() {
 } // stdoutOK()
 
 
+// Cache for caller() stack traces, keyed by the call site's stack
+// (caller() walks the call stack on every invocation, which is expensive when called from high-frequency code paths)
+const callerCache = new Map();
+
+// Return the name of the calling module, cached per call site
+function callerName() {
+	let key;
+
+	try {
+		key = new Error().stack;
+	}
+	catch (error) {
+		return path.parse(caller()).name;
+	}
+
+	if (callerCache.has(key)) return callerCache.get(key);
+
+	const name = path.parse(caller()).name;
+
+	// Don't let the cache grow unbounded
+	if (callerCache.size >= 64) callerCache.clear();
+	callerCache.set(key, name);
+
+	return name;
+} // callerName()
+
+
 // Reorganize log message data if needed
 function prepData(data) {
 	// Account for older format
@@ -270,7 +297,7 @@ function logChange(data) {
 
 	data.topic = 'CHANGE';
 
-	data.src = path.parse(caller()).name;
+	data.src = callerName();
 
 	// Pad strings
 	data.src_fmt   = center(data.src,  21);
@@ -302,7 +329,7 @@ function logError(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	data.src = path.parse(caller()).name;
+	data.src = callerName();
 
 	data.src_orig = data.src;
 
@@ -333,7 +360,7 @@ function logLib(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	data.src = path.parse(caller()).name;
+	data.src = callerName();
 
 	data.src_orig = data.src;
 
@@ -369,7 +396,7 @@ function logMsg(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	data.src = path.parse(caller()).name;
+	data.src = callerName();
 
 	data.src_orig = data.src;
 
@@ -405,7 +432,7 @@ function logModule(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	data.src = path.parse(caller()).name;
+	data.src = callerName();
 
 	data.topic = 'VMODULE';
 
