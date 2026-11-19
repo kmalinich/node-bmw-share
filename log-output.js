@@ -1,12 +1,10 @@
 /* eslint n/no-unsupported-features/node-builtins : 0 */
 /* eslint no-console                              : 0 */
 
-const { basename     } = require('path');
+const { basename, parse } = require('path');
 const { getCallSites } = require('node:util');
 
-const caller = require('callers-path');
-const chalk  = require('chalk');
-const path   = require('path');
+const chalk = require('chalk');
 
 
 // 24bit color palette
@@ -274,8 +272,7 @@ function logChange(data) {
 
 	data.topic = 'CHANGE';
 
-	const callSite = getCallSites()[1];
-	data.src = basename(callSite.scriptName).replace('.js', '');
+	data.src = getCallSites()[1].scriptName.replace('.js', '');
 
 	// Pad strings
 	data.src_fmt   = center(data.src,  21);
@@ -307,8 +304,7 @@ function logError(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	const callSite = getCallSites()[1];
-	data.src = basename(callSite.scriptName).replace('.js', '');
+	data.src = getCallSites()[1].scriptName.replace('.js', '');
 
 	data.src_orig = data.src;
 
@@ -339,8 +335,7 @@ function logLib(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	const callSite = getCallSites()[1];
-	data.src = basename(callSite.scriptName).replace('.js', '');
+	data.src = getCallSites()[1].scriptName.replace('.js', '');
 
 	data.src_orig = data.src;
 
@@ -376,8 +371,7 @@ function logMsg(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	const callSite = getCallSites()[1];
-	data.src = basename(callSite.scriptName).replace('.js', '');
+	data.src = getCallSites()[1].scriptName.replace('.js', '');
 
 	data.src_orig = data.src;
 
@@ -413,8 +407,7 @@ function logModule(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	const callSite = getCallSites()[1];
-	data.src = basename(callSite.scriptName).replace('.js', '');
+	data.src = getCallSites()[1].scriptName.replace('.js', '');
 
 	data.topic = 'VMODULE';
 
@@ -443,12 +436,14 @@ function logModule(data) {
 
 // Dynamic log message output
 function logSend(data) {
+	const msgSrcName = getCallSites()[1].scriptName.replace('.js', '');
+
 	log.bus({
 		bus     : 'sock',
 		command : data.host.split('.')[0],
 		value   : data.host,
 		src     : {
-			name : path.parse(caller()).name,
+			name : parse(msgSrcName).name,
 		},
 		dst : {
 			name : data.dst,
