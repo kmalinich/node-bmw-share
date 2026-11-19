@@ -272,7 +272,7 @@ function logChange(data) {
 
 	data.topic = 'CHANGE';
 
-	data.src = getCallSites()[1].scriptName.replace('.js', '');
+	data.src = basename(getCallSites()[1].scriptName).replace('.js', '');
 
 	// Pad strings
 	data.src_fmt   = center(data.src,  21);
@@ -304,7 +304,7 @@ function logError(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	data.src = getCallSites()[1].scriptName.replace('.js', '');
+	data.src = basename(getCallSites()[1].scriptName).replace('.js', '');
 
 	data.src_orig = data.src;
 
@@ -335,7 +335,7 @@ function logLib(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	data.src = getCallSites()[1].scriptName.replace('.js', '');
+	data.src = basename(getCallSites()[1].scriptName).replace('.js', '');
 
 	data.src_orig = data.src;
 
@@ -371,7 +371,7 @@ function logMsg(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	data.src = getCallSites()[1].scriptName.replace('.js', '');
+	data.src = basename(getCallSites()[1].scriptName).replace('.js', '');
 
 	data.src_orig = data.src;
 
@@ -407,7 +407,7 @@ function logModule(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	data.src = getCallSites()[1].scriptName.replace('.js', '');
+	data.src = basename(getCallSites()[1].scriptName).replace('.js', '');
 
 	data.topic = 'VMODULE';
 
@@ -436,7 +436,7 @@ function logModule(data) {
 
 // Dynamic log message output
 function logSend(data) {
-	const msgSrcName = getCallSites()[1].scriptName.replace('.js', '');
+	const msgSrcName = basename(getCallSites()[1].scriptName).replace('.js', '');
 
 	log.bus({
 		bus     : 'sock',
