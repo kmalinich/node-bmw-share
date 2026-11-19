@@ -1,4 +1,8 @@
-/* eslint no-console: 0 */
+/* eslint n/no-unsupported-features/node-builtins : 0 */
+/* eslint no-console                              : 0 */
+
+const { basename     } = require('path');
+const { getCallSites } = require('node:util');
 
 const caller = require('callers-path');
 const chalk  = require('chalk');
@@ -50,33 +54,6 @@ const color = {
 function stdoutOK() {
 	return process.stdout._type === 'tty' || typeof config !== 'object' || config?.console?.output;
 } // stdoutOK()
-
-
-// Cache for caller() stack traces, keyed by the call site's stack
-// (caller() walks the call stack on every invocation, which is expensive when called from high-frequency code paths)
-const callerCache = new Map();
-
-// Return the name of the calling module, cached per call site
-function callerName() {
-	let key;
-
-	try {
-		key = new Error().stack;
-	}
-	catch (error) {
-		return path.parse(caller()).name;
-	}
-
-	if (callerCache.has(key)) return callerCache.get(key);
-
-	const name = path.parse(caller()).name;
-
-	// Don't let the cache grow unbounded
-	if (callerCache.size >= 64) callerCache.clear();
-	callerCache.set(key, name);
-
-	return name;
-} // callerName()
 
 
 // Reorganize log message data if needed
@@ -297,7 +274,8 @@ function logChange(data) {
 
 	data.topic = 'CHANGE';
 
-	data.src = callerName();
+	const callSite = getCallSites()[1];
+	data.src = basename(callSite.scriptName).replace('.js', '');
 
 	// Pad strings
 	data.src_fmt   = center(data.src,  21);
@@ -329,7 +307,8 @@ function logError(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	data.src = callerName();
+	const callSite = getCallSites()[1];
+	data.src = basename(callSite.scriptName).replace('.js', '');
 
 	data.src_orig = data.src;
 
@@ -360,7 +339,8 @@ function logLib(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	data.src = callerName();
+	const callSite = getCallSites()[1];
+	data.src = basename(callSite.scriptName).replace('.js', '');
 
 	data.src_orig = data.src;
 
@@ -396,7 +376,8 @@ function logMsg(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	data.src = callerName();
+	const callSite = getCallSites()[1];
+	data.src = basename(callSite.scriptName).replace('.js', '');
 
 	data.src_orig = data.src;
 
@@ -432,7 +413,8 @@ function logModule(data) {
 	// Prepare log data
 	data = prepData(data);
 
-	data.src = callerName();
+	const callSite = getCallSites()[1];
+	data.src = basename(callSite.scriptName).replace('.js', '');
 
 	data.topic = 'VMODULE';
 
